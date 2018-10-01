@@ -1,0 +1,109 @@
+openapi: "3.0.0"
+info:
+  title: "Hatchet API"
+  version: "v1"
+paths:
+  /teams:
+    post:
+      summary: Create new team
+      operationId: createTeam
+      tags:
+        - teams
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+        '400':
+          description: Malformed request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      summary: Get all teams
+      operationId: listTeams
+      tags:
+        - teams
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of teams
+  /teams/{teamId}:
+    get:
+      summary: Info for a specific team
+      operationId: showTeamById
+      tags:
+        - teams
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          description: The id of the team to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single team object with rich nested data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Game:
+      required:
+        - id
+        - stadiumId
+        - homeTeamId
+        - visitingTeamId
+        - neutralSite
+      properties:
+        id:
+          type: integer
+          format: int32
+        stadiumId:
+          type: integer
+          format: int32
+    Team:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1981
+        name:
+          type: string
+          example: Clemson
+        conference:
+          type: string
+          example: ACC
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 404
+        message:
+          type: string
+          example: Resource not found
