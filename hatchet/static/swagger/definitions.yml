@@ -1,0 +1,11 @@
+schemas:
+  Conference:
+    $ref: './schemas/conference.yml#/Conference'
+  Division:
+    $ref: './schemas/division.yml#/Division'
+  Game:
+    $ref: './schemas/game.yml#/Game'
+  Team:
+    $ref: './schemas/team.yml#/Team'
+  Error:
+    $ref: './schemas/error.yml#/Error'

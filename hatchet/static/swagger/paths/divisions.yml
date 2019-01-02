@@ -1,0 +1,153 @@
+divisions:
+  post:
+    summary: Create new division
+    operationId: createDivision
+    tags:
+      - divisions
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../definitions.yml#/schemas/Division"
+    responses:
+      '201':
+        description: Resource created
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Division"
+      '400':
+        description: Malformed request
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+  get:
+    summary: Get all divisions
+    operationId: listDivisions
+    tags:
+      - divisions
+    parameters:
+      - name: limit
+        in: query
+        description: How many items to return at one time (max 100)
+        required: false
+        schema:
+          type: integer
+          format: int32
+    responses:
+      '200':
+        description: A paged array of teams
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../definitions.yml#/schemas/Division"
+divisions/{divisionId}:
+  get:
+    summary: Info for a specific division
+    operationId: showDivisionById
+    tags:
+      - divisions
+    parameters:
+      - name: divisionId
+        in: path
+        required: true
+        description: The id of the team to retrieve
+        schema:
+          type: string
+    responses:
+      '200':
+        description: A single team object with rich nested data
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Division"
+      default:
+        description: unexpected error
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+  put:
+    summary: Update a division
+    operationId: update_division
+    tags:
+      - divisions
+    parameters:
+      - in: path
+        name: divisionId
+        description: id of the division to update
+        required: true
+        schema:
+          type: integer
+          example: 88
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../definitions.yml#/schemas/Division"
+    responses:
+      '200':
+        description: Successfully updated object
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Division"
+      '404':
+        description: These aren't the divisions you're looking for.
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+  delete:
+    summary: Delete a division from the system
+    operationId: delete_division
+    tags:
+      - divisions
+    parameters:
+      - in: path
+        name: divisionId
+        description: id of the division to delete
+        required: true
+        schema:
+          type: integer
+          example: 123
+    responses:
+      '204':
+        description: Successfully deleted object. No content to return.
+      '404':
+        description: No division found with that id
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+divisions/{divisionId}/members:
+  get:
+    summary: Get a list of teams belonging to a division
+    operationId: get_division_members
+    tags:
+      - divisions
+    parameters:
+      - name: divisionId
+        in: path
+        required: true
+        description: The division id of the teams to search
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: An array of team objects
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../definitions.yml#/schemas/Team"
+      '404':
+        description: missing resource exception
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"

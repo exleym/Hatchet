@@ -1,0 +1,15 @@
+Game:
+  required:
+    - id
+    - stadiumId
+    - homeTeamId
+    - visitingTeamId
+    - neutralSite
+  properties:
+    id:
+      type: integer
+      format: int32
+      example: 16
+    stadiumId:
+      type: integer
+      format: int32

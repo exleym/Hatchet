@@ -1,0 +1,181 @@
+conferences:
+  post:
+    summary: Create new conference
+    operationId: createConference
+    tags:
+      - conferences
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../definitions.yml#/schemas/Conference"
+    responses:
+      '201':
+        description: Resource created
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Conference"
+      '400':
+        description: Malformed request
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+  get:
+    summary: Get all conferences
+    operationId: listConferences
+    tags:
+      - conferences
+    parameters:
+      - name: limit
+        in: query
+        description: How many items to return at one time (max 100)
+        required: false
+        schema:
+          type: integer
+          format: int32
+    responses:
+      '200':
+        description: A paged array of teams
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../definitions.yml#/schemas/Conference"
+conferences/{conferenceId}:
+  get:
+    summary: Info for a specific conference
+    operationId: showConferenceById
+    tags:
+      - conferences
+    parameters:
+      - name: conferenceId
+        in: path
+        required: true
+        description: The id of the team to retrieve
+        schema:
+          type: string
+    responses:
+      '200':
+        description: A single team object with rich nested data
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Conference"
+      '404':
+        description: missing resource exception
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+  put:
+    summary: Update a conference
+    operationId: update_conference
+    tags:
+      - conferences
+    parameters:
+      - in: path
+        name: conferenceId
+        description: id of the conference to update
+        required: true
+        schema:
+          type: integer
+          example: 88
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../definitions.yml#/schemas/Conference"
+    responses:
+      '200':
+        description: Successfully updated object
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Conference"
+      '404':
+        description: These aren't the conferences you're looking for.
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+  delete:
+    summary: Delete a conference from the system
+    operationId: delete_conference
+    tags:
+      - conferences
+    parameters:
+      - in: path
+        name: conferenceId
+        description: id of the conference to delete
+        required: true
+        schema:
+          type: integer
+          example: 123
+    responses:
+      '204':
+        description: Successfully deleted object. No content to return.
+      '404':
+        description: No conference found with that id
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+conferences/{conferenceId}/divisions:
+  get:
+    summary: Get a list of divisions for a conference
+    operationId: get_conference_divisions
+    tags:
+      - conferences
+    parameters:
+      - name: conferenceId
+        in: path
+        required: true
+        description: The conference id of the divisions to search
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: An array of Division objects
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../definitions.yml#/schemas/Division"
+      '404':
+        description: missing resource exception
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"
+conferences/{conferenceId}/members:
+  get:
+    summary: Get a list of teams belonging to a conference
+    operationId: get_conference_members
+    tags:
+      - conferences
+    parameters:
+      - name: conferenceId
+        in: path
+        required: true
+        description: The conference id of the teams to search
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: An array of team objects
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../definitions.yml#/schemas/Team"
+      '404':
+        description: missing resource exception
+        content:
+          application/json:
+            schema:
+              $ref: "../definitions.yml#/schemas/Error"

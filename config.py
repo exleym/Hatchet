@@ -22,6 +22,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     CREATE_SCHEMA = True
     SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.getcwd()}/data.sqlite'
+    #SQLALCHEMY_DATABASE_URI = 'sqlite://'
 
 
 class ProductionConfig(Config):
