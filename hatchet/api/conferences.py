@@ -1,74 +1,51 @@
 from flask import jsonify, request
 
-from hatchet.api import api
-from hatchet.extensions import db
-from hatchet.errors import MalformedRequestException, MissingResourceException
-from hatchet.db.models import Conference
-from hatchet.api.schemas import ConferenceSchema, DivisionSchema, TeamSchema
-
-
-conference_schema = ConferenceSchema()
-team_schema = TeamSchema()
-division_schema = DivisionSchema()
+from hatchet.api import api, api_response
+from hatchet.db.crud.conferences import (
+    edit_conference,
+    list_conferences,
+    persist_conference,
+    remove_conference_by_id
+)
 
 
 @api.route('/conferences', methods=['POST'])
 def create_conference():
-    print(request.json)
-    conf = conference_schema.load(request.json, many=False)
-    print(conf)
-    print(type(conf))
-    db.session.add(conf)
-    db.session.commit()
-    return jsonify(conference_schema.dump(conf, many=False)), 201
+    conference = persist_conference(request.json)
+    return api_response.dump(conference, 201)
 
 
 @api.route('/conferences', methods=['GET'])
 def get_conferences():
-    conferences = Conference.query.all()
-    return jsonify(conference_schema.dump(conferences, many=True)), 200
+    conferences = list_conferences()
+    return api_response.dump(conferences, 200)
 
 
 @api.route('/conferences/<int:conference_id>', methods=['GET'])
 def get_conference_by_id(conference_id: int):
-    conference = Conference.query.filter_by(id=conference_id).first()
-    if not conference:
-        raise MissingResourceException
-    return jsonify(conference_schema.dump(conference, many=False)), 200
+    conference = list_conferences(conference_id=conference_id)
+    return api_response.dump(conference, 200)
 
 
 @api.route('/conferences/<int:conference_id>/divisions', methods=['GET'])
 def get_conference_divisions(conference_id: int):
-    conference = Conference.query.filter_by(id=conference_id).first()
-    if not conference:
-        raise MissingResourceException
-    return jsonify(division_schema.dump(conference.divisions, many=True)), 200
+    conference = list_conferences(conference_id=conference_id)
+    return api_response.dump(conference.divisions, 200)
 
 
 @api.route('/conferences/<int:conference_id>/members', methods=['GET'])
 def get_conference_members(conference_id: int):
-    conference = Conference.query.filter_by(id=conference_id).first()
-    if not conference:
-        raise MissingResourceException
-    return jsonify(team_schema.dump(conference.members, many=True)), 200
+    conference = list_conferences(conference_id=conference_id)
+    return api_response.dump(conference.members, 200)
 
 
 @api.route('/conferences/<int:conference_id>', methods=['PUT'])
 def update_conference(conference_id: int):
-    conference = Conference.query.filter_by(id=conference_id).first()
-    if not conference:
-        raise MissingResourceException
-    conference = conference_schema.load(request.json, instance=conference)
-    db.session.add(conference)
-    db.session.commit()
-    return jsonify(conference_schema.dump(conference, many=False), 200)
+    conf = edit_conference(conference_id=conference_id, conference=request.json)
+    return api_response.dump(conf, 200)
 
 
 @api.route('/conferences/<int:conference_id>', methods=['DELETE'])
 def delete_conference(conference_id: int):
-    conference = Conference.query.filter_by(id=conference_id).first()
-    if not conference:
-        raise MissingResourceException
-    db.session.delete(conference)
-    db.session.commit()
+    remove_conference_by_id(conference_id=conference_id)
     return jsonify(""), 204

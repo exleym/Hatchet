@@ -24,6 +24,10 @@ paths:
     $ref: './swagger/paths/teams.yml#/teams'
   /teams/{teamId}:
     $ref: './swagger/paths/teams.yml#/teams~1{teamId}'
+  /stadiums:
+    $ref: './swagger/paths/stadiums.yml#/stadiums'
+  /stadiums/{stadiumId}:
+    $ref: './swagger/paths/stadiums.yml#/stadiums~1{stadiumId}'
 components:
   schemas:
     $ref: './swagger/definitions.yml#/schemas'

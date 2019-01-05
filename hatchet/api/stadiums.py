@@ -1,32 +1,39 @@
 from flask import jsonify, request
 
-from hatchet.api import api
-from hatchet.extensions import db
-from hatchet.errors import MissingResourceException
-from hatchet.db.models import Stadium
-from hatchet.api.schemas import StadiumSchema
-
-
-stadium_schema = StadiumSchema()
+from hatchet.api import api, api_response
+from hatchet.db.crud.stadiums import (
+    edit_stadium,
+    list_stadiums,
+    persist_stadium,
+    remove_stadium_by_id
+)
 
 
 @api.route('/stadiums', methods=['POST'])
 def create_stadium():
-    conf = stadium_schema.load(request.json)
-    db.session.add(conf)
-    db.session.commit()
-    return jsonify(stadium_schema.dump(conf, many=False)), 201
+    stadium = persist_stadium(request.json)
+    return api_response.dump(stadium, 201)
 
 
 @api.route('/stadiums', methods=['GET'])
 def get_stadiums():
-    stadiums = Stadium.query.all()
-    return jsonify(stadium_schema.dump(stadiums, many=True)), 200
+    stadiums = list_stadiums()
+    return api_response.dump(stadiums, 200)
 
 
 @api.route('/stadiums/<int:stadium_id>', methods=['GET'])
 def get_stadium_by_id(stadium_id: int):
-    stadium = Stadium.query.filter_by(id=stadium_id).first()
-    if not stadium:
-        raise MissingResourceException
-    return jsonify(stadium_schema.dump(stadium, many=False)), 200
+    stadium = list_stadiums(stadium_id=stadium_id)
+    return api_response.dump(stadium, 200)
+
+
+@api.route('/stadiums/<int:stadium_id>', methods=['PUT'])
+def update_stadium(stadium_id: int):
+    conf = edit_stadium(stadium_id=stadium_id, stadium=request.json)
+    return api_response.dump(conf, 200)
+
+
+@api.route('/stadiums/<int:stadium_id>', methods=['DELETE'])
+def delete_stadium(stadium_id: int):
+    remove_stadium_by_id(stadium_id=stadium_id)
+    return jsonify(""), 204

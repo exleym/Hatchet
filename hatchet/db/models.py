@@ -91,6 +91,7 @@ class Stadium(db.Model):
     nickname = db.Column(db.String(64))
     built = db.Column(db.Integer)
     capacity = db.Column(db.Integer)
+    surface = db.Column(db.String(128))
 
     def __repr__(self):
         return f"<Stadium(id={self.id}, name='{self.name}', " \

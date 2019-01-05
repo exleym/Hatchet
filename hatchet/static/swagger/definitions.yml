@@ -5,6 +5,8 @@ schemas:
     $ref: './schemas/division.yml#/Division'
   Game:
     $ref: './schemas/game.yml#/Game'
+  Stadium:
+    $ref: './schemas/stadium.yml#/Stadium'
   Team:
     $ref: './schemas/team.yml#/Team'
   Error:
