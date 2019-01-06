@@ -69,6 +69,10 @@ class Game(db.Model):
         return self.game_time.date()
 
     @property
+    def kickoff_time(self):
+        return self.game_time.strftime('%H:%M:%S')
+
+    @property
     def winner(self):
         if self.home_team_score > self.away_team_score:
             return self.home_team
