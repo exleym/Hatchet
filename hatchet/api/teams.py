@@ -17,7 +17,8 @@ def create_team():
 
 @api.route('/teams', methods=['GET'])
 def get_teams():
-    teams = list_teams()
+    name = request.args.get("shortName", None)
+    teams = list_teams(name=name)
     return api_response.dump(teams, 200)
 
 

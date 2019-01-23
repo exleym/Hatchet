@@ -7,7 +7,8 @@ def load_json(file: str):
     with open(file, 'r') as fp:
         return json.load(fp.read())
 
-def load_csv(file: str, headers=False) -> Union[List[list], List[dict]]:
+
+def load_csv(file: str, headers=False) -> List[dict]:
     """ load a CSV into a list of rows or a list of json objects
 
     If the parameter `headers` is set to True, `load_csv` will return a

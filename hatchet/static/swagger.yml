@@ -28,6 +28,14 @@ paths:
     $ref: './swagger/paths/stadiums.yml#/stadiums'
   /stadiums/{stadiumId}:
     $ref: './swagger/paths/stadiums.yml#/stadiums~1{stadiumId}'
+  /games:
+    $ref: './swagger/paths/games.yml#games'
+  /games/{gameId}:
+    $ref: './swagger/paths/games.yml#/games~1{gameId}'
+  /games/{gameId}/participants:
+    $ref: './swagger/paths/games.yml#/games~1{gameId}~1participants'
+  /games/{gameId}/scores:
+    $ref: './swagger/paths/games.yml#/games~1{gameId}~1scores'
 components:
   schemas:
     $ref: './swagger/definitions.yml#/schemas'

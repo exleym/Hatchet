@@ -16,9 +16,14 @@ def persist_team(team: dict) -> Team:
     return team
 
 
-def list_teams(team_id: int = None) -> Union[Team, List[Team]]:
+def list_teams(team_id: int = None, name: str = None) -> Union[Team, List[Team]]:
     if not team_id:
-        return Team.query.all()
+        query = Team.query
+        if name:
+            query = query.filter_by(short_name=name)
+            team = query.first()
+            return team or []
+        return query.all()
     team = Team.query.filter_by(id=team_id).first()
     if not team:
         raise MissingResourceException(f'No Team with id={team_id}')

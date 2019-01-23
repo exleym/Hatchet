@@ -1,0 +1,13 @@
+Score:
+  required:
+    - teamId
+    - score
+  properties:
+    teamId:
+      type: integer
+      format: int32
+      example: 13
+    score:
+      type: integer
+      format: int32
+      example: 44

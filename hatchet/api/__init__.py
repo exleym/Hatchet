@@ -13,5 +13,6 @@ def status():
 
 from hatchet.api.conferences import *
 from hatchet.api.divisions import *
+from hatchet.api.games import *
 from hatchet.api.stadiums import *
 from hatchet.api.teams import *

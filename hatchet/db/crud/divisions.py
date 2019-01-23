@@ -17,7 +17,7 @@ def persist_division(division: dict) -> Division:
 
 
 def list_divisions(division_id: int = None) -> Union[Division,
-                                                         List[Division]]:
+                                                     List[Division]]:
     if not division_id:
         return Division.query.all()
     division = Division.query.filter_by(id=division_id).first()
@@ -31,10 +31,10 @@ def search_divisions(filters: List[dict]) -> List[Division]:
 
 
 def edit_division(division_id: int, division: dict):
-    old_conf = list_divisions(division_id=division_id)
-    if not old_conf:
+    old_division = list_divisions(division_id=division_id)
+    if not old_division:
         raise MissingResourceException(f'No Division with id={division_id}')
-    division = division_schema.load(division, instance=old_conf)
+    division = division_schema.load(division, instance=old_division)
     db.session.add(division)
     db.session.commit()
 

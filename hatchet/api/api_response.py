@@ -19,7 +19,7 @@ class APIResponse(object):
         if isinstance(data, list):
             dump_many = True
             if not data:
-                return jsonify([], many=True), code
+                return jsonify([]), code
             data_type = type(data[0])
         else:
             data_type = type(data)
