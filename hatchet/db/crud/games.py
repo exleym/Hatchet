@@ -49,11 +49,12 @@ def remove_game_by_id(game_id: int):
 
 
 def make_participant(data):
-    logger.info(f"creating participant from POST data: {data}")
+    print(f"creating participant from POST data: {data}")
     participant = participant_schema.load(data)
-    logger.info(f"loaded data to participant object: {participant}")
+    print(f"loaded data to participant object: {participant}")
     db.session.add(participant)
     db.session.commit()
+    return participant
 
 
 def get_participants(game: Game, team_id: int = None):

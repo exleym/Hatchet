@@ -2,14 +2,17 @@ from marshmallow import Schema, fields
 
 
 class ErrorSchema(Schema):
-    message = fields.String()
-
+    message = fields.String(attribute='messages')
 
 
 class ApplicationException(Exception):
     def __init__(self, message, status_code=None, payload=None):
         super().__init__()
-        self.message = message
+        if not isinstance(message, dict) and not isinstance(message, list):
+            messages = [message]
+        else:
+            messages = message
+        self.messages = messages
         self.status_code = status_code
         self.payload = payload
 

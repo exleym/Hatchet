@@ -72,6 +72,7 @@ class GameSchema(HatchetSchema):
     kickoffTime = ma.DateTime(attribute='game_time',
                               validate=modern_datetime_validator)
     stadiumId = ma.Int(attribute='stadium_id')
+    espnId = ma.Int(attribute='espn_id')
 
     participants = ma.Nested(GameParticipantSchema, many=True)
 

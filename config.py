@@ -40,6 +40,6 @@ class TestingConfig(Config):
     ENV = Environment.TEST
     DEBUG = False
     CREATE_SCHEMA = True
-
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///:memory:'
 
 

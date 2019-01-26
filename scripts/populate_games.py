@@ -22,20 +22,23 @@ team_schema = TeamSchema()
 
 def main():
     raw_data = load_csv(GAMES_PATH, headers=True)
-    game_fields = ['kickoffTime', 'stadiumId']
+    game_fields = ['kickoffTime', 'stadiumId', 'espnId']
     for data in raw_data:
         game_package = {
             x: data.get(x) for x in game_fields
         }
         game = create_game(game_package)
-        create_participant(game, data.get("team1"), int(data.get("team1_loc")))
-        create_participant(game, data.get("team2"), int(data.get("team2_loc")))
+        for team in ("team1", "team2"):
+            team_name = data.get(team)
+            location = int(data.get(f"{team}_loc"))
+            score = int(data.get(f"{team}_score"))
+            create_participant(game, team_name, location, score)
 
 
 def create_game(data):
     if Environment.get() == Environment.TEST:
         json = {"id": 1, "kickoffTime": "2018-09-14T15:30:00",
-                "stadiumId": 222}
+                "stadiumId": 222, "espnId": 22222}
         logger.warning(f"creating participant {json} in TEST environment")
     else:
         resp = requests.post(url=UPLOAD_URL, json=data)
@@ -45,11 +48,12 @@ def create_game(data):
     return game
 
 
-def create_participant(game: Game, team_name: str, location_type: int):
+def create_participant(game: Game, team_name: str, location_type: int, score: int):
     team = get_team(team_name)
     if not team:
         return None
-    package = {"teamId": team.id, "gameId": game.id, "locationTypeId": location_type}
+    package = {"teamId": team.id, "gameId": game.id, "locationTypeId": location_type,
+               "score": score}
     if Environment.get() == Environment.TEST:
         package.update({"id": 98765})
         logger.warning(f"creating participant {package} in TEST environment")
@@ -76,5 +80,5 @@ def get_team(team_name):
 
 
 if __name__ == '__main__':
-    Environment.set(Environment.PROD)
+    Environment.set(Environment.TEST)
     main()

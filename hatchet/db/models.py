@@ -16,6 +16,10 @@ class GameParticipant(db.Model):
     location_type_id = db.Column(db.Integer, db.ForeignKey('location_type.id'))
     score = db.Column(db.Integer)
 
+    def __repr__(self):
+        return f"<GameParticipant(team_id={self.team_id}, game_id={self.game_id}," \
+               f"score={self.score})>"
+
 
 class Conference(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -62,6 +66,7 @@ class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     game_time = db.Column(db.DateTime, nullable=False)
     stadium_id = db.Column(db.Integer, db.ForeignKey('stadium.id'))
+    espn_id = db.Column(db.Integer, nullable=True)
 
     participants = db.relationship('GameParticipant', backref='game')
 
@@ -120,16 +125,6 @@ class Team(db.Model):
     stadium = db.relationship('Stadium', uselist=False, backref='team')
     played_in = db.relationship('GameParticipant', backref='team')
 
-    #todo: home_games and away_games relationships based off the location_type_id in the assoc table
-    # these relationships are dependent on that extra join where game_participant.location_type_id == 1
-    # and shit like that. This feels really janky, but it might work one it's implemented. Really all we need
-    # here is something that lets you get home and away games from a team and find out if there's a home team for
-    # each game. Do neutral site games have a fake home team each year? We want to represent neutral games as
-    # x vs y rather than x @ y or y @ x. For a team's scheduel how do we differentiate?
-    # Home: [X] @ [Y}
-    # Away: [Y] @ [X]
-    # Neutral: [X] vs [Y] where [X] is the team you're looking at, and [Y] is the other team
-
     @property
     def home_games(self):
         return [g.game for g in self.played_in if g.location_type_id==1]
@@ -154,8 +149,10 @@ class LocationType(db.Model):
 class Play(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     play_number = db.Column(db.Integer)
+    game_clock = db.Column(db.Time)
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
     down = db.Column(db.Integer)
     to_go = db.Column(db.Float)
-    snapped = db.Column(db.Boolean)
+    play_occurred = db.Column(db.Boolean)
+    penalty_occurred = db.Column(db.Boolean)
 

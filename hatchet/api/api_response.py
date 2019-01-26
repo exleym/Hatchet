@@ -25,6 +25,8 @@ class APIResponse(object):
             data_type = type(data)
         Schema = self._model_schema_map.get(data_type)
         if not Schema:
+            print(f"having a problem with: {data}")
+            print(data_type)
             raise ApplicationException('A serializer is unregistered')
         schema = Schema()
         return jsonify(schema.dump(data, many=dump_many)), code

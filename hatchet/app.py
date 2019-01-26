@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request
 from flask_swagger_ui import get_swaggerui_blueprint
+import logging
 from marshmallow import ValidationError
 
 
 from hatchet import Environment
 from hatchet.api import api
+from hatchet.api_response import ApiResponse
 from hatchet.errors import *
 from hatchet.extensions import cors, db, ma
 from hatchet.db.crud.location_types import populate_locations
@@ -12,7 +14,7 @@ from hatchet.db.crud.location_types import populate_locations
 from config import Config
 
 
-error_schema = ErrorSchema()
+api_response = ApiResponse()
 
 
 def create_app(env='prd') -> Flask:
@@ -28,6 +30,7 @@ def create_app(env='prd') -> Flask:
 def configure_app(app: Flask, env: str) -> None:
     config = Config.get(env)
     app.config.from_object(config)
+    app.logger.setLevel(logging.INFO)
     Environment.set(config.ENV)
 
 
@@ -53,16 +56,16 @@ def register_error_handlers(app: Flask) -> None:
 
     @app.errorhandler(MissingResourceException)
     def missing_resource(err):
-        return jsonify(error_schema.dump(err)), err.status_code
+        return api_response.dump(errors=err), 404
 
     @app.errorhandler(ValidationError)
-    def general_exception(err):
+    def validation_error(err):
         app.logger.error(f"validation error: {err}")
-        return jsonify(err.messages), 422
+        return api_response.dump(errors=err), 422
 
     @app.errorhandler(404)
-    def missing_route(error):
-        return jsonify({'message': 'missing route', 'url': request.url}), 404
+    def missing_route(err):
+        return api_response.dump(errors=Exception("Route not found")), 404
 
     # @app.errorhandler(Exception)
     # def generic_error_handler(err):

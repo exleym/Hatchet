@@ -1,4 +1,5 @@
-from flask import jsonify, request
+from flask import current_app, jsonify, request
+from marshmallow import ValidationError
 
 from hatchet.api import api, api_response
 from hatchet.db.crud.games import (
@@ -49,9 +50,10 @@ def get_game_participants(game_id: int):
 
 @api.route('/games/<int:game_id>/participants', methods=['POST'])
 def add_game_participant(game_id: int):
-    game = get_game_by_id(game_id)  # validate that game actually exists
+    game = list_games(game_id=game_id)  # validate that game actually exists
     if len(game.participants) >= 2:
-        raise ValueError("maxiumum of 2 participants per game")
+        current_app.logger.error(f'request to add third participant to {game}')
+        raise ValidationError(message="maxiumum of 2 participants per game")
     participant = make_participant(request.json)
     return api_response.dump(participant, 201)
 
