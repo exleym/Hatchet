@@ -1,0 +1,10 @@
+<div class="sidebar">
+  <a *ngFor="let item of menuItems" routerLink="{{item.linkURL}}">
+    <div class="sidebar-element">
+      <span class="vertical-centered">
+        <i class="material-icons nav-icon">{{item.iconName}}</i>
+        <span class="showable">{{item.displayName}}</span>
+      </span>
+    </div>
+  </a>
+</div>

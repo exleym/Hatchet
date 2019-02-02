@@ -1,0 +1,52 @@
+@import "../../styles.scss";
+
+a {
+  color: $text_color;
+}
+
+.sidebar {
+  border-radius: 5px;
+  height: 100%; /* 100% Full-height */
+  margin: 30px;
+  width: 80px; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 70px; /* Stay at the top */
+  left: 0;
+  background-color: $accent_dark;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 0; /* Place content n-px from the top */
+  transition: 0.25s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.sidebar .showable {
+  transition: 0s font-size;
+  font-size: 0;
+}
+
+.sidebar:hover {
+  width: 250px;
+}
+
+.sidebar:hover .showable {
+  display: inline;
+  transition-delay: 0.1s;
+  font-size: medium;
+}
+
+.sidebar-element {
+  padding: 20px 28px;
+}
+.sidebar-element:hover {
+  border-radius: 5px;
+  background-color: $accent_darker;
+}
+
+.nav-icon {
+  margin-right: 10px;
+}
+
+.vertical-centered {
+  //background-color: $primary_darker;
+  vertical-align: middle;
+}

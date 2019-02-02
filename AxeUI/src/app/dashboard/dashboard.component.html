@@ -1,0 +1,10 @@
+<div>
+  <div id="dashboard" class="container-fluid">
+    <div class="row">
+      <div *ngFor="let card of cards" class="col-md-{{card.width}}">
+        <!--<h2>This is a CCCCard</h2>-->
+        <app-card [card]="card"></app-card>
+      </div>
+    </div>
+  </div>
+</div>
