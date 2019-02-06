@@ -8,7 +8,8 @@ import { Card } from './card';
 })
 export class CardComponent implements OnInit {
 
-  @Input() card: Card;
+  @Input() title: string;
+  @Input() subtitle: string;
 
   constructor() { }
 

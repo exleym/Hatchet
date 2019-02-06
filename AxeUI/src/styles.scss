@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import './themes/purple_dream';
+// @import './themes/clemson';
+//@import './themes/blue_dream';
+//@import './themes/deep_sea';
+
 
 $bg_color: $primary_muted_darker;
 $card_color: $primary_muted_light;
@@ -14,4 +18,30 @@ $hover_color: #3d0066;
 .themed {
   background-color: $bg_color;
   color: white;
+}
+
+a {
+  color: $text_color;
+  text-decoration: none;
+}
+
+.card {
+  padding: 20px;
+  background-color: $primary_muted_dark;
+  margin: 0 0 20px 0;
+  border-radius: 10px;
+}
+
+.card-standard {
+  height: 350px;
+}
+
+.card-short {
+  height: 150px;
+}
+
+.card-highlight:hover {
+  background-color: $primary_muted_medium;
+  color: $text_color;
+  text-decoration: none;
 }

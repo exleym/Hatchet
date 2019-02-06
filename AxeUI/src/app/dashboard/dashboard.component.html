@@ -1,9 +1,11 @@
 <div>
   <div id="dashboard" class="container-fluid">
     <div class="row">
-      <div *ngFor="let card of cards" class="col-md-{{card.width}}">
-        <!--<h2>This is a CCCCard</h2>-->
-        <app-card [card]="card"></app-card>
+      <div *ngFor="let card of cards" class="col-lg-{{card.width}}">
+        <div class="card card-standard">
+          <h4>{{card.title}}</h4>
+          <h6>{{card.subtitle}}</h6>
+        </div>
       </div>
     </div>
   </div>

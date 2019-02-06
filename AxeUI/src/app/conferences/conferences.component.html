@@ -1,3 +1,12 @@
-<p>
-  conferences works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let conference of conferences" class="col-md-3">
+      <a routerLink="/conferences/{{conference.id}}">
+        <div class="card card-short card-highlight">
+          <h4>{{conference.name}}</h4>
+          <h6>{{conference.shortName}}</h6>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
