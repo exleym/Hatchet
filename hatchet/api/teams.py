@@ -38,3 +38,9 @@ def update_team(team_id: int):
 def delete_team(team_id: int):
     remove_team_by_id(team_id=team_id)
     return jsonify(""), 204
+
+
+@api.route('/teams/<int:team_id>/games', methods=['GET'])
+def get_games_by_team(team_id: int):
+    team = list_teams(team_id=team_id)
+    return api_response.dump(team.games, 200)

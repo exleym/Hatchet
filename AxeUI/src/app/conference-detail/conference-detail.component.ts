@@ -4,6 +4,7 @@ import { TitleService } from '../title.service';
 import { Conference } from '../conferences/conference';
 import { ConferenceService } from '../conference.service';
 import { Team } from '../teams/team';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-conference-detail',
@@ -13,7 +14,7 @@ import { Team } from '../teams/team';
 export class ConferenceDetailComponent implements OnInit {
 
   private conferenceId: number;
-  conference: Conference;
+  conference$: Observable<Conference>;
   members: Team[];
 
   constructor(private route: ActivatedRoute,
@@ -29,7 +30,7 @@ export class ConferenceDetailComponent implements OnInit {
 
   getConference(): void {
     this._conferenceService.getConference(this.conferenceId)
-      .subscribe(conference => this.conference = conference);
+      .pipe(conference => this.conference$ = conference);
   }
 
   getConferenceMembers(): void {

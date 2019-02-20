@@ -17,6 +17,8 @@ import { TitleService } from './title.service';
 import { TeamsComponent } from './teams/teams.component';
 import { ConferenceDetailComponent } from './conference-detail/conference-detail.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { ScheduleItemComponent } from './schedule-item/schedule-item.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { TeamDetailComponent } from './team-detail/team-detail.component';
     CardComponent,
     TeamsComponent,
     ConferenceDetailComponent,
-    TeamDetailComponent
+    TeamDetailComponent,
+    ScheduleComponent,
+    ScheduleItemComponent
   ],
   imports: [
     BrowserModule,

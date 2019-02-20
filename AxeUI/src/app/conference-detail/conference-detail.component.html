@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="conference$ | async as conference">
   <h1>{{conference.name}}</h1>
   <div class="row">
     <table class="table table-dark">

@@ -126,6 +126,10 @@ class Team(db.Model):
     played_in = db.relationship('GameParticipant', backref='team')
 
     @property
+    def games(self):
+        return [g.game for g in self.played_in]
+
+    @property
     def home_games(self):
         return [g.game for g in self.played_in if g.location_type_id==1]
 
