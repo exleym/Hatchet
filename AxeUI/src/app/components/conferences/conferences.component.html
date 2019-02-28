@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let conference of conferences" class="col-md-3">
+      <a routerLink="/conferences/{{conference.id}}">
+        <div class="card card-short">
+          <div class="card-header">
+            <h4>
+              <span>{{conference.name}}</span>
+              <span style="float:right"><i class="material-icons">edit</i></span>
+            </h4>
+          </div>
+          <div class="card-content">
+            <h6>{{conference.shortName}}</h6>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

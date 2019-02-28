@@ -1,0 +1,45 @@
+@import '../../../styles';
+
+.schedule-item {
+  margin: 5px;
+  padding: 0;
+  height: 44px;
+  background-color: $primary_muted_dark;
+  border-radius: 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $primary_muted_lighter;
+}
+.schedule-item:hover {
+  background-color: $primary_muted_medium;
+}
+
+.game-data {
+  padding: 9px;
+  float: left;
+}
+
+.date-badge {
+  padding: 9px;
+  float: left;
+  border-radius: 16px 0 0 16px;
+  background-color: $primary_muted_lighter;
+  color: black;
+}
+
+.game-outcome {
+}
+
+.winner-badge {
+  float: right;
+  padding: 9px;
+  border-radius: 0 16px 16px 0;
+  background-color: $status-good;
+}
+
+.loser-badge {
+  float: right;
+  padding: 9px;
+  border-radius: 0 16px 16px 0;
+  background-color: $status-error;
+}

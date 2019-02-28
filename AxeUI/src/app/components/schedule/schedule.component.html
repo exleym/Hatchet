@@ -1,0 +1,11 @@
+<div>
+  <h4>Schedule</h4>
+  <app-schedule-item *ngFor="let game of games" [game]="game" [referenceTeam]="team">
+  </app-schedule-item>
+  <div class="game-adder" (click)="showGameForm()">
+    <span>
+      Add Game
+      <i class="material-icons nav-icon">add_circle_outline</i>
+    </span>
+  </div>
+</div>

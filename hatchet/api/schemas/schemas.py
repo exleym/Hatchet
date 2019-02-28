@@ -63,6 +63,7 @@ class GameParticipantSchema(HatchetSchema):
     gameId = ma.Int(attribute='game_id')
     locationTypeId = ma.Int(attribute='location_type_id')
     score = ma.Int(nullable=True, validate=score_validator)
+    teamName = ma.String(attribute='team.short_name', dump_only=True)
 
 
 class GameSchema(HatchetSchema):

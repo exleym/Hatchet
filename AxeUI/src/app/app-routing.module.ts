@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ConferencesComponent } from './conferences/conferences.component';
-import { DivisionsComponent } from './divisions/divisions.component';
-import { ConferenceDetailComponent } from './conference-detail/conference-detail.component';
-import { TeamsComponent } from './teams/teams.component';
-import { TeamDetailComponent } from './team-detail/team-detail.component';
+import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
+import { ConferencesComponent } from './components/conferences/conferences.component';
+import { DivisionsComponent } from './components/divisions/divisions.component';
+import { ConferenceDetailComponent } from './components/conference-detail/conference-detail.component';
+import { TeamsComponent } from './components/teams/teams.component';
+import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
