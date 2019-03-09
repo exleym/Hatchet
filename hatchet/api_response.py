@@ -15,6 +15,7 @@ class ApiResponse(object):
         if data:
             pkg.update({"data": data})
         if errors:
-            many = isinstance(errors, list)
-            pkg.update({"errors": self.error_schema.dump(errors, many=many)})
+            if not isinstance(errors, list):
+                errors = [errors]
+            pkg.update({"errors": self.error_schema.dump(errors, many=True)})
         return jsonify(pkg)

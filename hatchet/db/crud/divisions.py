@@ -34,9 +34,10 @@ def edit_division(division_id: int, division: dict):
     old_division = list_divisions(division_id=division_id)
     if not old_division:
         raise MissingResourceException(f'No Division with id={division_id}')
-    division = division_schema.load(division, instance=old_division)
+    division = division_schema.load_into(division, instance=old_division)
     db.session.add(division)
     db.session.commit()
+    return division
 
 
 def remove_division_by_id(division_id: int):

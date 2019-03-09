@@ -37,9 +37,10 @@ def edit_game(game_id: int, game: dict):
     old_conf = list_games(game_id=game_id)
     if not old_conf:
         raise MissingResourceException(f'No Game with id={game_id}')
-    game = game_schema.load(game, instance=old_conf)
+    game = game_schema.load_into(game, instance=old_conf)
     db.session.add(game)
     db.session.commit()
+    return game
 
 
 def remove_game_by_id(game_id: int):

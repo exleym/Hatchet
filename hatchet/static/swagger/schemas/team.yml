@@ -5,7 +5,7 @@ Team:
   properties:
     id:
       type: integer
-      format: int64
+      format: int32
       example: 1981
     name:
       type: string
@@ -16,12 +16,15 @@ Team:
     mascot:
       type: string
       example: Tigers
-    conference:
-      type: string
-      example: ACC
-    division:
-      type: string
-      example: ACC - Atlantic
+    conferenceId:
+      type: integer
+      format: int32
+      example: 2
+    divisionId:
+      type: integer
+      format: int32
+      example: 7
     stadium:
-      type: string
-      example: Death Valley
+      type: integer
+      format: int32
+      example: 43

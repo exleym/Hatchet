@@ -14,6 +14,7 @@ from hatchet.db.crud.location_types import populate_locations
 from config import Config
 
 
+logger = logging.getLogger(__name__)
 api_response = ApiResponse()
 
 
@@ -65,7 +66,7 @@ def register_error_handlers(app: Flask) -> None:
 
     @app.errorhandler(404)
     def missing_route(err):
-        return api_response.dump(errors=Exception("Route not found")), 404
+        return api_response.dump(errors=err), 404
 
     # @app.errorhandler(Exception)
     # def generic_error_handler(err):

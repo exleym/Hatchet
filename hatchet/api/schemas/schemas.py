@@ -1,4 +1,5 @@
 from marshmallow import post_load
+from marshmallow.exceptions import ValidationError
 from hatchet.extensions import ma
 from hatchet.db.models import (
     Conference, Division, Game, GameParticipant, Stadium, Team
@@ -10,6 +11,14 @@ from hatchet.api.schemas.validators import (
 
 class HatchetSchema(ma.Schema):
     _Model = None
+
+    def load_into(self, data, instance, many=False, partial=True):
+        if "id" in data.keys():
+            raise ValidationError("<id> is not a puttable fields")
+        temp = self._do_load(data, many, partial=partial, postprocess=False)
+        for k, v in temp.items():
+            setattr(instance, k, v)
+        return instance
 
     @post_load
     def make_object(self, data):
@@ -51,7 +60,7 @@ class TeamSchema(HatchetSchema):
     name = ma.Str()
     shortName = ma.Str(attribute='short_name', allow_none=True)
     mascot = ma.Str()
-    conferenceId = ma.Int(attribute='conference_id', load_only=True)
+    conferenceId = ma.Int(attribute='conference_id', allow_none=True)
     divisionId = ma.Int(attribute='division_id')
     stadiumId = ma.Int(attribute='stadium_id', allow_none=True)
 
