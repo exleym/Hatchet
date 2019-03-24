@@ -1,20 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-create-game',
   templateUrl: './create-game.component.html',
   styleUrls: ['./create-game.component.scss']
 })
-export class CreateGameComponent implements OnInit {
-  formEspnId = new FormControl('', Validators.required);
-  formKickoffTime = new FormControl('', Validators.required);
-  formStadiumId = new FormControl('', Validators.required);
-  formOpponentId = new FormControl('');
+export class CreateGameComponent {
+  submitted = false;
+  gameForm = this.fb.group({
+    espnId: [''],
+    kickoffTime: [''],
+    stadiumId: [''],
+  });
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {
+  onSubmit(): void {
+    this.submitted = true;
+    console.log('form submitted successfully!');
+    console.log(this.gameForm.value);
   }
 
 }

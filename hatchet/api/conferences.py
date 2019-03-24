@@ -1,4 +1,5 @@
 from flask import jsonify, request
+from flasgger import swag_from
 
 from hatchet.api import api, api_response
 from hatchet.db.crud.conferences import (
@@ -10,6 +11,7 @@ from hatchet.db.crud.conferences import (
 
 
 @api.route('/conferences', methods=['POST'])
+@swag_from('../static/swagger/paths/create_conference.yml')
 def create_conference():
     conference = persist_conference(request.json)
     return api_response.dump(conference, 201)

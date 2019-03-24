@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-from flask_swagger_ui import get_swaggerui_blueprint
 import logging
 from marshmallow import ValidationError
 
@@ -8,7 +7,7 @@ from hatchet import Environment
 from hatchet.api import api
 from hatchet.api_response import ApiResponse
 from hatchet.errors import *
-from hatchet.extensions import cors, db, ma
+from hatchet.extensions import cors, db, ma, swag
 from hatchet.db.crud.location_types import populate_locations
 
 from config import Config
@@ -39,6 +38,7 @@ def register_extensions(app: Flask) -> None:
     db.init_app(app)
     cors.init_app(app)
     ma.init_app(app)
+    swag.init_app(app)
     if app.config.get('CREATE_SCHEMA'):
         with app.app_context():
             db.create_all()
@@ -46,11 +46,7 @@ def register_extensions(app: Flask) -> None:
 
 
 def register_blueprints(app: Flask) -> None:
-    SWAGGER_URL_PREFIX = '/api/v1/swagger'
     app.register_blueprint(api, url_prefix='/api/v1')
-    app.register_blueprint(get_swaggerui_blueprint(SWAGGER_URL_PREFIX,
-                                                   '/static/swagger.yml'),
-                           url_prefix=SWAGGER_URL_PREFIX)
 
 
 def register_error_handlers(app: Flask) -> None:

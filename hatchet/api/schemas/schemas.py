@@ -1,6 +1,6 @@
 from marshmallow import post_load
 from marshmallow.exceptions import ValidationError
-from hatchet.extensions import ma
+from hatchet.extensions import ma, swag
 from hatchet.db.models import (
     Conference, Division, Game, GameParticipant, Stadium, Team
 )
@@ -25,7 +25,11 @@ class HatchetSchema(ma.Schema):
         return self._Model(**data)
 
 
+@swag.definition('Conference', tags=['conferences'])
 class ConferenceSchema(HatchetSchema):
+    """
+    file: '../../../static/swagger/schemas/conference.yml'
+    """
     _Model = Conference
     id = ma.Int(dump_only=True)
     code = ma.Str()

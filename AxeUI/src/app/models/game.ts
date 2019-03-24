@@ -11,7 +11,6 @@ export class Game implements OnInit {
   ngOnInit() {}
 
   constructor(data) {
-    console.log(`creating game ${data}`);
     this.id = data.id;
     this.espnId = data.espnId;
     this.kickoffTime = new Date(data.kickoffTime);
@@ -21,11 +20,8 @@ export class Game implements OnInit {
   }
 
   createParticipants(participants): void {
-    console.log(`creating participants ${participants}`);
      participants.forEach(p => {
-       console.log('trying to create a participant');
        this.participants.push(new GameParticipant(p));
-       console.log('i think we did it');
     });
   }
 

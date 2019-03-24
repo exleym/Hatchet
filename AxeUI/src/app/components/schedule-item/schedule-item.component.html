@@ -1,16 +1,13 @@
 <div class="schedule-item">
-  <span class="date-badge">{{game.kickoffTime | date: 'MM/dd/yyyy' }}</span>
+  <span class="date-badge"><b>{{game.kickoffTime | date: 'MM/dd/yyyy' }}</b></span>
   <span class="game-data">
     <span *ngIf="referenceParticipant.locationTypeId === 2">@</span>
     <span *ngIf="referenceParticipant.locationTypeId !== 2">vs</span>
     <span *ngIf="opponent"> {{opponent.teamName}} </span>
   </span>
   <span class="game-outcome" *ngIf="opponent">
-    <span *ngIf="opponent.score > referenceParticipant.score" class="loser-badge">
-      <span>{{referenceParticipant.score}} - </span>
-      <span>{{opponent.score}}</span>
-    </span>
-    <span *ngIf="opponent.score < referenceParticipant.score" class="winner-badge">
+    <span [class.loser-badge]="opponent.score > referenceParticipant.score"
+          [class.winner-badge]="opponent.score < referenceParticipant.score">
       <span>{{referenceParticipant.score}} - </span>
       <span>{{opponent.score}}</span>
     </span>

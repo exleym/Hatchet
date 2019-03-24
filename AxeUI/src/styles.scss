@@ -14,11 +14,6 @@ $navbar_color: #4c0080;
 $text_color: white;
 $hover_color: #3d0066;
 
-$status-good: #00CC00;
-$status-error: red;
-$status-warn: orange;
-$status-info: lightblue;
-
 
 .themed {
   background-color: $bg_color;
@@ -34,6 +29,9 @@ a {
   background-color: $primary_muted_dark;
   margin: 0 0 20px 0;
   border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $text_color;
 }
 
 .card-content {
@@ -43,9 +41,9 @@ a {
 .card-header {
   background-color: $primary_darker;
   border-radius: 10px 10px 0 0;
-  border-style: solid;
-  border-color: $text-color;
-  border-width: 2px;
+  border-style: none none solid none;
+  border-width: 1px;
+  border-color: $text_color;
 }
 
 .card-standard {
@@ -60,4 +58,17 @@ a {
   background-color: $primary_muted_medium;
   color: $text_color;
   text-decoration: none;
+}
+
+.action {
+  margin: 10px 10px 10px 10px;
+  padding: 7px 10px 5px 10px;
+  border-color: $text_color;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 25px;
+}
+
+.action:hover {
+  background-color: $primary_darker;
 }

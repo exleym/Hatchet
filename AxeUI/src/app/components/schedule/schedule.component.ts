@@ -12,6 +12,7 @@ export class ScheduleComponent implements OnInit {
 
   @Input() games: Game[];
   @Input() team: Team;
+  private activeGame: Game;
 
   constructor(private gameService: GameService) { }
 
@@ -21,8 +22,16 @@ export class ScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.games);
-    console.log(this.team);
+    this.activeGame = this.games[1];
+  }
+
+  setActive(game: Game): void {
+    console.log(`setting active game ${game.id}`);
+    this.activeGame = game;
+  }
+
+  showGameForm(): void {
+    console.log('you clicked the thing!');
   }
 
 }

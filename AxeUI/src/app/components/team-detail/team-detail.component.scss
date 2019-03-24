@@ -1,18 +1,1 @@
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 8fr;
-  grid-template-areas: "Header Header Header Header Header" "Sidebar Content Content Content Content";
-}
-
-.Header { grid-area: Header; }
-
-.Sidebar { grid-area: Sidebar; }
-
-.Content {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-areas: ". . . ." ". . . ." ". . . ." ". . . .";
-  grid-area: Content;
-}
+@import '../../../styles';

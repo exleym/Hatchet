@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
 import { Conference } from '../models/conference';
-import {Team} from '../models/team';
+import { Team } from '../models/team';
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +16,25 @@ export class ConferenceService {
 
   getConferences(): Observable<Conference[]> {
     return this._http.get<Conference[]>(this.conferencesUrl)
-      .pipe(map(result => result));
+      .pipe(map(result => {
+        return result.map(item => {
+          return new Conference(item);
+        });
+      }));
   }
 
   getConference(id: number): Observable<Conference> {
     return this._http.get<Conference>(this.conferencesUrl + '/' + id)
-      .pipe(result => result);
+      .pipe(map(result => {
+        return new Conference(result);
+      }));
   }
 
   getConferenceMembers(id: number): Observable<Team[]> {
-    return this._http.get<Team[]>(this._conferenceMembersUrl(id));
+    return this._http.get<Team[]>(this._conferenceMembersUrl(id))
+      .pipe(map(result => {
+        return result.map(item => new Team(item));
+      }));
   }
 
   _conferenceMembersUrl(id: number): string {

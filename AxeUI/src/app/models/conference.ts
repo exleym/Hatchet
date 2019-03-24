@@ -4,4 +4,11 @@ export class Conference {
   name: string;
   shortName: string;
   inceptionYear: number;
+
+  constructor(data: any) {
+    this.id = data.id;
+    this.code = data.code;
+    this.name = data.name;
+    this.inceptionYear = data.inceptionYear;
+  }
 }

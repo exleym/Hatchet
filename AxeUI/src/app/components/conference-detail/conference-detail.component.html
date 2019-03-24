@@ -1,24 +1,26 @@
 <div class="container-fluid" *ngIf="conference$ | async as conference">
-  <h1>{{conference.name}}</h1>
+  <h1>
+    <span>{{conference.name}}</span>
+  </h1>
   <div class="row">
-    <table class="table table-dark">
-      <thead>
-        <th>Field</th><th>Value</th>
-      </thead>
-      <tbody>
-        <tr><td>Conference</td><td>{{conference.name}}</td></tr>
-        <tr><td>Conference id</td><td>{{conference.id}}</td></tr>
-        <tr><td>Short Name</td><td>{{conference.shortName}}</td></tr>
-        <tr><td>Conference Code</td><td>{{conference.code}}</td></tr>
-      </tbody>
-    </table>
+    <div class="col-md-4">
+      <div class="card card-content">
+        <h4>
+          <span>Actions </span>
+          <span class="action"><a routerLink="/conferences"><i class="material-icons">arrow_upward</i></a></span>
+          <span class="action"><i class="material-icons">edit</i></span>
+        </h4>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div *ngFor="let member of members" class="col-lg-3">
       <a routerLink="/teams/{{member.id}}">
         <div class="card card-short card-highlight">
           <div class="card-header">
-            <h4>{{member.name}}</h4>
+            <h4>
+              <span>{{member.name}}</span>
+            </h4>
           </div>
           <div class="card-content">
             <h6>{{member.shortName}}</h6>

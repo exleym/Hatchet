@@ -12,8 +12,16 @@ $primary_muted_lighter: hsl(240, 20, 80);
 
 $accent_darker: hsl(156, 100, 25);
 $accent_dark: hsl(156, 100, 35);
-//$accent_dark: hsl(16, 92, 55);
 $accent_medium: hsl(156, 100, 45);
 $accent_light: hsl(156, 100, 65);
 $accent_lighter: hsl(156, 100, 80);
+
+$status-okay: hsl(156, 75, 75);
+$status-okay-dark: hsl(156, 75, 15);
+
+$status-error: hsl(0, 75, 75);
+$status-error-dark: hsl(0, 75, 15);
+
+$status-warn: hsl(15, 75, 75);
+$status-info: hsl(200, 75, 75);
 

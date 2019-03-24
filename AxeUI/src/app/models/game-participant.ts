@@ -7,12 +7,18 @@ export class GameParticipant {
   score: number;
 
   constructor(data) {
-    console.log(`creating participant: ${data}`);
     this.id = data.id;
     this.gameId = data.gameId;
     this.locationTypeId = data.locationTypeId;
     this.teamId = data.teamId;
     this.teamName = data.teamName;
     this.score = data.score;
+  }
+
+  location(): string {
+    const locMap = {
+      1: 'vs', 2: '@'
+    };
+    return locMap[this.locationTypeId];
   }
 }
