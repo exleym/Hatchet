@@ -1,0 +1,16 @@
+tags:
+  - games
+produces:
+  - application/json
+parameters:
+  - in: path
+    name: game_id
+    description: get game by id
+    required: true
+responses:
+  200:
+    description: the game matching the provided game_id
+    schema:
+      $ref: '#/definitions/Game'
+  404:
+    description: missing resource / resource not found

@@ -1,0 +1,16 @@
+tags:
+  - divisions
+produces:
+  - application/json
+parameters:
+  - in: query
+    name: code
+    description: "get division by code"
+    required: false
+responses:
+  200:
+    description: array of all divisions or divisions matching query params
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Division'

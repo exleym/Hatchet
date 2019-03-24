@@ -1,0 +1,16 @@
+tags:
+  - teams
+produces:
+  - application/json
+parameters:
+  - in: path
+    name: team_id
+    description: the team id to query
+    required: true
+responses:
+  200:
+    description: a list of games the team plays
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Game'

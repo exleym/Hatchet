@@ -1,4 +1,5 @@
 import logging
+from marshmallow.exceptions import ValidationError
 from typing import List, Union
 
 logger = logging.getLogger(__name__)
@@ -33,7 +34,7 @@ def search_games(filters: List[dict]) -> List[Game]:
     return []
 
 
-def edit_game(game_id: int, game: dict):
+def edit_game(game_id: int, game: dict, partial: bool = False):
     old_conf = list_games(game_id=game_id)
     if not old_conf:
         raise MissingResourceException(f'No Game with id={game_id}')
@@ -73,5 +74,16 @@ def update_score(game_id: int, data):
         participant = get_participants(game, p.get("teamId"))
         participant.score = p.get("score")
         db.session.add(participant)
+    db.session.commit()
+    return game
+
+
+def patch_game(game_id: int, **kwargs):
+    game = list_games(game_id)
+    for k, v in kwargs.items():
+        if not hasattr(game, k):
+            raise ValidationError(f"field {k} is not a valid game attribute")
+        setattr(game, k, v)
+    db.session.add(game)
     db.session.commit()
     return game

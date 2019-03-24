@@ -28,7 +28,23 @@ class HatchetSchema(ma.Schema):
 @swag.definition('Conference', tags=['conferences'])
 class ConferenceSchema(HatchetSchema):
     """
-    file: '../../../static/swagger/schemas/conference.yml'
+    A conference
+    ---
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 7
+        readOnly: true
+      code:
+        type: string
+        example: ACC
+      name:
+        type: string
+        example: Atlantic Coast Conference
+      inceptionYear:
+        type: integer
+        example: 1953
     """
     _Model = Conference
     id = ma.Int(dump_only=True)
@@ -40,7 +56,28 @@ class ConferenceSchema(HatchetSchema):
                            allow_none=True)
 
 
+@swag.definition('Division', tags=['divisions'])
 class DivisionSchema(HatchetSchema):
+    """
+    A division
+    ---
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 7
+        readOnly: true
+      conferenceId:
+        type: integer
+        format: int32
+        example: 3
+      name:
+        type: string
+        example: Atlantic
+      fullName:
+        type: string
+        example: ACC Atlantic Division
+    """
     _Model = Division
     id = ma.Int(dump_only=True)
     conferenceId = ma.Int(attribute='conference_id')
@@ -48,6 +85,7 @@ class DivisionSchema(HatchetSchema):
     fullName = ma.Str(attribute='full_name', dump_only=True)
 
 
+@swag.definition('Stadium', tags=['stadiums'])
 class StadiumSchema(HatchetSchema):
     _Model = Stadium
     id = ma.Int(dump_only=True)
@@ -58,7 +96,39 @@ class StadiumSchema(HatchetSchema):
     surface = ma.String(allow_none=True)
 
 
+@swag.definition('Team', tags=['teams'])
 class TeamSchema(HatchetSchema):
+    """
+    A team
+    ---
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 7
+        readOnly: true
+      name:
+        type: string
+        example: Clemson University
+      shortName:
+        type: string
+        example: Clemson
+      mascot:
+        type: string
+        example: Tigers
+      conferenceId:
+        type: integer
+        format: int32
+        example: 3
+      divisionId:
+        type: integer
+        format: int32
+        example: 12
+      stadiumId:
+        type: integer
+        format: int32
+        example: 43
+    """
     _Model = Team
     id = ma.Int(nullable=True)
     name = ma.Str()
@@ -69,7 +139,38 @@ class TeamSchema(HatchetSchema):
     stadiumId = ma.Int(attribute='stadium_id', allow_none=True)
 
 
+@swag.definition("GameParticipant")
 class GameParticipantSchema(HatchetSchema):
+    """
+    a game participant
+    ---
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 14
+        readOnly: true
+      teamId:
+        type: integer
+        format: int32
+        example: 19
+      gameId:
+        type: integer
+        format: int32
+        example: 9
+        readOnly: true
+      locationTypeId:
+        type: integer
+        format: int32
+        example: 1
+      score:
+        type: integer
+        format: int32
+        example: 44
+      teamName:
+        type: string
+        example: Clemson
+    """
     _Model = GameParticipant
     id = ma.Int(nullable=True)
     teamId = ma.Int(attribute='team_id')
@@ -79,7 +180,34 @@ class GameParticipantSchema(HatchetSchema):
     teamName = ma.String(attribute='team.short_name', dump_only=True)
 
 
+@swag.definition('Game', tags=['games'])
 class GameSchema(HatchetSchema):
+    """
+    A game
+    ---
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 7
+        readOnly: true
+      kickoffTime:
+        type: string
+        format: datetime
+        example: "2018-09-23T15:30:00-04:00"
+      stadiumId:
+        type: integer
+        format: int32
+        example: 45
+      espnId:
+        type: integer
+        format: int32
+        example: 9003245
+      participants:
+        type: array
+        items:
+          $ref: "#/definitions/GameParticipant"
+    """
     _Model = Game
     id = ma.Int(nullable=True)
     #date = ma.Date(attribute='date', dump_only=True, nullable=True)

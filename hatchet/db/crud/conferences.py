@@ -16,14 +16,17 @@ def persist_conference(conference: dict) -> Conference:
     return conference
 
 
-def list_conferences(conference_id: int = None) -> Union[Conference,
-                                                         List[Conference]]:
-    if not conference_id:
-        return Conference.query.all()
-    conference = Conference.query.filter_by(id=conference_id).first()
-    if not conference:
-        raise MissingResourceException(f'No Conference with id={conference_id}')
-    return conference
+def list_conferences(conference_id: int = None,
+                     code: str = None) -> Union[Conference, List[Conference]]:
+    if conference_id:
+        conf = Conference.query.filter_by(id=conference_id).first()
+        if not conf:
+            raise MissingResourceException(f'No Conference with id={conference_id}')
+        return conf
+    query = Conference.query
+    if code:
+        query = query.filter_by(code=code)
+    return query.all()
 
 
 def search_conferences(filters: List[dict]) -> List[Conference]:

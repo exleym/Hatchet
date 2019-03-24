@@ -1,0 +1,16 @@
+tags:
+  - divisions
+produces:
+  - application/json
+parameters:
+  - in: path
+    name: division_id
+    description: "get division by id"
+    required: true
+responses:
+  200:
+    description: the division matching the provided division_id
+    schema:
+      $ref: '#/definitions/Division'
+  404:
+    description: missing resource / resource not found
