@@ -1,0 +1,16 @@
+tags:
+  - teams
+produces:
+  - application/json
+parameters:
+  - in: path
+    name: team_id
+    description: get team by id
+    required: true
+responses:
+  200:
+    description: the team matching the provided team_id
+    schema:
+      $ref: '#/definitions/Team'
+  404:
+    description: missing resource / resource not found

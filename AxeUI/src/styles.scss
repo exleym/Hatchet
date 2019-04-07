@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import './themes/purple_dream';
+@import 'assets/themes/purple_dream';
 //@import './themes/clemson';
 //@import './themes/blue_dream';
 //@import './themes/deep_sea';
@@ -26,10 +26,24 @@ a {
 }
 
 .card {
-  padding: 20px;
   background-color: $primary_muted_dark;
   margin: 0 0 20px 0;
   border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $text_color;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-header {
+  background-color: $primary_darker;
+  border-radius: 10px 10px 0 0;
+  border-style: none none solid none;
+  border-width: 1px;
+  border-color: $text_color;
 }
 
 .card-standard {
@@ -44,4 +58,17 @@ a {
   background-color: $primary_muted_medium;
   color: $text_color;
   text-decoration: none;
+}
+
+.action {
+  margin: 10px 10px 10px 10px;
+  padding: 7px 10px 5px 10px;
+  border-color: $text_color;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 25px;
+}
+
+.action:hover {
+  background-color: $primary_darker;
 }

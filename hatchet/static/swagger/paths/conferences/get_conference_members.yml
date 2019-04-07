@@ -1,0 +1,16 @@
+tags:
+  - conferences
+produces:
+  - application/json
+parameters:
+  - in: path
+    name: conference_id
+    description: "the conference id to query"
+    required: true
+responses:
+  200:
+    description: a list of teams belonging to conference
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Team'

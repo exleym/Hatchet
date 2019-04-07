@@ -1,0 +1,12 @@
+tags:
+  - teams
+produces:
+  - application/json
+parameters:
+  - in: path
+    name: team_id
+    description: delete team identified by team_id
+    required: true
+responses:
+  204:
+    description: team deleted

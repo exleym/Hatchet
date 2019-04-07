@@ -1,0 +1,22 @@
+tags:
+  - divisions
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: "body"
+    name: body
+    description: "Division to update"
+    required: true
+    schema:
+      $ref: "#/definitions/Division"
+responses:
+  200:
+    description: Division updated
+    schema:
+      $ref: '#/definitions/Division'
+  404:
+    description: Division does not exist
+  405:
+    description: Invalid input

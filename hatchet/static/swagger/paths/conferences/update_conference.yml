@@ -1,0 +1,22 @@
+tags:
+  - conferences
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: "body"
+    name: body
+    description: "Conference to update"
+    required: true
+    schema:
+      $ref: "#/definitions/Conference"
+responses:
+  200:
+    description: Conference updated
+    schema:
+      $ref: '#/definitions/Conference'
+  404:
+    description: Conference does not exist
+  405:
+    description: Invalid input

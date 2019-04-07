@@ -1,0 +1,22 @@
+tags:
+  - teams
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    description: Team to update
+    required: true
+    schema:
+      $ref: "#/definitions/Team"
+responses:
+  200:
+    description: Team updated
+    schema:
+      $ref: '#/definitions/Team'
+  404:
+    description: Team does not exist
+  405:
+    description: Invalid input

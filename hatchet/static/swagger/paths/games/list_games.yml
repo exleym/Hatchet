@@ -1,0 +1,22 @@
+tags:
+  - games
+produces:
+  - application/json
+parameters:
+  - in: query
+    name: teamId
+    description: get games by team id
+    required: false
+  - in: query
+    name: divisionId
+    description: get games by division id
+  - in: query
+    name: conferenceId
+    description: get games by conference id
+responses:
+  200:
+    description: array of all games or games matching query params
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Game'
