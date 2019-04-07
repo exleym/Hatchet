@@ -1,0 +1,11 @@
+summary: list teams.
+description: "get all active teams"
+tags:
+  - teams
+responses:
+  200:
+    description: list of active teams
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Team"

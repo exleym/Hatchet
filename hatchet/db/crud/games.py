@@ -49,9 +49,7 @@ def remove_game_by_id(game_id: int):
 
 
 def make_participant(data):
-    print(f"creating participant from POST data: {data}")
     participant = participant_schema.load(data)
-    print(f"loaded data to participant object: {participant}")
     db.session.add(participant)
     db.session.commit()
     return participant

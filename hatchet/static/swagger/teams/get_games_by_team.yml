@@ -1,0 +1,21 @@
+summary: get games belonging to a team.
+description: "get a list of Games by a Team primary identifier"
+tags:
+  - teams
+  - games
+parameters:
+  - in: path
+    name: team_id
+    type: integer
+responses:
+  200:
+    description: Games belonging to a Team
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Game"
+  404:
+    description: team not found
+    schema:
+      $ref: "#/definitions/Error"
+

@@ -1,0 +1,18 @@
+summary: get conference by id.
+description: "get a Conference by its primary identifier"
+tags:
+  - conferences
+parameters:
+  - in: path
+    name: conference_id
+    type: integer
+responses:
+  200:
+    description: a conference object
+    schema:
+      $ref: "#/definitions/Conference"
+  404:
+    description: conference not found
+    schema:
+      $ref: "#/definitions/Error"
+

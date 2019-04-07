@@ -1,5 +1,5 @@
 from marshmallow import post_load
-from hatchet.extensions import ma
+from hatchet.extensions import ma, swag
 from hatchet.db.models import (
     Conference, Division, Game, GameParticipant, Stadium, Team
 )
@@ -16,6 +16,7 @@ class HatchetSchema(ma.Schema):
         return self._Model(**data)
 
 
+@swag.schema
 class ConferenceSchema(HatchetSchema):
     _Model = Conference
     id = ma.Int(dump_only=True)
@@ -27,6 +28,7 @@ class ConferenceSchema(HatchetSchema):
                            allow_none=True)
 
 
+@swag.schema
 class DivisionSchema(HatchetSchema):
     _Model = Division
     id = ma.Int(dump_only=True)
@@ -35,6 +37,7 @@ class DivisionSchema(HatchetSchema):
     fullName = ma.Str(attribute='full_name', dump_only=True)
 
 
+@swag.schema
 class StadiumSchema(HatchetSchema):
     _Model = Stadium
     id = ma.Int(dump_only=True)
@@ -45,6 +48,7 @@ class StadiumSchema(HatchetSchema):
     surface = ma.String(allow_none=True)
 
 
+@swag.schema
 class TeamSchema(HatchetSchema):
     _Model = Team
     id = ma.Int(nullable=True)
@@ -56,6 +60,7 @@ class TeamSchema(HatchetSchema):
     stadiumId = ma.Int(attribute='stadium_id', allow_none=True)
 
 
+@swag.schema
 class GameParticipantSchema(HatchetSchema):
     _Model = GameParticipant
     id = ma.Int(nullable=True)
@@ -65,6 +70,7 @@ class GameParticipantSchema(HatchetSchema):
     score = ma.Int(nullable=True, validate=score_validator)
 
 
+@swag.schema
 class GameSchema(HatchetSchema):
     _Model = Game
     id = ma.Int(nullable=True)
@@ -77,10 +83,18 @@ class GameSchema(HatchetSchema):
     participants = ma.Nested(GameParticipantSchema, many=True)
 
 
+@swag.schema
+class ScoreSchema(HatchetSchema):
+    teamId = ma.Integer()
+    score = ma.Integer()
+
+@swag.schema
+class ErrorSchema(HatchetSchema):
+    code = ma.String()
+    name = ma.String()
+
+
 REGISTERED_SCHEMAS = [
     ConferenceSchema, DivisionSchema, StadiumSchema, TeamSchema, GameSchema,
     GameParticipantSchema
 ]
-
-# __all__ = [ConferenceSchema, DivisionSchema, StadiumSchema, TeamSchema,
-#            GameSchema]

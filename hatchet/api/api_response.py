@@ -31,6 +31,12 @@ class APIResponse(object):
         schema = Schema()
         return jsonify(schema.dump(data, many=dump_many)), code
 
+    def error(self, error):
+        errors = [error]
+        resp = {"errors": errors}
+        return jsonify(resp)
+
+
 
 # This is the Singleton APIResponse object that should be used throughout
 # the application.

@@ -1,0 +1,20 @@
+summary: create a new game.
+description: "use this endpoint to create a new game."
+tags:
+  - games
+parameters:
+  - in: body
+    name: game
+    type: object
+    schema:
+      $ref: "#/definitions/Game"
+responses:
+  201:
+    description: successfully created game
+    schema:
+      $ref: "#/definitions/Game"
+  400:
+    description: malformed request
+    schema:
+      $ref: "#/definitions/Error"
+
