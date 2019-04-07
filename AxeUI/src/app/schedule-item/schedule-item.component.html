@@ -1,4 +1,5 @@
 <div>
+  <span>{{game.kickoffTime | date}}: </span>
   <span *ngIf="referenceTeam">{{referenceTeam.shortName}} - {{referenceParticipant.score}}</span>
   <span *ngIf="referenceParticipant.locationTypeId === 2"> @ </span>
   <span *ngIf="referenceParticipant.locationTypeId !== 2"> vs </span>
