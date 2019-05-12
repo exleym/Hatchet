@@ -1,9 +1,12 @@
+import { Team } from './team';
+
+
 export class GameParticipant {
   id: number;
   gameId: number;
   locationTypeId: number;
   teamId: number;
-  teamName: string;
+  team: Team;
   score: number;
 
   constructor(data) {
@@ -11,7 +14,7 @@ export class GameParticipant {
     this.gameId = data.gameId;
     this.locationTypeId = data.locationTypeId;
     this.teamId = data.teamId;
-    this.teamName = data.teamName;
+    this.team = new Team(data.team);
     this.score = data.score;
   }
 

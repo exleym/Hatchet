@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 import logging
 from marshmallow import ValidationError
+from sqlite3 import OperationalError
 
 
 from hatchet import Environment
@@ -41,6 +42,7 @@ def register_extensions(app: Flask) -> None:
             populate_locations()
 
 
+
 def register_blueprints(app: Flask) -> None:
     app.register_blueprint(api, url_prefix='/api/v1')
 
@@ -49,16 +51,16 @@ def register_error_handlers(app: Flask) -> None:
 
     @app.errorhandler(MissingResourceException)
     def missing_resource(err):
-        return api_response.dump(errors=err), 404
+        return api_response.error(error=err), 404
 
     @app.errorhandler(ValidationError)
     def validation_error(err):
         app.logger.error(f"validation error: {err}")
-        return api_response.dump(errors=err), 422
+        return api_response.error(error=err), 422
 
     @app.errorhandler(404)
     def missing_route(err):
-        return api_response.dump(errors=Exception("Route not found")), 404
+        return api_response.error(error=Exception("Route not found")), 404
 
     # @app.errorhandler(Exception)
     # def generic_error_handler(err):

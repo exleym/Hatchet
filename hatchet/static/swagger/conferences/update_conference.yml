@@ -6,6 +6,10 @@ it will be discarded."
 tags:
   - conferences
 parameters:
+  - in: path
+    name: conference_id
+    type: integer
+    required: true
   - in: body
     name: conference
     type: object

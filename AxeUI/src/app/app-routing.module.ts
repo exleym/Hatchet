@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
-import { ConferencesComponent } from './components/conferences/conferences.component';
+import { ConferencesComponent } from './components/conferences/conference-master/conferences.component';
 import { DivisionsComponent } from './components/divisions/divisions.component';
-import { ConferenceDetailComponent } from './components/conference-detail/conference-detail.component';
+import { ConferenceDetailComponent } from './components/conferences/conference-detail/conference-detail.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 

@@ -38,7 +38,7 @@ def edit_team(team_id: int, team: dict):
     old_conf = list_teams(team_id=team_id)
     if not old_conf:
         raise MissingResourceException(f'No Team with id={team_id}')
-    team = team_schema.load_into(team, instance=old_conf)
+    team = team_schema.load(team, instance=old_conf)
     db.session.add(team)
     db.session.commit()
     return team

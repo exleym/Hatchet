@@ -29,6 +29,7 @@ export class TeamDetailComponent implements OnInit {
     this.getTeam();
     // this.setPageTitle();
     this.setGames();
+    console.log(this.games$);
   }
 
   getTeam(): void {

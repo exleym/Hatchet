@@ -6,6 +6,9 @@ it will be discarded."
 tags:
   - teams
 parameters:
+  - in: path
+    name: team_id
+    type: integer
   - in: body
     name: team
     type: object

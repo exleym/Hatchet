@@ -1,100 +1,76 @@
-from marshmallow import post_load
 from hatchet.extensions import ma, swag
-from hatchet.db.models import (
-    Conference, Division, Game, GameParticipant, Stadium, Team
-)
 from hatchet.api.schemas.validators import (
     modern_datetime_validator, modern_year_validator, score_validator
 )
-
-
-class HatchetSchema(ma.Schema):
-    _Model = None
-
-    @post_load
-    def make_object(self, data):
-        return self._Model(**data)
+from marshmallow import fields, Schema
 
 
 @swag.schema
-class ConferenceSchema(HatchetSchema):
-    _Model = Conference
-    id = ma.Int(dump_only=True)
-    code = ma.Str()
-    name = ma.Str()
-    shortName = ma.Str(attribute='short_name', allow_none=True)
-    inceptionYear = ma.Int(attribute="inception_year",
-                           validate=modern_year_validator,
-                           allow_none=True)
+class ConferenceSchema(Schema):
+    id = fields.Integer(dump_only=True, allow_none=False)
+    code = fields.String()
+    name = fields.String()
+    shortName = fields.String(attribute="short_name")
+    inceptionYear = fields.String(
+        attribute="inception_year",
+        validate=modern_year_validator,
+        allow_none=True
+    )
 
 
 @swag.schema
-class DivisionSchema(HatchetSchema):
-    _Model = Division
-    id = ma.Int(dump_only=True)
-    conferenceId = ma.Int(attribute='conference_id')
-    name = ma.Str(allow_none=True)
-    fullName = ma.Str(attribute='full_name', dump_only=True)
+class DivisionSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    conferenceId = fields.Integer(attribute="conference_id")
+    name = fields.String(attribute="name", dump_only=True)
 
 
 @swag.schema
-class StadiumSchema(HatchetSchema):
-    _Model = Stadium
-    id = ma.Int(dump_only=True)
-    name = ma.Str()
-    nickname = ma.Str(allow_none=True)
-    built = ma.Int()
-    capacity = ma.Int()
-    surface = ma.String(allow_none=True)
+class StadiumSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    name = fields.String()
+    nickname = fields.String()
+    built = fields.Integer()
+    capacity = fields.Integer()
+    surface = fields.String()
 
 
 @swag.schema
-class TeamSchema(HatchetSchema):
-    _Model = Team
-    id = ma.Int(nullable=True)
-    name = ma.Str()
-    shortName = ma.Str(attribute='short_name', allow_none=True)
-    mascot = ma.Str()
-    conferenceId = ma.Int(attribute='conference_id', load_only=True)
-    divisionId = ma.Int(attribute='division_id')
-    stadiumId = ma.Int(attribute='stadium_id', allow_none=True)
+class TeamSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    name = fields.String()
+    shortName = fields.String(attribute='short_name', allow_none=True)
+    mascot = fields.String()
+    conferenceId = fields.Integer(attribute='conference_id', load_only=True)
+    divisionId = fields.Integer(attribute='division_id')
+    stadiumId = fields.Integer(attribute='stadium_id', allow_none=True)
 
 
 @swag.schema
-class GameParticipantSchema(HatchetSchema):
-    _Model = GameParticipant
-    id = ma.Int(nullable=True)
-    teamId = ma.Int(attribute='team_id')
-    gameId = ma.Int(attribute='game_id')
-    locationTypeId = ma.Int(attribute='location_type_id')
-    score = ma.Int(nullable=True, validate=score_validator)
+class GameParticipantSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    teamId = fields.Integer(attribute='team_id')
+    gameId = fields.Integer(attribute='game_id')
+    locationTypeId = fields.Integer(attribute='location_type_id')
+    score = fields.Integer(nullable=True, validate=score_validator)
 
 
 @swag.schema
-class GameSchema(HatchetSchema):
-    _Model = Game
-    id = ma.Int(nullable=True)
-    #date = ma.Date(attribute='date', dump_only=True, nullable=True)
-    kickoffTime = ma.DateTime(attribute='game_time',
+class GameSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    kickoffTime = fields.DateTime(attribute='game_time',
                               validate=modern_datetime_validator)
-    stadiumId = ma.Int(attribute='stadium_id')
-    espnId = ma.Int(attribute='espn_id')
-
-    participants = ma.Nested(GameParticipantSchema, many=True)
+    stadiumId = fields.Int(attribute='stadium_id')
+    espnId = fields.Int(attribute='espn_id')
+    participants: fields.Nested('GameParticipantSchema')
 
 
 @swag.schema
-class ScoreSchema(HatchetSchema):
-    teamId = ma.Integer()
-    score = ma.Integer()
+class ScoreSchema(ma.Schema):
+    teamId = fields.Integer(attribute="team_id")
+    score = fields.Integer()
 
 @swag.schema
-class ErrorSchema(HatchetSchema):
-    code = ma.String()
-    name = ma.String()
-
-
-REGISTERED_SCHEMAS = [
-    ConferenceSchema, DivisionSchema, StadiumSchema, TeamSchema, GameSchema,
-    GameParticipantSchema
-]
+class ErrorSchema(ma.Schema):
+    code = fields.String()
+    name = fields.String()

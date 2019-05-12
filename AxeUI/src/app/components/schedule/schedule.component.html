@@ -20,7 +20,13 @@
       <div class="card">
         <div class="card-header">
           <h3>
-            <span>{{team.shortName}} {{activeGame.participant(team.id).location()}} {{activeGame.opponent(team.id).teamName}}</span>
+            <span>
+              {{team.name}}
+              {{activeGame.participant(team.id).location()}}
+              <a id="selected-opponent" href="/teams/{{activeGame.opponent(team.id).team.id}}">
+                {{activeGame.opponent(team.id).team.name}}
+              </a>
+            </span>
             <span style="float:right;"><i class="material-icons">edit</i></span>
           </h3>
         </div>

@@ -9,6 +9,7 @@ export class Conference {
     this.id = data.id;
     this.code = data.code;
     this.name = data.name;
+    this.shortName = data.shortName;
     this.inceptionYear = data.inceptionYear;
   }
 }

@@ -1,4 +1,3 @@
-from flask import url_for
 from hatchet.extensions import db
 
 
@@ -159,4 +158,3 @@ class Play(db.Model):
     to_go = db.Column(db.Float)
     play_occurred = db.Column(db.Boolean)
     penalty_occurred = db.Column(db.Boolean)
-

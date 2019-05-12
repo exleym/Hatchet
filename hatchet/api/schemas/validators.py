@@ -16,6 +16,7 @@ def modern_datetime_validator(value):
 
 
 def modern_year_validator(value):
+    value = int(value)
     now = datetime.date.today().year
     return value > MODERNITY.year and value <= now
 

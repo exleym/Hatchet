@@ -37,6 +37,23 @@ export class ConferenceService {
       }));
   }
 
+  createConference(conference: Conference): Observable<Conference> {
+    const url = this.conferencesUrl;
+    return this._http.post<Conference>(url, conference)
+      .pipe(map(resp => new Conference(resp)));
+  }
+
+  updateConference(conference: Conference): Observable<Conference> {
+    const url = `${this.conferencesUrl}/${conference.id}`;
+    return this._http.put<Conference>(url, conference)
+      .pipe(map(resp => new Conference(resp)));
+  }
+
+  deleteConference(conference: Conference): Observable<any> {
+    const url = `${this.conferencesUrl}/${conference.id}`;
+    return this._http.delete<any>(url);
+  }
+
   _conferenceMembersUrl(id: number): string {
     return this.conferencesUrl + '/' + id + '/members';
   }
