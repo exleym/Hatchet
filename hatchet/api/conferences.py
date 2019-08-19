@@ -50,14 +50,14 @@ def get_conference_by_id(conference_id: int):
 @swag_from(swag_path("/get_conference_divisions.yml"))
 def get_conference_divisions(conference_id: int):
     conference = list_conferences(conference_id=conference_id)
-    return jsonify(div_schema.dump(conference.divisions)), 200
+    return jsonify(div_schema.dump(conference.divisions, many=True)), 200
 
 
 @api.route('/conferences/<int:conference_id>/members', methods=['GET'])
 @swag_from(swag_path("/get_conference_members.yml"))
 def get_conference_members(conference_id: int):
     conference = list_conferences(conference_id=conference_id)
-    return jsonify(team_schema.dump(conference.members)), 200
+    return jsonify(team_schema.dump(conference.members, many=True)), 200
 
 
 @api.route('/conferences/<int:conference_id>', methods=['PUT'])

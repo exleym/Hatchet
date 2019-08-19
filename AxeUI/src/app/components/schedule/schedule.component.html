@@ -24,7 +24,7 @@
               {{team.name}}
               {{activeGame.participant(team.id).location()}}
               <a id="selected-opponent" href="/teams/{{activeGame.opponent(team.id).team.id}}">
-                {{activeGame.opponent(team.id).team.name}}
+                {{activeGame.opponent(team.id).team.shortName}}
               </a>
             </span>
             <span style="float:right;"><i class="material-icons">edit</i></span>

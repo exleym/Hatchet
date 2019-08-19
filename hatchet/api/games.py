@@ -65,7 +65,7 @@ def delete_game(game_id: int):
 @swag_from(swag_path("/get_game_participants.yml"))
 def get_game_participants(game_id: int):
     game = list_games(game_id=game_id)
-    return jsonify(game_participant_schema.dump(game.participants)), 200
+    return jsonify(game_participant_schema.dump(game.participants, many=True)), 200
 
 
 @api.route('/games/<int:game_id>/participants', methods=['POST'])

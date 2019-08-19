@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 
 import {Team} from '../models/team';
@@ -12,8 +12,14 @@ import {Game} from '../models/game';
 })
 export class TeamService {
   teamsUrl = 'http://localhost:5000/api/v1/teams';
+  teams: Team[];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {
+    this.getTeams()
+      .subscribe((teams) => {
+        this.teams = teams;
+      });
+  }
 
   getTeams(): Observable<Team[]> {
     return this._http.get<Team[]>(this.teamsUrl)

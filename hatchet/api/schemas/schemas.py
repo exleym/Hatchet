@@ -53,6 +53,7 @@ class GameParticipantSchema(Schema):
     gameId = fields.Integer(attribute='game_id')
     locationTypeId = fields.Integer(attribute='location_type_id')
     score = fields.Integer(nullable=True, validate=score_validator)
+    team = fields.Nested('TeamSchema', many=False)
 
 
 @swag.schema
@@ -62,7 +63,7 @@ class GameSchema(Schema):
                               validate=modern_datetime_validator)
     stadiumId = fields.Int(attribute='stadium_id')
     espnId = fields.Int(attribute='espn_id')
-    participants: fields.Nested('GameParticipantSchema')
+    participants = fields.Nested('GameParticipantSchema', many=True)
 
 
 @swag.schema

@@ -1,5 +1,7 @@
 import { OnInit } from '@angular/core';
 import { GameParticipant } from './game-participant';
+import {Team} from './team';
+import { TeamService } from '../services/team.service';
 
 export class Game implements OnInit {
   id: number;

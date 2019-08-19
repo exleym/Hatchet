@@ -62,4 +62,4 @@ def delete_team(team_id: int):
 @swag_from(swag_path("/get_games_by_team.yml"))
 def get_games_by_team(team_id: int):
     team = list_teams(team_id=team_id)
-    return jsonify(game_schema.dump(team.games)), 200
+    return jsonify(game_schema.dump(team.games, many=True)), 200

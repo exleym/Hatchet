@@ -14,7 +14,11 @@ export class GameParticipant {
     this.gameId = data.gameId;
     this.locationTypeId = data.locationTypeId;
     this.teamId = data.teamId;
-    this.team = new Team(data.team);
+    if (data.team == null) {
+      this.team = null;
+    } else {
+      this.team = new Team(data.team);
+    }
     this.score = data.score;
   }
 

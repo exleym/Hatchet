@@ -3,7 +3,7 @@
   <span class="game-data">
     <span *ngIf="referenceParticipant.locationTypeId === 2">@</span>
     <span *ngIf="referenceParticipant.locationTypeId !== 2">vs</span>
-    <span *ngIf="opponent"> {{opponent.team.shortName}} </span>
+    <span *ngIf="opponent && opponent.team"> {{opponent.team.shortName}} </span>
   </span>
   <span class="game-outcome" *ngIf="opponent">
     <span [class.loser-badge]="opponent.score > referenceParticipant.score"
