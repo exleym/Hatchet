@@ -1,4 +1,4 @@
-from hatchet.extensions import ma, swag
+from hatchet.extensions import swag
 from hatchet.api.schemas.validators import (
     modern_datetime_validator, modern_year_validator, score_validator
 )
@@ -67,12 +67,12 @@ class GameSchema(Schema):
 
 
 @swag.schema
-class ScoreSchema(ma.Schema):
+class ScoreSchema(Schema):
     teamId = fields.Integer(attribute="team_id")
     score = fields.Integer()
 
 
 @swag.schema
-class ErrorSchema(ma.Schema):
+class ErrorSchema(Schema):
     code = fields.String()
     name = fields.String()

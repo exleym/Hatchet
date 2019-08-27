@@ -34,7 +34,6 @@ def configure_app(app: Flask, env: str) -> None:
 def register_extensions(app: Flask) -> None:
     db.init_app(app)
     cors.init_app(app)
-    ma.init_app(app)
     swag.init_app(app)
     if app.config.get('CREATE_SCHEMA'):
         with app.app_context():
