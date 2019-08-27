@@ -1,5 +1,13 @@
-from apispec.ext.marshmallow.swagger import schema2jsonschema
+from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
 from flasgger import Swagger, swag_from
+
+spec = APISpec(
+    title="Hatchet API",
+    version="0.0.1",
+    openapi_version="2.0",
+    plugins=[MarshmallowPlugin()]
+)
 
 
 class AutoSwag(Swagger):
@@ -16,8 +24,9 @@ class AutoSwag(Swagger):
         name = obj.__name__.replace("Schema", "")
         if not self.config.get("definitions"):
             self.config["definitions"] = {}
-        spec = schema2jsonschema(obj)
-        self.config.get("definitions").update({name: spec})
+        spec.components.schema(name, obj)
+        definition = spec.to_dict().get("definitions").get(name)
+        self.config.get("definitions").update({name: definition})
         return obj
 
     def view(self, path, filename=None):

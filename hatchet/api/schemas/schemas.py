@@ -71,6 +71,7 @@ class ScoreSchema(ma.Schema):
     teamId = fields.Integer(attribute="team_id")
     score = fields.Integer()
 
+
 @swag.schema
 class ErrorSchema(ma.Schema):
     code = fields.String()
