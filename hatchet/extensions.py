@@ -1,8 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
-from hatchet.autoswag import AutoSwag
+# from flask_cors import CORS
 
 db = SQLAlchemy()
-cors = CORS()
-swag = AutoSwag()
+# cors = CORS()
 

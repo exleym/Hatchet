@@ -1,18 +1,18 @@
-from flask import Blueprint, jsonify
-
-from hatchet.api.api_response import api_response
-
-api = Blueprint('api', __name__)
-
-
-@api.route('/status')
-def status():
-    status_package = {"status": "ok"}
-    return jsonify(status_package)
-
-
-from hatchet.api.conferences import *
-from hatchet.api.divisions import *
-from hatchet.api.games import *
-from hatchet.api.stadiums import *
-from hatchet.api.teams import *
+# from flask import Blueprint, jsonify
+#
+# from hatchet.resources.api_response import api_response
+#
+# api = Blueprint('resources', __name__)
+#
+#
+# @api.route('/status')
+# def status():
+#     status_package = {"status": "ok"}
+#     return jsonify(status_package)
+#
+#
+# from hatchet.resources.conferences_old import *
+# from hatchet.resources.divisions import *
+# from hatchet.resources.games import *
+# from hatchet.resources.stadiums import *
+# from hatchet.resources.teams import *

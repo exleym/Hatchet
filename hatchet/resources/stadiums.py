@@ -1,6 +1,6 @@
 from flask import jsonify, request
 
-from hatchet.api import api, api_response
+from hatchet.resources import api, api_response
 from hatchet.extensions import swag
 import hatchet.db.crud.stadiums as query
 

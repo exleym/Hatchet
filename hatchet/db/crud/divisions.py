@@ -2,15 +2,12 @@ from typing import List, Union
 
 from hatchet.extensions import db
 from hatchet.errors import MissingResourceException
-from hatchet.api.schemas import DivisionSchema
 from hatchet.db.models import Division
 
 
-division_schema = DivisionSchema()
-
 
 def persist_division(division: dict) -> Division:
-    division = division_schema.load(division, many=False)
+    division = Division(**division)
     db.session.add(division)
     db.session.commit()
     return division
@@ -30,11 +27,13 @@ def search_divisions(filters: List[dict]) -> List[Division]:
     return []
 
 
-def edit_division(division_id: int, division: dict):
-    old_division = list_divisions(division_id=division_id)
-    if not old_division:
+def edit_division(division_id: int, data: dict):
+    division = list_divisions(division_id=division_id)
+    if not division:
         raise MissingResourceException(f'No Division with id={division_id}')
-    division = division_schema.load_into(division, instance=old_division)
+    _ = data.pop("id", None)
+    for k, v in data.items():
+        setattr(division, k, v)
     db.session.add(division)
     db.session.commit()
     return division

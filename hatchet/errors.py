@@ -1,8 +1,8 @@
-from marshmallow import Schema, fields
-
-
-class ErrorSchema(Schema):
-    message = fields.String(attribute='messages')
+# from marshmallow import Schema, fields
+#
+#
+# class ErrorSchema(Schema):
+#     message = fields.String(attribute='messages')
 
 
 class ApplicationException(Exception):
@@ -27,3 +27,8 @@ class MissingResourceException(ApplicationException):
     def __init__(self, message=None, status_code=404, payload=None):
         message = message or "the resource you requested cannot be found"
         super().__init__(message, status_code, payload)
+
+
+def throw_mre(id: int, model_class):
+    msg = f"No {model_class.__name__} with id={id}"
+    raise MissingResourceException(msg)

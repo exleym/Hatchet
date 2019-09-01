@@ -6,7 +6,7 @@ from hatchet import Environment
 class Config(object):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SWAGGER_URL = '/api/v1/swagger'
+    SWAGGER_URL = '/resources/v1/swagger'
     OPENAPI_PATH = '/static/swagger/openapi.yml'
 
     @classmethod

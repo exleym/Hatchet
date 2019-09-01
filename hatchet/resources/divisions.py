@@ -1,9 +1,9 @@
 from flask import jsonify, request
 
-from hatchet.api import api
+from hatchet.resources import api
 from hatchet.extensions import swag
 import hatchet.db.crud.divisions as query
-from hatchet.api.schemas.schemas import (
+from hatchet.resources.schemas.schemas import (
     DivisionSchema,
     TeamSchema,
 )

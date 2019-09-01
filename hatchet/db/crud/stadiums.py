@@ -2,7 +2,7 @@ from typing import List, Union
 
 from hatchet.extensions import db
 from hatchet.errors import MissingResourceException
-from hatchet.api.schemas import StadiumSchema
+from hatchet.resources.schemas import StadiumSchema
 from hatchet.db.models import Stadium
 
 

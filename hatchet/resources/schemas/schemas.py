@@ -1,5 +1,5 @@
 from hatchet.extensions import swag
-from hatchet.api.schemas.validators import (
+from hatchet.resources.schemas.validators import (
     modern_datetime_validator, modern_year_validator, score_validator
 )
 from marshmallow import fields, Schema

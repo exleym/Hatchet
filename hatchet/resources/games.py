@@ -2,8 +2,8 @@ from flask import current_app, jsonify, request
 from flasgger import swag_from
 from marshmallow import ValidationError
 
-from hatchet.api import api
-from hatchet.api.schemas.schemas import (
+from hatchet.resources import api
+from hatchet.resources.schemas.schemas import (
     GameSchema,
     GameParticipantSchema,
 )

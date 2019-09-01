@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 from hatchet.extensions import db
 from hatchet.errors import MissingResourceException
-from hatchet.api.schemas import GameSchema, GameParticipantSchema
+from hatchet.resources.schemas import GameSchema, GameParticipantSchema
 from hatchet.db.models import Game, GameParticipant, Team
 
 

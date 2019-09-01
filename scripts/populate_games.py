@@ -5,7 +5,7 @@ logger = logging.getLogger(__name__)
 
 from hatchet import Environment
 from hatchet.db.models import Game
-from hatchet.api.schemas import GameSchema, GameParticipantSchema, TeamSchema
+from hatchet.resources.schemas import GameSchema, GameParticipantSchema, TeamSchema
 from hatchet.util import load_csv
 
 
