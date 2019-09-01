@@ -34,7 +34,7 @@ def edit_stadium(stadium_id: int, stadium: dict):
     old_conf = list_stadiums(stadium_id=stadium_id)
     if not old_conf:
         raise MissingResourceException(f'No Stadium with id={stadium_id}')
-    stadium = stadium_schema.load_into(stadium, instance=old_conf)
+    stadium = stadium_schema.load(stadium, instance=old_conf)
     db.session.add(stadium)
     db.session.commit()
     return stadium
