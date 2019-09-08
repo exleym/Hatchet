@@ -6,7 +6,7 @@ from hatchet import Environment
 from hatchet.extensions import db
 from config import Config
 
-from . api_v1 import blueprint as api_v1
+from hatchet.apis.api_v1 import blueprint as api_v1
 
 
 def create_app(env='prd') -> Flask:
