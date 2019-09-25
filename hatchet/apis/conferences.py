@@ -5,6 +5,7 @@ import hatchet.db.crud.base as queries
 from hatchet.apis.serializers import conference, team
 
 
+ns = Namespace("conferences", description="conference related operations")
 
 
 @ns.route("/")
