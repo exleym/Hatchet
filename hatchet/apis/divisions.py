@@ -1,4 +1,4 @@
-from flask_restplus import Namespace, Resource, fields
+from flask_restplus import Namespace, Resource
 
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
@@ -22,7 +22,7 @@ class DivisionCollection(Resource):
     @ns.doc("create a new division")
     @ns.marshal_with(division)
     def post(self):
-        return queries.persist_resource(ns.payload, db.Division)
+        return queries.persist_resource(ns.payload, db.Conference)
 
 
 @ns.route("/<int:id>")
