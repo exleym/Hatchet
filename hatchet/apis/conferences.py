@@ -5,7 +5,6 @@ import hatchet.db.crud.base as queries
 from hatchet.apis.serializers import conference, team
 
 
-ns = Namespace("conferences", description="conference related operations")
 
 
 @ns.route("/")
@@ -45,10 +44,10 @@ class Conference(Resource):
 
 
 @ns.route("/<int:id>/teams")
-@ns.response(404, 'Conference not found')
-@ns.param('id', 'The conference identifier')
-class Conference(Resource):
-    @ns.doc("get teams belonging to a specific conference")
+@ns.param("id", "the conference identifier")
+class ConferenceTeams(Resource):
+    @ns.doc("get conference teams")
     @ns.marshal_with(team)
     def get(self, id: int):
-        return queries.get_resource(id, db.Team)
+        conf = queries.get_resource(id, db.Conference)
+        return conf.members

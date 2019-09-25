@@ -20,7 +20,7 @@ def list_resources(model: ModelType) -> List[db.Model]:
 
 
 def get_resource(id: int, model: ModelType) -> db.Model:
-    obj = model.filter_by(id=id).first()
+    obj = model.query.filter_by(id=id).first()
     if not obj:
         logger.error(f"error looking up {model.__name__} with id={id}")
         msg = f"No {model.__name__} with id={id}"
