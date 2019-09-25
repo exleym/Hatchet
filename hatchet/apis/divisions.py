@@ -1,54 +1,44 @@
-from flask_restplus import Namespace, Resource, fields
+from flask_restplus import Namespace, Resource
 
-from hatchet.db.crud.divisions import (
-    edit_division,
-    list_divisions,
-    persist_division,
-    remove_division_by_id
-)
-
-api = Namespace("divisions", description="division related operations")
+import hatchet.db.models as db
+import hatchet.db.crud.base as queries
+from hatchet.apis.serializers import division
 
 
-division = api.model("Division", {
-    "id": fields.Integer(),
-    "conferenceId": fields.Integer(attribute="conference_id"),
-    "name": fields.String(),
-    # "conference": fields.Nested("conference")
-})
+ns = Namespace("divisions", description="division related operations")
 
 
-@api.route("/")
+@ns.route("/")
 class DivisionCollection(Resource):
-    @api.doc('list divisions')
-    @api.marshal_with(division)
+    @ns.doc('list divisions')
+    @ns.marshal_with(division)
     def get(self):
-        return list_divisions()
+        return queries.list_resources(db.Division)
 
-    @api.expect(division)
-    @api.doc("create a new division")
-    @api.marshal_with(division)
+    @ns.expect(division)
+    @ns.doc("create a new division")
+    @ns.marshal_with(division)
     def post(self):
-        return persist_division(api.payload)
+        return queries.persist_resource(ns.payload, db.Conference)
 
 
-@api.route("/<int:id>")
-@api.response(404, 'Division not found')
-@api.param('id', 'The division identifier')
+@ns.route("/<int:id>")
+@ns.response(404, 'Division not found')
+@ns.param('id', 'The division identifier')
 class Division(Resource):
-    @api.doc("get division by id")
-    @api.marshal_with(division)
+    @ns.doc("get division by id")
+    @ns.marshal_with(division)
     def get(self, id: int):
-        return list_divisions(division_id=id)
+        return queries.get_resource(id, db.Division)
 
-    @api.expect(division)
-    @api.doc("update division")
-    @api.marshal_with(division)
+    @ns.expect(division)
+    @ns.doc("update division")
+    @ns.marshal_with(division)
     def put(self, id: int):
-        return edit_division(division_id=id, data=api.payload)
+        return queries.edit_resource(id, ns.payload, db.Division)
 
-    @api.doc("delete division")
-    @api.response(204, "division deleted")
+    @ns.doc("delete division")
+    @ns.response(204, "division deleted")
     def delete(self, id: int):
-        remove_division_by_id(id)
+        queries.remove_resource_by_id(id, db.Division)
         return ""
