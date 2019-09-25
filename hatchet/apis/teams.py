@@ -2,17 +2,20 @@ from flask_restplus import Namespace, Resource, fields
 
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
-from hatchet.apis.serializers import team
+from hatchet.apis.serializers import team, game, player
+from hatchet.util import default_list_parser
 
 
 ns = Namespace("teams", description="team related operations")
+parser = default_list_parser(namespace=ns)
 
 
 @ns.route("/")
 class TeamCollection(Resource):
-    @ns.doc('list teams')
+    @ns.doc('list teams', parser=parser)
     @ns.marshal_with(team)
     def get(self):
+        args = parser.parse_args()
         return queries.list_resources(db.Team)
 
     @ns.expect(team)
@@ -44,11 +47,21 @@ class Team(Resource):
         return ""
 
 
-# @ns.route("/<int:id>/teams")
-# @ns.param("id", "the team identifier")
-# class TeamTeams(Resource):
-#     @ns.doc("get team teams")
-#     @ns.marshal_with(team)
-#     def get(self, id: int):
-#         conf = queries.get_resource(id, db.Team)
-#         return conf.members
+@ns.route("/<int:id>/games")
+@ns.param("id", "the team identifier")
+class TeamGames(Resource):
+    @ns.doc("get team games")
+    @ns.marshal_with(game)
+    def get(self, id: int):
+        team = queries.get_resource(id, db.Team)
+        return team.games
+
+
+@ns.route("/<int:id>/roster")
+@ns.param("id", "the team identifier")
+class TeamRoster(Resource):
+    @ns.doc("get a Team's roster")
+    @ns.marshal_with(player)
+    def get(self, id: int):
+        team = queries.get_resource(id, db.Team)
+        return team.roster(year=2018)

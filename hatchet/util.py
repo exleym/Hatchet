@@ -1,6 +1,28 @@
 import csv
+from flask_restplus import Namespace
+from flask_restplus.reqparse import RequestParser
 import json
 from typing import List, Union
+
+
+def default_list_parser(namespace: Namespace) -> RequestParser:
+    parser = namespace.parser()
+    parser.add_argument(
+        "limit",
+        type=int,
+        required=False,
+        help="number of items to include in response",
+        location="args"
+    )
+    parser.add_argument(
+        "offset",
+        type=int,
+        required=False,
+        help="number of items to offset from the start of response",
+        location="args"
+    )
+    return parser
+
 
 
 def load_json(file: str):

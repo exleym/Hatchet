@@ -11,7 +11,7 @@ import {Game} from '../models/game';
   providedIn: 'root'
 })
 export class TeamService {
-  teamsUrl = 'http://localhost:5000/api/v1/teams';
+  teamsUrl = 'http://localhost:5000/api/v1/teams/';
   teams: Team[];
 
   constructor(private _http: HttpClient) {
@@ -31,14 +31,14 @@ export class TeamService {
   }
 
   getTeam(id: number): Observable<Team> {
-    return this._http.get<Team>(this.teamsUrl + '/' + id)
+    return this._http.get<Team>(this.teamsUrl + id)
       .pipe(map(result => {
         return new Team(result);
       }));
   }
 
   getTeamGames(teamId: number): Observable<Game[]> {
-    return this._http.get<any>(this.teamsUrl + '/' + teamId + '/games')
+    return this._http.get<any>(this.teamsUrl + teamId + '/games')
       .pipe(map(result => {
         return result.map(item => {
           return new Game(item);

@@ -3,22 +3,19 @@ from flask_restplus import Namespace, Resource, fields
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
 from hatchet.apis.serializers import division
+from hatchet.util import default_list_parser
 
-from hatchet.db.crud.divisions import (
-    edit_division,
-    list_divisions,
-    persist_division,
-    remove_division_by_id
-)
 
 ns = Namespace("divisions", description="division related operations")
+parser = default_list_parser(namespace=ns)
 
 
 @ns.route("/")
 class DivisionCollection(Resource):
-    @ns.doc('list divisions')
+    @ns.doc('list divisions', parser=parser)
     @ns.marshal_with(division)
     def get(self):
+        args = parser.parse_args()
         return queries.list_resources(db.Division)
 
     @ns.expect(division)

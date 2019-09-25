@@ -2,17 +2,20 @@ from flask_restplus import Namespace, Resource, fields
 
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
-from hatchet.apis.serializers import game
+from hatchet.apis.serializers import game, play
+from hatchet.util import default_list_parser
 
 
 ns = Namespace("games", description="game related operations")
+parser = default_list_parser(namespace=ns)
 
 
 @ns.route("/")
 class GameCollection(Resource):
-    @ns.doc('list games')
+    @ns.doc('list games', parser=parser)
     @ns.marshal_with(game)
     def get(self):
+        args = parser.parse_args()
         return queries.list_resources(db.Game)
 
     @ns.expect(game)
@@ -44,11 +47,11 @@ class Game(Resource):
         return ""
 
 
-# @ns.route("/<int:id>/games")
-# @ns.param("id", "the game identifier")
-# class GameGames(Resource):
-#     @ns.doc("get game games")
-#     @ns.marshal_with(game)
-#     def get(self, id: int):
-#         conf = queries.get_resource(id, db.Game)
-#         return conf.members
+@ns.route("/<int:id>/plays")
+@ns.param("id", "the game identifier")
+class GamePlays(Resource):
+    @ns.doc("get plays in a game")
+    @ns.marshal_with(play)
+    def get(self, id: int):
+        game = queries.get_resource(id, db.Game)
+        return game.plays

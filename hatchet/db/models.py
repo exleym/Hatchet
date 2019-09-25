@@ -80,20 +80,22 @@ class Game(db.Model):
     @property
     def winner(self):
         max_score = 0
+        max_scorer = None
         for p in self.participants:
             if p.score and p.score > max_score:
                 max_score = p.score
-        for p in self.participants:
-            if p.score == max_score:
-                return p
-        return None
+                max_scorer = p
+        return max_scorer
 
     @property
     def loser(self):
-        if self.home_team_score < self.away_team_score:
-            return self.home_team
-        return self.away_team
-
+        min_score = 9999
+        min_scorer = None
+        for p in self.participants:
+            if p.score and p.score < min_score:
+                min_score = p.score
+                min_scorer = p
+        return min_scorer
     def __repr__(self):
         return f"<Game(id={self.id})>"
 
@@ -151,6 +153,7 @@ class LocationType(db.Model):
 
 class Play(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    quarter = db.Column(db.Integer)
     play_number = db.Column(db.Integer)
     game_clock = db.Column(db.Time)
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
@@ -158,3 +161,27 @@ class Play(db.Model):
     to_go = db.Column(db.Float)
     play_occurred = db.Column(db.Boolean)
     penalty_occurred = db.Column(db.Boolean)
+
+    game = db.relationship("Game", backref="plays")
+
+
+class Coach(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(64))
+    dob = db.Column(db.Date, nullable=True)
+
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+class Player(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(64))
+    dob = db.Column(db.Date, nullable=True)
+
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name}"

@@ -11,6 +11,22 @@ conference = api.model("Conference", {
 })
 
 
+coach = api.model("Coach", {
+    "id": fields.Integer(),
+    "firstName": fields.String(attribute="first_name"),
+    "lastName": fields.String(attribute="last_name"),
+    "dateOfBirth": fields.Date(attribute="dob")
+})
+
+
+player = api.model("Coach", {
+    "id": fields.Integer(),
+    "firstName": fields.String(attribute="first_name"),
+    "lastName": fields.String(attribute="last_name"),
+    "dateOfBirth": fields.Date(attribute="dob")
+})
+
+
 stadium = api.model("Stadium", {
     "id": fields.Integer(),
     "name": fields.String(),
@@ -55,5 +71,19 @@ game = api.model("Game", {
     "kickoffTime": fields.DateTime(attribute="game_time"),
     "stadiumId": fields.Integer(),
     "espnId": fields.Integer(),
-    "participants": fields.Nested(game_participant, skip_none=True)
+    "participants": fields.Nested(game_participant, skip_none=True),
+    "winner": fields.Nested(game_participant, skip_none=True)
+})
+
+
+play = api.model("Play", {
+    "id": fields.Integer(),
+    "quarter": fields.Integer(),
+    "playNumber": fields.Integer(attribute="play_number"),
+    "gameClock": fields.String(attribute="game_clock"),
+    "gameId": fields.Integer(attribute="game_id"),
+    "down": fields.Integer(),
+    "toGo": fields.Float(attribute="to_go"),
+    "playOccurred": fields.Boolean(attribute="play_occurred"),
+    "penaltyOccurred": fields.Boolean(attribute="penalty_occurred")
 })

@@ -3,16 +3,19 @@ from flask_restplus import Namespace, Resource, fields
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
 from hatchet.apis.serializers import conference, team
+from hatchet.util import default_list_parser
 
 
 ns = Namespace("conferences", description="conference related operations")
+parser = default_list_parser(namespace=ns)
 
 
 @ns.route("/")
 class ConferenceCollection(Resource):
-    @ns.doc('list conferences')
+    @ns.doc('list conferences', parser=parser)
     @ns.marshal_with(conference)
     def get(self):
+        args = parser.parse_args()
         return queries.list_resources(db.Conference)
 
     @ns.expect(conference)

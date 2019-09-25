@@ -10,7 +10,7 @@ import { Team } from '../models/team';
   providedIn: 'root'
 })
 export class ConferenceService {
-  conferencesUrl = 'http://localhost:5000/api/v1/conferences';
+  conferencesUrl = 'http://localhost:5000/api/v1/conferences/';
 
   constructor(private _http: HttpClient) { }
 
@@ -24,7 +24,7 @@ export class ConferenceService {
   }
 
   getConference(id: number): Observable<Conference> {
-    return this._http.get<Conference>(this.conferencesUrl + '/' + id)
+    return this._http.get<Conference>(this.conferencesUrl + id)
       .pipe(map(result => {
         return new Conference(result);
       }));
@@ -44,18 +44,18 @@ export class ConferenceService {
   }
 
   updateConference(conference: Conference): Observable<Conference> {
-    const url = `${this.conferencesUrl}/${conference.id}`;
+    const url = `${this.conferencesUrl}${conference.id}`;
     return this._http.put<Conference>(url, conference)
       .pipe(map(resp => new Conference(resp)));
   }
 
   deleteConference(conference: Conference): Observable<any> {
-    const url = `${this.conferencesUrl}/${conference.id}`;
+    const url = `${this.conferencesUrl}${conference.id}`;
     return this._http.delete<any>(url);
   }
 
   _conferenceMembersUrl(id: number): string {
-    return this.conferencesUrl + '/' + id + '/members';
+    return this.conferencesUrl + id + '/members';
   }
 
 }
