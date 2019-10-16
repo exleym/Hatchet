@@ -59,3 +59,12 @@ def load_csv(file: str, headers=False) -> List[dict]:
     with open(file, 'r', newline='', encoding='utf-8-sig') as fp:
         reader = csv.reader(fp, delimiter=',')
         return [x for x in reader]
+
+
+def validate_xor(**kwargs):
+    try:
+        assert sum(x is not None for x in kwargs.values()) == 1
+    except AssertionError:
+        raise ValueError(
+            f"one and only one of {kwargs.values()} must be non null"
+        )

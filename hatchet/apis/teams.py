@@ -1,4 +1,5 @@
 from flask_restplus import Namespace, Resource, fields
+import logging
 
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
@@ -6,11 +7,12 @@ from hatchet.apis.serializers import team, game, player
 from hatchet.util import default_list_parser
 
 
+logger = logging.getLogger(__name__)
 ns = Namespace("teams", description="team related operations")
 parser = default_list_parser(namespace=ns)
 
 
-@ns.route("/")
+@ns.route("")
 class TeamCollection(Resource):
     @ns.doc('list teams', parser=parser)
     @ns.marshal_with(team)

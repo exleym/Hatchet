@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
+from flask_cors import CORS
 import logging
 
 
@@ -7,6 +8,7 @@ from hatchet.extensions import db
 from config import Config
 
 from hatchet.apis.api_v1 import blueprint as api_v1
+from hatchet.db.seed_data import insert_seed_data
 
 
 def create_app(env='prd') -> Flask:
@@ -16,6 +18,7 @@ def create_app(env='prd') -> Flask:
     register_extensions(app)
     register_error_handlers(app)
     register_blueprints(app)
+    add_special_routes(app)
     return app
 
 
@@ -32,9 +35,17 @@ def register_blueprints(app: Flask):
 
 def register_extensions(app: Flask) -> None:
     db.init_app(app)
+    CORS(app)
     if app.config.get('CREATE_SCHEMA'):
         with app.app_context():
             db.create_all()
+            insert_seed_data()
+
+
+def add_special_routes(app: Flask):
+    @app.route("/swagger")
+    def swagger():
+        return redirect("/api/v1")
 
 
 def register_error_handlers(app: Flask) -> None:

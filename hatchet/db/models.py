@@ -8,6 +8,35 @@ team_stadium_association = db.Table(
 )
 
 
+class Subdivision(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(8))
+    name = db.Column(db.String(32))
+    division = db.Column(db.Integer)
+
+    @property
+    def teams(self):
+        _teams = []
+        for c in self.conferences:
+            _teams += c.members
+        return _teams
+
+    def __repr__(self):
+        return f"<Subdivision(id={self.id}, code='{self.code}')>"
+
+
+class Surface(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(16))
+    name = db.Column(db.String(128))
+    category = db.Column(db.String(8))
+
+    def __repr__(self):
+        return f"<Surface(id={self.id}, code='{self.code}', " \
+               f"name='{self.name}')>"
+
+
+
 class GameParticipant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     team_id = db.Column(db.Integer, db.ForeignKey('team.id'))
@@ -22,10 +51,13 @@ class GameParticipant(db.Model):
 
 class Conference(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    subdivision_id = db.Column(db.Integer, db.ForeignKey("subdivision.id"))
     code = db.Column(db.String(8), unique=True, nullable=False)
     name = db.Column(db.String(256), unique=True, nullable=False)
     short_name = db.Column(db.String(32), unique=True, nullable=True)
     inception_year = db.Column(db.Integer)
+
+    subdivision = db.relationship("Subdivision", backref="conferences")
 
     @property
     def links(self):
@@ -33,7 +65,7 @@ class Conference(db.Model):
 
     def __repr__(self):
         return f"<Conference(id={self.id}, code='{self.code}'," \
-               f" name='{self.name})>"
+               f" name='{self.name}, short_name='{self.short_name}')>"
 
 
 class Division(db.Model):
@@ -102,18 +134,27 @@ class Game(db.Model):
 
 class Stadium(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(16))
     name = db.Column(db.String(128))
-    nickname = db.Column(db.String(64))
+    state = db.Column(db.String(2))
+    city = db.Column(db.String(64))
+    latitude = db.Column(db.String(16))
+    longitude = db.Column(db.String(16))
     built = db.Column(db.Integer)
     capacity = db.Column(db.Integer)
-    surface = db.Column(db.String(128))
+    surface_id = db.Column(
+        db.Integer,
+        db.ForeignKey("surface.id")
+    )
+
+    surface = db.relationship("Surface", backref="stadiums")
 
     def __repr__(self):
-        return f"<Stadium(id={self.id}, name='{self.name}', " \
-               f"nickname='{self.nickname}')>"
+        return f"<Stadium(id={self.id}, name='{self.name}')>"
 
 class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(8), unique=True)
     name = db.Column(db.String(128), unique=True, nullable=False)
     short_name = db.Column(db.String(64), nullable=True)
     mascot = db.Column(db.String(128), nullable=False)
@@ -140,7 +181,7 @@ class Team(db.Model):
 
     def __repr__(self):
         return f"<Team(id={self.id}, name='{self.name}', " \
-               f"mascot='{self.mascot}')>"
+               f"mascot='{self.mascot}', code='{self.code}')>"
 
 
 class LocationType(db.Model):

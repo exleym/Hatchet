@@ -1,4 +1,5 @@
 from flask_restplus import Namespace, Resource, fields
+import logging
 
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
@@ -6,11 +7,12 @@ from hatchet.apis.serializers import conference, team
 from hatchet.util import default_list_parser
 
 
+logger = logging.getLogger(__name__)
 ns = Namespace("conferences", description="conference related operations")
 parser = default_list_parser(namespace=ns)
 
 
-@ns.route("/")
+@ns.route("")
 class ConferenceCollection(Resource):
     @ns.doc('list conferences', parser=parser)
     @ns.marshal_with(conference)
@@ -22,12 +24,12 @@ class ConferenceCollection(Resource):
     @ns.doc("create a new conference")
     @ns.marshal_with(conference)
     def post(self):
-        return queries.persist_resource(ns.payload, db.Conference)
+        conf = conference.load(ns.payload)
+        return queries.persist_resource(conf, db.Conference)
 
 
-@ns.route("/<int:id>")
+@ns.route("/<int:id>", doc={"params": {"id": "conference id"}})
 @ns.response(404, 'Conference not found')
-@ns.param('id', 'The conference identifier')
 class Conference(Resource):
     @ns.doc("get conference by id")
     @ns.marshal_with(conference)
@@ -38,6 +40,9 @@ class Conference(Resource):
     @ns.doc("update conference")
     @ns.marshal_with(conference)
     def put(self, id: int):
+        logger.info(ns.payload)
+        conf = conference.load(ns.payload)
+        logger.info(conf)
         return queries.edit_resource(id, ns.payload, db.Conference)
 
     @ns.doc("delete conference")

@@ -23,9 +23,9 @@ class DevelopmentConfig(Config):
     RESTART_ON_CHANGE = True
     ENV = Environment.DEV0
     DEBUG = True
-    CREATE_SCHEMA = False
-    SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.getcwd()}/data.sqlite'
-    #SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    CREATE_SCHEMA = True
+    #SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.getcwd()}/data.sqlite'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 
 
 class ProductionConfig(Config):

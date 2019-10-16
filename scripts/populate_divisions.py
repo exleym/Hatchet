@@ -3,8 +3,8 @@ from hatchet.util import load_csv
 
 
 DIVISION_PATH = '../hatchet/static/seeds/divisions.csv'
-UPLOAD_URL = 'http://localhost:5000/api/v1/divisions'
-CONFERENCE_URL = 'http://localhost:5000/api/v1/conferences'
+UPLOAD_URL = 'http://localhost:5000/api/v1/divisions/'
+CONFERENCE_URL = 'http://localhost:5000/api/v1/conferences/'
 
 def main():
     raw_data = load_csv(DIVISION_PATH, headers=True)

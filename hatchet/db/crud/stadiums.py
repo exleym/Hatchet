@@ -2,15 +2,10 @@ from typing import List, Union
 
 from hatchet.extensions import db
 from hatchet.errors import MissingResourceException
-from hatchet.resources.schemas import StadiumSchema
 from hatchet.db.models import Stadium
 
 
-stadium_schema = StadiumSchema()
-
-
 def persist_stadium(stadium: dict) -> Stadium:
-    stadium = stadium_schema.load(stadium, many=False)
     db.session.add(stadium)
     db.session.commit()
     return stadium
@@ -34,7 +29,6 @@ def edit_stadium(stadium_id: int, stadium: dict):
     old_conf = list_stadiums(stadium_id=stadium_id)
     if not old_conf:
         raise MissingResourceException(f'No Stadium with id={stadium_id}')
-    stadium = stadium_schema.load_into(stadium, instance=old_conf)
     db.session.add(stadium)
     db.session.commit()
     return stadium

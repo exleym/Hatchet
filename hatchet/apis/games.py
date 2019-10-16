@@ -10,7 +10,7 @@ ns = Namespace("games", description="game related operations")
 parser = default_list_parser(namespace=ns)
 
 
-@ns.route("/")
+@ns.route("")
 class GameCollection(Resource):
     @ns.doc('list games', parser=parser)
     @ns.marshal_with(game)

@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 WIKI_URL = "https://en.wikipedia.org/wiki/List_of_NCAA_Division_I_FBS_football_stadiums"
-CREATE_STADIUM_URL = "http://localhost:5000/api/v1/stadiums"
+CREATE_STADIUM_URL = "http://localhost:5000/api/v1/stadiums/"
 COLUMNS = ['image', 'name', 'city', 'state', 'team', 'conference', 'capacity', 'record',
            'built', 'expanded', 'surface']
 
