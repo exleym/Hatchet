@@ -6,7 +6,7 @@ conference = api.model("Conference", {
     "id": fields.Integer(),
     "code": fields.String(),
     "name": fields.String(),
-    "shortName": fields.String(),
+    "shortName": fields.String(attribute="short_name"),
     "inceptionYear": fields.Integer(attribute="inception_year")
 })
 
@@ -86,4 +86,11 @@ play = api.model("Play", {
     "toGo": fields.Float(attribute="to_go"),
     "playOccurred": fields.Boolean(attribute="play_occurred"),
     "penaltyOccurred": fields.Boolean(attribute="penalty_occurred")
+})
+
+
+data_source = api.model("DataSource", {
+    "id": fields.Integer(),
+    "name": fields.String(max_length=128),
+    "url": fields.String(max_length=255)
 })
