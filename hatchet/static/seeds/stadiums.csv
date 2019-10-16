@@ -4,7 +4,7 @@ RAYJAY,Raymond James Stadium,FL,Tampa,27°58′33″N,82°30′12″W,1998,65618
 SPECTRUM,Spectrum Stadium,FL,Orlando,28.6091°N,81.1924°W,2007,44206,TIF-419
 LINC,Lincoln Financial Field,PA,Philadelphia,39°54′3″N,75°10′3″W,2003,69796,NB-BERMUDA
 DOWDY,Dowdy-Ficklen Stadium,NC,Greenville,35°35′47″N,77°21′55″W,1963,51000,TIF-419
-PRATT,Pratt & Whitney Stadium,CT,East Hartford,41°45′35″N,72°37′8″W,2003,3066,KENTUCKY
+PRATT,Pratt & Whitney Stadium,CT,East Hartford,41°45′35″N,72°37′8″W,2003,38066,KENTUCKY
 GJF,Gerald J. Ford Stadium,TX,Dallas,32°50′11.92″N,96°47′2.38″W,2000,32000,FIELD-TURF
 YULMAN,Yulman Stadium,LA,New Orleans,29°56′41″N,90°07′01″W,2014,30000,UBU
 NAVY,Navy-Marine Corps Memorial Stadium,MD,Annapolis,38.985°N,76.507°W,1959,34000,FIELD-TURF
@@ -63,4 +63,5 @@ ALAMO,Alamodome,TX,San Antonio,29°25′1″N,98°28′44″W,1993,64000,ASTRO-T
 APOGEE,Apogee Stadium,TX,Denton,33°12′13″N,97°9′34″W,2011,30850,SHAW
 RICE,Rice Stadium,TX,Houston,29°42′59″N,95°24′33″W,1950,47000,ASTRO-TURF
 SUN-BOWL,Sun Bowl,TX,El Paso,31.773°N,106.508°W,1963,51500,FIELD-TURF
-NOTRE-DAME,Notre Dame Stadium,Indiana,South Bend,41.698°N,86.234°W,1930,77622,TURF
+NOTRE-DAME,Notre Dame Stadium,IN,South Bend,41.698°N,86.234°W,1930,77622,TURF
+
