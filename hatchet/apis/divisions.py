@@ -10,7 +10,7 @@ ns = Namespace("divisions", description="division related operations")
 parser = default_list_parser(namespace=ns)
 
 
-@ns.route("/")
+@ns.route("")
 class DivisionCollection(Resource):
     @ns.doc('list divisions', parser=parser)
     @ns.marshal_with(division)

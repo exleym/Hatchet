@@ -2,13 +2,23 @@ from flask_restplus import fields
 from hatchet.apis.api_v1 import api
 
 
-conference = api.model("Conference", {
+subdivision = api.model("Subdivision", {
     "id": fields.Integer(),
     "code": fields.String(),
     "name": fields.String(),
-    "shortName": fields.String(attribute="short_name"),
-    "inceptionYear": fields.Integer(attribute="inception_year")
+    "division": fields.Integer()
 })
+
+
+conference = api.model("Conference", {
+    "id": fields.Integer(),
+    "subdivisionId": fields.Integer(attribute="subdivision_id"),
+    "code": fields.String(),
+    "name": fields.String(),
+    "shortName": fields.String(attribute="short_name"),
+    "inceptionYear": fields.Integer(attribute="inception_year"),
+    "subdivision": fields.Nested(model=subdivision)
+}, mask="{id,subdivisionId,code,name,shortName,inceptionYear}")
 
 
 coach = api.model("Coach", {
@@ -27,14 +37,27 @@ player = api.model("Coach", {
 })
 
 
+surface = api.model("Surface", {
+    "id": fields.Integer(),
+    "code": fields.String(),
+    "name": fields.String(),
+    "category": fields.String()
+})
+
+
 stadium = api.model("Stadium", {
     "id": fields.Integer(),
+    "code": fields.String(),
     "name": fields.String(),
-    "nickname": fields.String(),
+    "state": fields.String(),
+    "city": fields.String(),
+    "latitude": fields.String(),
+    "longitude": fields.String(),
     "built": fields.Integer(),
     "capacity": fields.Integer(),
-    "surface": fields.String()
-})
+    "surfaceId": fields.String(attribute="surface_id"),
+    "surface": fields.Nested(surface)
+}, mask="{surface{name},*}")
 
 
 division = api.model("Division", {
@@ -42,7 +65,7 @@ division = api.model("Division", {
     "conferenceId": fields.Integer(attribute="conference_id"),
     "name": fields.String(),
     "conference": fields.Nested(conference, skip_none=True)
-})
+}, mask="{id,conferenceId,name}")
 
 
 team = api.model("Team", {
@@ -52,8 +75,11 @@ team = api.model("Team", {
     "mascot": fields.String(),
     "conferenceId": fields.Integer(attribute="conference_id"),
     "divisionId": fields.Integer(attribute="division_id"),
-    "stadiumId": fields.Integer(attribute="stadium_id")
-})
+    "stadiumId": fields.Integer(attribute="stadium_id"),
+    "stadium": fields.Nested(stadium),
+    "conference": fields.Nested(conference),
+    "division": fields.Nested(division)
+},mask="{id,name,shortName,mascot,conferenceId,divisionId,stadiumId}")
 
 
 game_participant = api.model("GameParticipant", {

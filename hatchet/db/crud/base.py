@@ -4,6 +4,7 @@ from hatchet.extensions import db
 from hatchet.errors import MissingResourceException
 
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 ModelType = type(db.Model)
 
@@ -15,8 +16,13 @@ def persist_resource(data: dict, model: ModelType) -> db.Model:
     return obj
 
 
-def list_resources(model: ModelType) -> List[db.Model]:
-    return model.query.all()
+def list_resources(model: ModelType, **kwargs) -> List[db.Model]:
+    q = model.query
+    logger.info(kwargs)
+    for k, v in kwargs.items():
+        if v:
+            q = q.filter_by(**{k: v})
+    return q.all()
 
 
 def get_resource(id: int, model: ModelType) -> db.Model:
@@ -39,6 +45,7 @@ def edit_resource(id: int, data: dict, model: ModelType) -> db.Model:
         setattr(obj, k, v)
     db.session.add(obj)
     db.session.commit()
+    logger.info(f"updated {obj}...")
     return obj
 
 

@@ -10,9 +10,9 @@ from hatchet.util import load_csv
 
 
 GAMES_PATH = '../hatchet/static/seeds/games.csv'
-UPLOAD_URL = 'http://localhost:5000/api/v1/games'
-TEAM_URL = 'http://localhost:5000/api/v1/teams'
-PARTICIPANT_URL = 'http://localhost:5000/api/v1/games/{}/participants'
+UPLOAD_URL = 'http://localhost:5000/api/v1/games/'
+TEAM_URL = 'http://localhost:5000/api/v1/teams/'
+PARTICIPANT_URL = 'http://localhost:5000/api/v1/games/{}/participants/'
 
 
 game_schema = GameSchema()

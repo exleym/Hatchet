@@ -3,9 +3,9 @@ from hatchet.util import load_csv
 
 
 TEAM_PATH = '../hatchet/static/seeds/teams.csv'
-UPLOAD_URL = 'http://localhost:5000/api/v1/teams'
-CONFERENCE_URL = 'http://localhost:5000/api/v1/conferences'
-DIVISION_URL = 'http://localhost:5000/api/v1/divisions'
+UPLOAD_URL = 'http://localhost:5000/api/v1/teams/'
+CONFERENCE_URL = 'http://localhost:5000/api/v1/conferences/'
+DIVISION_URL = 'http://localhost:5000/api/v1/divisions/'
 
 def main():
     raw_data = load_csv(TEAM_PATH, headers=True)

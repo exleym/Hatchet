@@ -1,131 +1,257 @@
-﻿conference,division,name,shortName,mascot,stadiumId
-AAC,East,Cincinnati,Cincinnati,Bearcats,
-AAC,East,University of South Florida,USF,Bulls,
-AAC,East,University of Central Florida,UCF,Knights,
-AAC,East,Temple,Temple,Owls,
-AAC,East,East Carolina University,ECU,Pirates,
-AAC,East,University of Connecticut,UConn,Huskies,
-AAC,West,Southern Methodist University,SMU,Mustangs,
-AAC,West,Tulane,Tulane,Green Wave,
-AAC,West,US Naval Acadamy,Navy,Midshipmen,
-AAC,West,University of Houston,Houston,Cougars,
-AAC,West,University of Tulsa,Tulsa,Golden Hurricane,
-AAC,West,Memphis,Memphis,Tigers,
-ACC,Atlantic,Clemson University,Clemson,Tigers,
-ACC,Atlantic,Boston College,BC,Eagles,
-ACC,Atlantic,Syracuse,Syracuse,Orange,
-ACC,Atlantic,North Carolina State,NCSU,Wolfpack,
-ACC,Atlantic,Florida State University,FSU,Seminoles,
-ACC,Atlantic,Wake Forest,Wake,Deamon Deacons,
-ACC,Atlantic,Louisville,Louisville,Cardinals,
-ACC,Coastal,Georgia Tech,GT,Yellow Jackets,
-ACC,Coastal,Virginia Tech,VT,Hokies,
-ACC,Coastal,Pittsburgh,Pitt,Pathers,
-ACC,Coastal,University of Virginia,UVA,Cavaliers,
-ACC,Coastal,Miami,Miami,Hurricanes,
-ACC,Coastal,Duke,Duke,Blue Devils,
-ACC,Coastal,University of North Carolina,UNC,Tar Heels,
-Big12,,Oklahoma,Oklahoma,Sooners,
-Big12,,West Virginia,WVU,Mountaineers,
-Big12,,Texas Christian University,TCU,Horned Frogs,
-Big12,,Baylor University,Baylor,Bears,
-Big12,,Texas Tech,,Red Raiders,
-Big12,,Oklahome State,,Cowboys,
-Big12,,Iowa State,,Cyclones,
-Big12,,Kansas,Kansas,Jayhawks,
-Big12,,Kansas State,KSU,Wildcats,
-Big12,,Texas University,Texas,Longhorns,
-B1G,East,Ohio State University,Ohio State,Buckeyes,
-B1G,East,University of Michigan,Michigan,Wolverines,
-B1G,East,Michigan State,Michigan State,Spartans,
-B1G,East,Indiana,Indiana,Hoosiers,
-B1G,East,Rutgers,Rutgers,Scarlet Knights,
-B1G,East,Maryland,Maryland,Terrapins,
-B1G,East,Penn State,PSU,Nittany Lions,
-B1G,West,Northwestern,Northwestern,Wildcats,
-B1G,West,Wisconsin,Wisconsin,Badgers,
-B1G,West,Minnesota,Minnesota,Golden Gophers,
-B1G,West,Iowa,Iowa,Hawkeyes,
-B1G,West,Illinois,Illinois,Illini,
-B1G,West,Purdue,Purdue,Boilermakers,
-B1G,West,Nebraska,Nebraska,Cornhuskers,
-CUSA,East,Marshall,Marshall,Thundering Herd,
-CUSA,East,Florida International,FIU,Golden Panthers,
-CUSA,East,Middle Tennessee,MTSU,Blue Raiders,
-CUSA,East,Charlotte,Charlotte,49ers,
-CUSA,East,Florida Atlantic,FAU,Owls,
-CUSA,East,Western Kentucky,Western Kentucky,Hilltoppers,
-CUSA,East,Old Dominion,ODU,Monarchs,
-CUSA,West,Louisiana Tech,LA Tech,Bulldogs,
-CUSA,West,University of Alabama - Birmingham,UAB,Blazers,
-CUSA,West,Southern Mississippi,,Golden Eagles,
-CUSA,West,University of Texas - San Antonio,UTSA,Roadrunners,
-CUSA,West,North Texas,,Mean Green,
-CUSA,West,Rice,,Owls,
-CUSA,West,University of Texas - El Paso,UTEP,Miners,
-IND,,Notre Dame,,Fighting Irish,
-IND,,United States Military Academy,Army,Knights,
-IND,,Brigham Young University,BYU,Cougars,
-IND,,Liberty University,Liberty,Flames,
-IND,,University of Massachussetts,UMass,Minutemen,
-IND,,New Mexico State,,Aggies,
-MAC,East,Buffalo,,Bulls,
-MAC,East,Miami (OH),,RedHawks,
-MAC,East,Akron,,Zips,
-MAC,East,Ohio,,Bobcats,
-MAC,East,Bowling Green,,Falcons,
-MAC,East,Kent State,,Golden Flashes,
-MAC,West,Northern Illinois,,Huskies,
-MAC,West,Western Michigan,,Broncos,
-MAC,West,Ball State,,Cardinals,
-MAC,West,Toledo,,Rockets,
-MAC,West,Central Michigan,,Chippewas,
-MAC,West,Eastern Michigan,,Eagles,
-MWC,Mountain,Boise State,,Broncos,
-MWC,Mountain,Utah State,,Aggies,
-MWC,Mountain,New Mexico,,Lobos,
-MWC,Mountain,Wyoming,,Cowboys,
-MWC,Mountain,Colorado State,,Rams,
-MWC,Mountain,Air Force,,Falcons,
-MWC,West,Hawai'i,,Rainbow Warriors,
-MWC,West,Nevada,,Wolf Pack,
-MWC,West,San Diego State,,Aztecs,
-MWC,West,Fresno State,,Bulldogs,
-MWC,West,University of Nevada - Las Vegas,UNLV,Rebels,
-MWC,West,San Jose State,,Spartans,
-Pac12,North,Stanford,,Cadinal,
-Pac12,North,Washington,,Huskies,
-Pac12,North,Oregon,,Ducks,
-Pac12,North,Washington State,,Cougars,
-Pac12,North,California,,Golden Bears,
-Pac12,North,Oregon State,,Beavers,
-Pac12,South,Colorado,,Buffalos,
-Pac12,South,University of Southern California,USC,Trojans,
-Pac12,South,Arizona State,,Sun Devils,
-Pac12,South,Arizona,,Wildcats,
-Pac12,South,University of California - Los Angeles,UCLA,Bruins,
-Pac12,South,Utah,,Utes,
-SEC,East,Georgia,,Bulldogs,
-SEC,East,Kentucky,,Wildcats,
-SEC,East,Florida,,Gators,
-SEC,East,Missouri,Mizzou,Tigers,
-SEC,East,Vanderbilt,,Commodores,
-SEC,East,University of South Carolina,South Carolina,Gamecocks,
-SEC,East,University of Tennessee,,Volunteers,
-SEC,West,Auburn,,Tigers,
-SEC,West,Alabama,,Crimson Tide,
-SEC,West,Louisiana State University,LSU,Tigers,
-SEC,West,Texas A&M,TAMU,Aggies,
-SEC,West,Mississippi State,Miss St,Bulldogs,
-SEC,West,University of Mississippi,Ole Miss,Rebels,
-SEC,West,Arkansas,Arkansas,Razorbacks,
-SBLT,East,Troy,Troy,Trojans,
-SBLT,East,Appalachian State,App State,Mountaineers,
-SBLT,East,Georgia Southern,Georgia Southern,Eagles,
-SBLT,East,Georgia State,Georgia State,Panthers,
-SBLT,East,Coastal Carolina,Coastal Carolina,Chanticleers,
-SBLT,West,South Alabama,South Alabama,Jaguars,
-SBLT,West,Arkansas State,Arkansas State,Red Wolves,
-SBLT,West,University of Louisiana - Lafayette,ULL,Rajin' Cajuns,
-SBLT,West,Texas State University,Texas State,Bobcats,
-SBLT,West,University of Louisiana - Monroe,ULM,Warhawks,
+﻿conference,division,name,shortName,mascot,stadiumId,code
+AAC,East,University of Cincinnati,Cincinnati,Bearcats,NIPPERT,CINCI
+AAC,East,University of South Florida,South Florida,Bulls,RAYJAY,USF
+AAC,East,University of Central Florida,Central Florida,Knights,SPECTRUM,UCF
+AAC,East,Temple University,Temple,Owls,LINC,TEMPLE
+AAC,East,East Carolina University,East Carolina,Pirates,DOWDY,ECU
+AAC,East,University of Connecticut,UConn,Huskies,PRATT,UCONN
+AAC,West,Southern Methodist University,Southern Methodist,Mustangs,GJF,SMU
+AAC,West,Tulane,Tulane,Green Wave,YULMAN,TULN
+AAC,West,US Naval Acadamy,Navy,Midshipmen,NAVY,USNA
+AAC,West,University of Houston,Houston,Cougars,TDECU,UH
+AAC,West,University of Tulsa,Tulsa,Golden Hurricane,SKELLY,TLSA
+AAC,West,University of Memphis,Memphis,Tigers,LIB-BOWL,MPHS
+ACC,Atlantic,Clemson University,Clemson,Tigers,DV,CLEM
+ACC,Atlantic,Boston College,Boston College,Eagles,BC-ALUM,BC
+ACC,Atlantic,Syracuse,Syracuse,Orange,CDOME,SYR
+ACC,Atlantic,North Carolina State,NC State,Wolfpack,CRT-FIN,NCSU
+ACC,Atlantic,Florida State University,Florida State,Seminoles,DOAK,FSU
+ACC,Atlantic,Wake Forest,Wake,Deamon Deacons,BBT,WF
+ACC,Atlantic,Louisville,Louisville,Cardinals,CARDINAL,LOU
+ACC,Coastal,Georgia Tech,Georgia Tech,Yellow Jackets,BDODD,GT
+ACC,Coastal,Virginia Tech,Virginia Tech,Hokies,LANE,VT
+ACC,Coastal,University of Pittsburgh,Pittsburgh,Pathers,HEINZ,Pitt
+ACC,Coastal,University of Virginia,Virginia,Cavaliers,SCOTT,UVA
+ACC,Coastal,Miami,Miami,Hurricanes,HROK,MIA
+ACC,Coastal,Duke,Duke,Blue Devils,WWADE,DUK
+ACC,Coastal,University of North Carolina,North Carolina,Tar Heels,KENAN,UNC
+BIG12,,University of Oklahoma,Oklahoma,Sooners,GAY,OKLA
+BIG12,,West Virginia University,West Virginia,Mountaineers,MPS,WVU
+BIG12,,Texas Christian University,Texas Christian,Horned Frogs,ACRTR,TCU
+BIG12,,Baylor University,Baylor,Bears,MCLANE,BAYL
+BIG12,,Texas Tech University,Texas Tech,Red Raiders,JNZ-ATT,TXTEC
+BIG12,,Oklahoma State University,Oklahoma State,Cowboys,BOONE,OKST
+BIG12,,Iowa State University,Iowa State,Cyclones,TRICE,IAST
+BIG12,,University of Kansas,Kansas,Jayhawks,BOOTH,KAN
+BIG12,,Kansas State University,Kansas State,Wildcats,SNYDER,KSU
+BIG12,,Texas University,Texas,Longhorns,DKR,TEX
+BIG10,East,Ohio State University,Ohio State,Buckeyes,OHIO,OHST
+BIG10,East,University of Michigan,Michigan,Wolverines,BIGHOUSE,MICH
+BIG10,East,Michigan State University,Michigan State,Spartans,SPARTY,MIST
+BIG10,East,Indiana University Bloomington,Indiana,Hoosiers,IU-MEM,IU
+BIG10,East,Rutgers University,Rutgers,Scarlet Knights,SHI,RUT
+BIG10,East,University of Maryland,Maryland,Terrapins,MARYLAND,UMD
+BIG10,East,Pennsylvania State University,Penn State,Nittany Lions,BVR,PSU
+BIG10,West,Northwestern University,Northwestern,Wildcats,RYAN,NWST
+BIG10,West,University of Wisconsin,Wisconsin,Badgers,CMP-RNDL,WIS
+BIG10,West,University of Minnesota,Minnesota,Golden Gophers,TCFB,MINN
+BIG10,West,University of Iowa,Iowa,Hawkeyes,KNNCK,IOWA
+BIG10,West,University of Illinois,Illinois,Illini,ILL-MEM,ILL
+BIG10,West,Purdue,Purdue,Boilermakers,ROSS-ADE,PUR
+BIG10,West,University of Nebraska,Nebraska,Cornhuskers,NEB-MEM,NEB
+C-USA,East,Marshall,Marshall,Thundering Herd,JCE,MARSH
+C-USA,East,Florida International University,Florida Int'l,Golden Panthers,SILVA,FIU
+C-USA,East,Middle Tennessee State University,Middle Tennessee State,Blue Raiders,RED-FLOYD,MTSU
+C-USA,East,University of North Carolina at Charlotte,Charlotte,49ers,JERRY-R,CLT
+C-USA,East,Florida Atlantic University,Florida Atlantic,Owls,FAU,FAU
+C-USA,East,Western Kentucky,Western Kentucky,Hilltoppers,LTSMITH,WKY
+C-USA,East,Old Dominion University,Old Dominion,Monarchs,BALLARD,ODU
+C-USA,West,Louisiana Tech University,Louisiana Tech,Bulldogs,AILLET,LATEC
+C-USA,West,University of Alabama - Birmingham,UAB,Blazers,LEGION,UAB
+C-USA,West,University of Southern Mississippi,Southern Mississippi,Golden Eagles,MMROB,SOMS
+C-USA,West,University of Texas - San Antonio,Texas - San Antonio,Roadrunners,ALAMO,UTSA
+C-USA,West,University of North Texas,North Texas,Mean Green,APOGEE,UNTX
+C-USA,West,Rice University,Rice,Owls,RICE,RICE
+C-USA,West,University of Texas - El Paso,Texas - El Paso,Miners,SUN-BOWL,UTEP
+FBS-IND,,University of Notre Dame,Notre Dame,Fighting Irish,NOTRE-DAME,ND
+FBS-IND,,United States Military Academy,Army,Knights,,USMA
+FBS-IND,,Brigham Young University,BYU,Cougars,,BYU
+FBS-IND,,Liberty University,Liberty,Flames,,LIB
+FBS-IND,,University of Massachussetts,UMass,Minutemen,,UMASS
+FBS-IND,,New Mexico State University,New Mexico State,Aggies,,NMST
+MAC,East,SUNY - Buffalo,Buffalo,Bulls,,BUFF
+MAC,East,Miami (OH),,RedHawks,,MIAOH
+MAC,East,Akron,,Zips,,AKRN
+MAC,East,Ohio,,Bobcats,,OHIO
+MAC,East,Bowling Green,,Falcons,,
+MAC,East,Kent State,,Golden Flashes,,
+MAC,West,Northern Illinois,,Huskies,,
+MAC,West,Western Michigan,,Broncos,,
+MAC,West,Ball State,,Cardinals,,
+MAC,West,Toledo,,Rockets,,
+MAC,West,Central Michigan,,Chippewas,,
+MAC,West,Eastern Michigan,,Eagles,,
+MWC,Mountain,Boise State,,Broncos,,
+MWC,Mountain,Utah State,,Aggies,,
+MWC,Mountain,New Mexico,,Lobos,,
+MWC,Mountain,Wyoming,,Cowboys,,
+MWC,Mountain,Colorado State,,Rams,,
+MWC,Mountain,Air Force,,Falcons,,
+MWC,West,Hawai'i,,Rainbow Warriors,,
+MWC,West,Nevada,,Wolf Pack,,
+MWC,West,San Diego State,,Aztecs,,
+MWC,West,Fresno State,,Bulldogs,,
+MWC,West,University of Nevada - Las Vegas,UNLV,Rebels,,
+MWC,West,San Jose State,,Spartans,,
+PAC12,North,Stanford,,Cadinal,,
+PAC12,North,Washington,,Huskies,,
+PAC12,North,Oregon,,Ducks,,
+PAC12,North,Washington State,,Cougars,,
+PAC12,North,California,,Golden Bears,,
+PAC12,North,Oregon State,,Beavers,,
+PAC12,South,Colorado,,Buffalos,,
+PAC12,South,University of Southern California,USC,Trojans,,
+PAC12,South,Arizona State,,Sun Devils,,
+PAC12,South,Arizona,,Wildcats,,
+PAC12,South,University of California - Los Angeles,UCLA,Bruins,,
+PAC12,South,Utah,,Utes,,
+SEC,East,Georgia,,Bulldogs,,
+SEC,East,Kentucky,,Wildcats,,
+SEC,East,Florida,,Gators,,
+SEC,East,Missouri,Mizzou,Tigers,,
+SEC,East,Vanderbilt,,Commodores,,
+SEC,East,University of South Carolina,South Carolina,Gamecocks,,
+SEC,East,University of Tennessee,,Volunteers,,
+SEC,West,Auburn,,Tigers,,
+SEC,West,Alabama,,Crimson Tide,,
+SEC,West,Louisiana State University,LSU,Tigers,,
+SEC,West,Texas A&M,TAMU,Aggies,,
+SEC,West,Mississippi State,Miss St,Bulldogs,,
+SEC,West,University of Mississippi,Ole Miss,Rebels,,
+SEC,West,Arkansas,Arkansas,Razorbacks,,
+SBLT,East,Troy,Troy,Trojans,,
+SBLT,East,Appalachian State,App State,Mountaineers,,
+SBLT,East,Georgia Southern,Georgia Southern,Eagles,,
+SBLT,East,Georgia State,Georgia State,Panthers,,
+SBLT,East,Coastal Carolina,Coastal Carolina,Chanticleers,,
+SBLT,West,South Alabama,South Alabama,Jaguars,,
+SBLT,West,Arkansas State,Arkansas State,Red Wolves,,
+SBLT,West,University of Louisiana - Lafayette,ULL,Rajin' Cajuns,,
+SBLT,West,Texas State University,Texas State,Bobcats,,
+SBLT,West,University of Louisiana - Monroe,ULM,Warhawks,,
+BSKY,,University of Montana,Montana,Grizzlies,,
+BSKY,,California State University - Sacramento,Sacramento State, Hornets,,
+BSKY,,Weber State University,Weber State,Wildcats,,
+BSKY,,Idaho State University,Idaho State,Bengals,,
+BSKY,,Montana State University,Montana State,Bobcats,,
+BSKY,,Portland State University,Portland State,Vikings,,
+BSKY,,Eastern Washington University,Eastern Washington,Eagles,,
+BSKY,,Northern Arizona University,Northern Arizona,Lumberjacks,,
+BSKY,,"University of California, Davis",UC Davis,Aggies,,
+BSKY,,California Polytechnic Institute,Cal Poly,Mustangs,,
+BSKY,,Northern Colorado University,Northern Colorado,Bears,,
+BSKY,,University of Idaho,Idaho,Vandals,,
+BSKY,,University of Southern Utah,Southern Utah,Thunderbirds,,
+BIGSTH,,Kennesaw State University,Kennesaw State,Owls,,
+BIGSTH,,Campbell University,Campbell,Fighting Camels,,
+BIGSTH,,Monmouth University,Monmouth,Hawks,,
+BIGSTH,,Gardner-Webb University,Gardner-Webb,Bulldogs,,
+BIGSTH,,University of North Alabama,North Alabama,Lions,,
+BIGSTH,,Hampton University,Hampton,Pirates,,
+BIGSTH,,Charleston Southern University,Charleston Southern,Buccaneers,,
+BIGSTH,,Presbyterian College,Presbyterian College,Blue Hose,,
+CAA,,James Madison University,James Madison,Dukes,,
+CAA,,University of New Hampshire,New Hampshire,Wildcats,,
+CAA,,Villanova University,Villanova,Wildcats,,
+CAA,,Richmond University,Richmond,Spiders,,
+CAA,,Albany University,Albany,Great Danes,,
+CAA,,Elon University,Elon,Phoenix,,
+CAA,,University of Delaware,Delaware,Blue Hens,,
+CAA,,Stony Brook University,Stony Brook,Seawolves,,
+CAA,,Towson University,Towson,Tigers,,
+CAA,,William & Mary University,William & Mary,Tribe,,
+CAA,,University of Maine,Maine,Black Bears,,
+CAA,,University of Rhode Island,Rhode Island,Rams,,
+FCS-IND,,North Dakota University,North Dakota,Fighting Hawks,,
+FCS-IND,,Merrimack College,Merrimack,Warriors,,
+IVY,,Dartmouth University,Dartmouth,Big Green,,
+IVY,,Harvard University,Harvard,Crimson,,
+IVY,,Princeton University,Princeton,Tigers,,
+IVY,,Yale University,Yale,Bulldogs,,
+IVY,,University of Pennsylvania,Pennsylvania,Quakers,,
+IVY,,Brown University,Brown,Bears,,
+IVY,,Columbia University,Columbia,Lions,,
+IVY,,Cornell University,Cornell,Big Red,,
+MEAC,,Bethune-Cookman University,Bethune-Cookman,Wildcats,,
+MEAC,,Florida A&M University,Florida A&M,Rattlers,,
+MEAC,,North Carolina A&T University,North Carolina A&T,Aggies,,
+MEAC,,South Carolina State University,South Carolina State,Bulldogs,,
+MEAC,,Norfolk State University,Norfolk State,Spartans,,
+MEAC,,North Carolina Central University,NC Central,Eagles,,
+MEAC,,Morgan State University,Morgan State,Bears,,
+MEAC,,Howard University,Howard,Bison,,
+MEAC,,Delaware State University,Delaware State,Hornets,,
+MVC,,North Dakota State University,North Dakota Sate,Bison,,
+MVC,,South Dakota State University,South Dakota State,Jackrabbits,,
+MVC,,University of South Dakota,South Dakota,Coyotes,,
+MVC,,Illinois State University,Illinois State,Redbirds,,
+MVC,,Indiana State University,Indiana State,Sycamores,,
+MVC,,University of Northern Iowa,Northern Iowa,Panthers,,
+MVC,,Missouri State University,Missouri State,Bears,,
+MVC,,Youngstown State University,Youngstown State,Penguins,,
+MVC,,University of Southern Illinois,Southern Illinois,Salukis,,
+MVC,,University of Western Illinois,Western Illinois,Leathernecks,,
+NEC,,University of Central Connecticut,Central Connecticut,Blue Devils,,
+NEC,,Duquesne University,Duquesne,Dukes,,
+NEC,,Robert Morris University,Robert Morris,Colonials,,
+NEC,,Wagner University,Wagner,Seahawks,,
+NEC,,St. Francis University,St. Francis (PA),Red Flash,,
+NEC,,Sacred Heart University,Sacred Heart,Pioneers,,
+NEC,,Bryant University,Bryant,Bulldogs,,
+NEC,,Long Island University,Long Island,Sharks,,
+OVC,,University of Tennessee - Martin,UT Martin,Skyhawks,,
+OVC,,Austin Peay University,Austin Peay,Governors,,
+OVC,,Jacksonville State University,Jacksonville State,Gamecocks,,
+OVC,,Murray State University,Murray State,Racers,,
+OVC,,University of Eastern Kentucky,Eastern Kentucky,Colonels,,
+OVC,,Southern Missouri State University,Southern Missouri State,Redhawks,,
+OVC,,Tennessee Technical Institute (?),Tennessee Tech,Golden Eagles,,
+OVC,,Tennessee State University,Tennessee State,Tigers,,
+OVC,,University of Eastern Illinois,Eastern Illinois,Panthers,,
+PAT,,Holy Cross University,Holy Cross,Crusaders,,
+PAT,,Fordham University,Fordham,Rams,,
+PAT,,Lehigh University,Lehigh,Mountain Hawks,,
+PAT,,Bucknell University,Bucknell,Bison,,
+PAT,,Lafayette University,Lafayette,Leopards,,
+PAT,,Georgetown University,Georgetown,Hoyas,,
+PAT,,Colgate College,Colgate,Raiders,,
+PFL,,Drake University,Drake,Bulldogs,,
+PFL,,Dayton University,Dayton,Flyers,,
+PFL,,University of San Diego,San Diego,Toreros,,
+PFL,,Davidson University,Davidson,Wildcats,,
+PFL,,Stetson University,Stetson,Hatters,,
+PFL,,Morehead State University,Morehead State,Eagles,,
+PFL,,Marist University,Marist,Red Foxes,,
+PFL,,Jacksonville University,Jacksonville,Dolphins,,
+PFL,,Butler University,Butler,Bulldogs,,
+PFL,,Valparaiso State University,Valparaiso,Crusaders,,
+SOCON,,Furman University,Furman,Paladins,,
+SOCON,,University of Tennessee - Chattanooga,Chattanooga,Mocs,,
+SOCON,,Virginia Military Institute,VMI,Keydets,,
+SOCON,,Wofford University,Wofford,Terriers,,
+SOCON,,Samford University,Samford,Bulldogs,,
+SOCON,,The Citadel,The Citadel,Bulldogs,,
+SOCON,,Mercer University,Mercer,Bears,,
+SOCON,,East Tennessee State University,ETSU,Buccaneers,,
+SOCON,,Western Carolina University,Western Carolina,Catamounts,,
+SLC,,Nicholls University,Nicholls,Colonels,,
+SLC,,Sam Houston State University,Sam Houston State,Bearkats,,
+SLC,,Incarnate Word (?),Incarnate Word,Cardinals,,
+SLC,,University of Central Arkansas,Central Arkansas,Bears,,
+SLC,,University of Southeast Louisiana,Southeast Louisiana,Lions,,
+SLC,,Lamar University,Lamar,Cardinals,,
+SLC,,Abilene Christian University,Abilene Christian,Wildcats,,
+SLC,,Houston Baptist University,Houston Baptist,Huskies,,
+SLC,,Stephen F. Austin University,Stephen F. Austin,Lumberjacks,,
+SLC,,McNeese University,McNeese,Cowboys,,
+SLC,,Northwestern State University,Northwestern State,Demons,,
+SWAC,East,Alcorn State University,Alcorn State,Braves,,
+SWAC,East,Alabama State University,Alabama State,Hornets,,
+SWAC,East,Alabama A&M University,Alababa A&M,Bulldogs,,
+SWAC,East,Jackson State University,Jackson State,Tigers,,
+SWAC,East,Mississippi Valley State University,Mississippi Valley State,Delta Devils,,
+SWAC,West,Southern University,Southern,Jaguars,,
+SWAC,West,University of Arkansas - Pine Bluff, Arkansas - Pine Bluff,Golden Lions,,
+SWAC,West,Prairie View A&M University,Prairie View A&M,Panthers,,
+SWAC,West,Grambling State University,Grambling State,Tigers,,
+SWAC,West,Texas Southern University,Texas Southern,Tigers,,

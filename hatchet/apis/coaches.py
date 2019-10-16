@@ -11,7 +11,7 @@ ns = Namespace("coaches", description="coach related operations")
 parser = default_list_parser(namespace=ns)
 
 
-@ns.route("/")
+@ns.route("")
 class CoachCollection(Resource):
     @ns.doc('list coaches', parser=parser)
     @ns.marshal_with(coach)

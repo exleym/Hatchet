@@ -1,31 +1,29 @@
-from hatchet.extensions import swag
 from hatchet.resources.schemas.validators import (
     modern_datetime_validator, modern_year_validator, score_validator
 )
 from marshmallow import fields, Schema
 
 
-@swag.schema
 class ConferenceSchema(Schema):
     id = fields.Integer(dump_only=True, allow_none=False)
     code = fields.String()
     name = fields.String()
     shortName = fields.String(attribute="short_name")
+    subdivisionId = fields.Integer(attribute="subdivision_id")
     inceptionYear = fields.String(
         attribute="inception_year",
         validate=modern_year_validator,
         allow_none=True
     )
+    subdivision =fields.Nested("Subdivision")
 
 
-@swag.schema
 class DivisionSchema(Schema):
     id = fields.Integer(dump_only=True)
     conferenceId = fields.Integer(attribute="conference_id")
     name = fields.String(attribute="name", dump_only=True)
 
 
-@swag.schema
 class StadiumSchema(Schema):
     id = fields.Integer(dump_only=True)
     name = fields.String()
@@ -35,7 +33,6 @@ class StadiumSchema(Schema):
     surface = fields.String()
 
 
-@swag.schema
 class TeamSchema(Schema):
     id = fields.Integer(dump_only=True)
     name = fields.String()
@@ -46,7 +43,6 @@ class TeamSchema(Schema):
     stadiumId = fields.Integer(attribute='stadium_id', allow_none=True)
 
 
-@swag.schema
 class GameParticipantSchema(Schema):
     id = fields.Integer(dump_only=True)
     teamId = fields.Integer(attribute='team_id')
@@ -56,7 +52,6 @@ class GameParticipantSchema(Schema):
     team = fields.Nested('TeamSchema', many=False)
 
 
-@swag.schema
 class GameSchema(Schema):
     id = fields.Integer(dump_only=True)
     kickoffTime = fields.DateTime(attribute='game_time',
@@ -66,13 +61,11 @@ class GameSchema(Schema):
     participants = fields.Nested('GameParticipantSchema', many=True)
 
 
-@swag.schema
 class ScoreSchema(Schema):
     teamId = fields.Integer(attribute="team_id")
     score = fields.Integer()
 
 
-@swag.schema
 class ErrorSchema(Schema):
     code = fields.String()
     name = fields.String()
