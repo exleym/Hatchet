@@ -64,30 +64,30 @@ C-USA,West,University of North Texas,North Texas,Mean Green,APOGEE,UNTX
 C-USA,West,Rice University,Rice,Owls,RICE,RICE
 C-USA,West,University of Texas - El Paso,Texas - El Paso,Miners,SUN-BOWL,UTEP
 FBS-IND,,University of Notre Dame,Notre Dame,Fighting Irish,NOTRE-DAME,ND
-FBS-IND,,United States Military Academy,Army,Knights,,USMA
-FBS-IND,,Brigham Young University,BYU,Cougars,,BYU
-FBS-IND,,Liberty University,Liberty,Flames,,LIB
-FBS-IND,,University of Massachussetts,UMass,Minutemen,,UMASS
-FBS-IND,,New Mexico State University,New Mexico State,Aggies,,NMST
-MAC,East,SUNY - Buffalo,Buffalo,Bulls,,BUFF
-MAC,East,Miami (OH),,RedHawks,,MIAOH
-MAC,East,Akron,,Zips,,AKRN
-MAC,East,Ohio,,Bobcats,,OHIO
-MAC,East,Bowling Green,,Falcons,,
-MAC,East,Kent State,,Golden Flashes,,
-MAC,West,Northern Illinois,,Huskies,,
-MAC,West,Western Michigan,,Broncos,,
-MAC,West,Ball State,,Cardinals,,
-MAC,West,Toledo,,Rockets,,
-MAC,West,Central Michigan,,Chippewas,,
-MAC,West,Eastern Michigan,,Eagles,,
-MWC,Mountain,Boise State,,Broncos,,
-MWC,Mountain,Utah State,,Aggies,,
-MWC,Mountain,New Mexico,,Lobos,,
-MWC,Mountain,Wyoming,,Cowboys,,
-MWC,Mountain,Colorado State,,Rams,,
-MWC,Mountain,Air Force,,Falcons,,
-MWC,West,Hawai'i,,Rainbow Warriors,,
+FBS-IND,,United States Military Academy,Army,Knights,ARMY,USMA
+FBS-IND,,Brigham Young University,BYU,Cougars,LAVELL,BYU
+FBS-IND,,Liberty University,Liberty,Flames,LIB-WILL,LIB
+FBS-IND,,University of Massachussetts,UMass,Minutemen,MCGUIRK,UMASS
+FBS-IND,,New Mexico State University,New Mexico State,Aggies,AGG-MEM,NMST
+MAC,East,SUNY - Buffalo,Buffalo,Bulls,BUFF,BUFF
+MAC,East,Miami University,Miami (OH),RedHawks,YAGER,MIAOH
+MAC,East,University of Akron,Akron,Zips,SUMMA,AKRN
+MAC,East,Ohio University,Ohio,Bobcats,PEDEN,OHIO
+MAC,East,Bowling Green State University,Bowling Green,Falcons,DP,BGSU
+MAC,East,Kent State University,Kent State,Golden Flashes,DIX,KENT
+MAC,West,Northern Illinois University,Northern Illinois,Huskies,BRIG,NIU
+MAC,West,Western Michigan University,Western Michigan,Broncos,WALDO,W-MICH
+MAC,West,Ball State University,Ball State,Cardinals,SCHEU,BALL
+MAC,West,University of Toledo,Toledo,Rockets,GLASS,TOL
+MAC,West,Central Michigan University,Central Michigan,Chippewas,KEL-SH,C-MICH
+MAC,West,Eastern Michigan University,Eastern Michigan,Eagles,RYNEAR,E-MICH
+MWC,Mountain,Boise State University,Boise State,Broncos,ALB,BOISE
+MWC,Mountain,Utah State University,Utah State,Aggies,MAVERIK,USTATE
+MWC,Mountain,University of New Mexico,New Mexico,Lobos,DREAM,UNM
+MWC,Mountain,University of Wyoming,Wyoming,Cowboys,WAR-MEM,WYO
+MWC,Mountain,Colorado State University,Colorado State,Rams,CANVAS,CSU
+MWC,Mountain,United States Air Force Academy,Air Force,Falcons,FALCON,AF
+MWC,West,University of Hawaii at Manoa,Hawaii,Rainbow Warriors,ALOHA,HAWAII
 MWC,West,Nevada,,Wolf Pack,,
 MWC,West,San Diego State,,Aztecs,,
 MWC,West,Fresno State,,Bulldogs,,

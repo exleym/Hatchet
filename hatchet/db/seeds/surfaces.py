@@ -9,5 +9,7 @@ SURFACES = [
     ("GRASS", "Natural Grass", "Grass"),
     ("TURF", "Artificial Turf", "Turf"),
     ("MATRIX", "Matrix Turf", "Turf"),
-    ("SHAW", "Shaw Turf", "Turf")
+    ("SHAW", "Shaw Turf", "Turf"),
+    ("A-TURF", "A-Turf Titan", "Turf"),
+    ("PROGRASS", "ProGrass Turf", "Turf")
 ]

@@ -57,7 +57,7 @@ stadium = api.model("Stadium", {
     "capacity": fields.Integer(),
     "surfaceId": fields.String(attribute="surface_id"),
     "surface": fields.Nested(surface)
-}, mask="{surface{name},*}")
+}, mask="{surface{name,category},*}")
 
 
 division = api.model("Division", {
