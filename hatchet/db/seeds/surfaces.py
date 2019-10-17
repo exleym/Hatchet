@@ -11,5 +11,6 @@ SURFACES = [
     ("MATRIX", "Matrix Turf", "Turf"),
     ("SHAW", "Shaw Turf", "Turf"),
     ("A-TURF", "A-Turf Titan", "Turf"),
-    ("PROGRASS", "ProGrass Turf", "Turf")
+    ("PROGRASS", "ProGrass Turf", "Turf"),
+    ("SPRIN-TURF", "Sprinturf", "Turf")
 ]
