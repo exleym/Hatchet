@@ -3,7 +3,7 @@ from flask import jsonify, request
 from hatchet.resources import api
 from hatchet.extensions import swag
 import hatchet.db.crud.divisions as query
-from hatchet.resources.schemas.schemas import (
+from hatchet.apis.schemas import (
     DivisionSchema,
     TeamSchema,
 )

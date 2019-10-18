@@ -18,7 +18,6 @@ def persist_resource(data: dict, model: ModelType) -> db.Model:
 
 def list_resources(model: ModelType, **kwargs) -> List[db.Model]:
     q = model.query
-    logger.info(kwargs)
     for k, v in kwargs.items():
         if v:
             q = q.filter_by(**{k: v})

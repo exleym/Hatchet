@@ -3,7 +3,7 @@ from flasgger import swag_from
 from marshmallow import ValidationError
 
 from hatchet.resources import api
-from hatchet.resources.schemas.schemas import (
+from hatchet.apis.schemas import (
     GameSchema,
     GameParticipantSchema,
 )

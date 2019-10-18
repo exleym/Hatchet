@@ -2,6 +2,7 @@ import csv
 from flask_restplus import Namespace
 from flask_restplus.reqparse import RequestParser
 import json
+import re
 from typing import List, Union
 
 
@@ -68,3 +69,49 @@ def validate_xor(**kwargs):
         raise ValueError(
             f"one and only one of {kwargs.values()} must be non null"
         )
+
+
+first_cap_re = re.compile('(.)([A-Z][a-z]+)')
+all_cap_re = re.compile('([a-z0-9])([A-Z])')
+
+
+def _camel_to_snake(camel: str) -> str:
+    s1 = first_cap_re.sub(r'\1_\2', camel)
+    return all_cap_re.sub(r'\1_\2', s1).lower()
+
+
+def camel_to_snake(data: Union[list, dict]) -> Union[list, dict]:
+    if isinstance(data, list):
+        return [camel_to_snake(x) for x in data]
+    new = {}
+    for k, v in data.items():
+        if isinstance(v, (dict, list)):
+            v = camel_to_snake(v)
+        new.update({_camel_to_snake(k): v})
+    return new
+
+
+from marshmallow import Schema, fields
+from marshmallow.exceptions import ValidationError
+from flask_restplus.fields import Raw as RawField, MarshallingError
+
+
+def model_from_schema(schema):
+    class FlaskRestPlusField(RawField):
+        __schema_type__ = 'string'
+
+        def __init__(self, mmField: fields.Field):
+            super().__init__(attribute=mmField.attribute,
+                             required=mmField.required, readonly=mmField.load_only, **mmField.metadata)
+            self.m_mmField = mmField
+
+        def format(self, value):
+            try:
+                self.m_mmField._validate(value) #should throw in case of error
+            except ValidationError as e:
+                raise MarshallingError(e)
+            return value
+    res={}
+    for fieldName, field in schema._declared_fields.items():
+        res[fieldName] = FlaskRestPlusField(field)
+    return res

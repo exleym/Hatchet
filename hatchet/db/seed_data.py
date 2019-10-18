@@ -2,7 +2,7 @@ import logging
 import pathlib
 from hatchet.extensions import db
 from hatchet.db.models import (
-    Subdivision, Conference, Division, Stadium, Team
+    Subdivision, Conference, Division, Stadium, Team, LocationType
 )
 from hatchet.db.crud.conferences import list_conferences
 from hatchet.db.crud.divisions import list_divisions
@@ -18,6 +18,7 @@ seed_path = pathlib.Path() / "hatchet" / "static" / "seeds"
 
 def insert_seed_data():
     insert_surfaces()
+    insert_location_types()
     insert_stadiums()
     insert_subdivisions()
     insert_conferences()
@@ -132,4 +133,17 @@ def insert_stadiums():
         db.session.commit()
         logger.debug(f"creating {stadium} in db...")
     logger.warning(f"created stadiums in database...")
+    return 0
+
+
+def insert_location_types():
+    LOC_TYPES = [
+        LocationType(id=1, name="Home"),
+        LocationType(id=2, name="Away"),
+        LocationType(id=3, name="Neutral")
+    ]
+    for loc in LOC_TYPES:
+        db.session.add(loc)
+    db.session.commit()
+    logger.warning(f"created {len(LOC_TYPES)} location types in database...")
     return 0

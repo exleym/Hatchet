@@ -2,7 +2,7 @@ from flask import jsonify, request
 from flasgger import swag_from
 
 from hatchet.resources import api
-from hatchet.resources.schemas.schemas import (
+from hatchet.apis.schemas import (
     GameSchema,
     TeamSchema,
 )

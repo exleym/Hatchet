@@ -10,6 +10,13 @@ from hatchet.util import default_list_parser
 logger = logging.getLogger(__name__)
 ns = Namespace("teams", description="team related operations")
 parser = default_list_parser(namespace=ns)
+parser.add_argument("code", type=str, required=False)
+
+
+season_arg = ns.parser()
+season_arg.add_argument("season", type=int, required=False)
+
+
 
 
 @ns.route("")
@@ -18,7 +25,7 @@ class TeamCollection(Resource):
     @ns.marshal_with(team)
     def get(self):
         args = parser.parse_args()
-        return queries.list_resources(db.Team)
+        return queries.list_resources(db.Team, code=args.get("code"))
 
     @ns.expect(team)
     @ns.doc("create a new team")
@@ -52,18 +59,28 @@ class Team(Resource):
 @ns.route("/<int:id>/games")
 @ns.param("id", "the team identifier")
 class TeamGames(Resource):
-    @ns.doc("get team games")
+    @ns.doc("get team games", parser=season_arg)
     @ns.marshal_with(game)
     def get(self, id: int):
+        args = season_arg.parse_args()
+        season = int(args.get("season")) if args.get("season") else None
         team = queries.get_resource(id, db.Team)
-        return team.games
+        games = team.games
+        games.sort(key=lambda x: x.game_time)
+        if not season:
+            return games
+        return [
+            g for g in games
+            if g.game_time.date().year == season
+        ]
 
 
 @ns.route("/<int:id>/roster")
 @ns.param("id", "the team identifier")
 class TeamRoster(Resource):
-    @ns.doc("get a Team's roster")
+    @ns.doc("get a Team's roster", parser=season_arg)
     @ns.marshal_with(player)
     def get(self, id: int):
+        args = season_arg.parse_args()
         team = queries.get_resource(id, db.Team)
         return team.roster(year=2018)

@@ -1,5 +1,7 @@
 from flask_restplus import fields
 from hatchet.apis.api_v1 import api
+from hatchet.apis.schemas import GameSchema
+from hatchet.util import model_from_schema
 
 
 subdivision = api.model("Subdivision", {
@@ -70,6 +72,7 @@ division = api.model("Division", {
 
 team = api.model("Team", {
     "id": fields.Integer(),
+    "code": fields.String(),
     "name": fields.String(),
     "shortName": fields.String(attribute="short_name"),
     "mascot": fields.String(),
@@ -79,7 +82,7 @@ team = api.model("Team", {
     "stadium": fields.Nested(stadium),
     "conference": fields.Nested(conference),
     "division": fields.Nested(division)
-},mask="{id,name,shortName,mascot,conferenceId,divisionId,stadiumId}")
+},mask="{id,code,name,shortName,mascot,conferenceId,divisionId,stadiumId}")
 
 
 game_participant = api.model("GameParticipant", {
@@ -93,13 +96,14 @@ game_participant = api.model("GameParticipant", {
 
 
 game = api.model("Game", {
-    "id": fields.Integer(),
+    "id": fields.Integer(required=False),
     "kickoffTime": fields.DateTime(attribute="game_time"),
     "stadiumId": fields.Integer(),
-    "espnId": fields.Integer(),
-    "participants": fields.Nested(game_participant, skip_none=True),
-    "winner": fields.Nested(game_participant, skip_none=True)
+    "espnId": fields.Integer(required=False),
+    "participants": fields.Nested(game_participant, skip_none=True, required=False),
+    "winner": fields.Nested(game_participant, skip_none=True, required=False)
 })
+# game = api.model("Game", model_from_schema(GameSchema))
 
 
 play = api.model("Play", {
