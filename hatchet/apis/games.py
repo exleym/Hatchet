@@ -3,7 +3,7 @@ from flask_restplus import Namespace, Resource, fields
 import hatchet.db.models as models
 import hatchet.db.crud.base as queries
 from hatchet.extensions import db
-from hatchet.apis.schemas import GameSchema, GameParticipantSchema
+from hatchet.resources.schemas.schemas import GameSchema, GameParticipantSchema
 from hatchet.apis.serializers import game, play
 from hatchet.util import default_list_parser, camel_to_snake
 

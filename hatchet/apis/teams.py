@@ -3,6 +3,7 @@ import logging
 
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
+from hatchet.db.crud.games import list_games
 from hatchet.apis.serializers import team, game, player
 from hatchet.util import default_list_parser
 
@@ -63,16 +64,21 @@ class TeamGames(Resource):
     @ns.marshal_with(game)
     def get(self, id: int):
         args = season_arg.parse_args()
+        logger.info(args)
         season = int(args.get("season")) if args.get("season") else None
-        team = queries.get_resource(id, db.Team)
-        games = team.games
-        games.sort(key=lambda x: x.game_time)
-        if not season:
-            return games
-        return [
-            g for g in games
-            if g.game_time.date().year == season
-        ]
+        logger.info(season)
+        games = list_games(team_id=id, season=season)
+        logger.info(games)
+        return games
+        # team = queries.get_resource(id, db.Team)
+        # games = team.games
+        # games.sort(key=lambda x: x.game_time)
+        # if not season:
+        #     return games
+        # return [
+        #     g for g in games
+        #     if g.game_time.date().year == season
+        # ]
 
 
 @ns.route("/<int:id>/roster")

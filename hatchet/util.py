@@ -89,29 +89,3 @@ def camel_to_snake(data: Union[list, dict]) -> Union[list, dict]:
             v = camel_to_snake(v)
         new.update({_camel_to_snake(k): v})
     return new
-
-
-from marshmallow import Schema, fields
-from marshmallow.exceptions import ValidationError
-from flask_restplus.fields import Raw as RawField, MarshallingError
-
-
-def model_from_schema(schema):
-    class FlaskRestPlusField(RawField):
-        __schema_type__ = 'string'
-
-        def __init__(self, mmField: fields.Field):
-            super().__init__(attribute=mmField.attribute,
-                             required=mmField.required, readonly=mmField.load_only, **mmField.metadata)
-            self.m_mmField = mmField
-
-        def format(self, value):
-            try:
-                self.m_mmField._validate(value) #should throw in case of error
-            except ValidationError as e:
-                raise MarshallingError(e)
-            return value
-    res={}
-    for fieldName, field in schema._declared_fields.items():
-        res[fieldName] = FlaskRestPlusField(field)
-    return res

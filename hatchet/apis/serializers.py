@@ -1,15 +1,16 @@
 from flask_restplus import fields
 from hatchet.apis.api_v1 import api
-from hatchet.apis.schemas import GameSchema
-from hatchet.util import model_from_schema
+from hatchet.resources.schemas.schemas import SubdivisionSchema
+from hatchet.resources.schemas.converters import restplus_model_from_schema
 
 
-subdivision = api.model("Subdivision", {
-    "id": fields.Integer(),
-    "code": fields.String(),
-    "name": fields.String(),
-    "division": fields.Integer()
-})
+# subdivision = api.model("Subdivision", {
+#     "id": fields.Integer(),
+#     "code": fields.String(),
+#     "name": fields.String(),
+#     "division": fields.Integer()
+# })
+subdivision = api.model("Subdivision", restplus_model_from_schema(SubdivisionSchema))
 
 
 conference = api.model("Conference", {
@@ -103,7 +104,7 @@ game = api.model("Game", {
     "participants": fields.Nested(game_participant, skip_none=True, required=False),
     "winner": fields.Nested(game_participant, skip_none=True, required=False)
 })
-# game = api.model("Game", model_from_schema(GameSchema))
+# game = api.model("Game", restplus_model_from_schema(GameSchema))
 
 
 play = api.model("Play", {
