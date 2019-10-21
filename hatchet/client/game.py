@@ -2,9 +2,9 @@ import dataclasses
 import datetime
 import requests
 from hatchet.client.base import BaseClient
-from hatchet.apis.schemas import GameSchema
+from hatchet.resources.schemas.schemas import GameSchema
 from hatchet.util import camel_to_snake
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 @dataclasses.dataclass
@@ -14,7 +14,7 @@ class Game:
     stadium_id: int
     espn_id: int
     participants: List
-    winner: Dict
+    winner: Optional[Dict] = None
 
 
 class GameClient(BaseClient):

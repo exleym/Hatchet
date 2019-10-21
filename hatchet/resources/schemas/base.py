@@ -6,5 +6,5 @@ class BaseSchema(Schema):
     class Meta:
         unknown = "EXCLUDE"
 
-    id = fields.Integer(dump_only=True, allow_none=False, example=42)
+    id = fields.Integer(allow_none=False, example=42)
 

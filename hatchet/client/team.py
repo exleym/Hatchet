@@ -2,6 +2,10 @@ import dataclasses
 import requests
 from hatchet.client.base import BaseClient
 from hatchet.util import camel_to_snake
+from hatchet.resources.schemas.schemas import TeamSchema
+
+
+schema = TeamSchema()
 
 
 @dataclasses.dataclass
@@ -24,7 +28,7 @@ class TeamClient(BaseClient):
         pass
 
     def unwrap(self, data):
-        data = camel_to_snake(data)
+        data = schema.load(data)
         return Team(**data)
 
     def get_team(self, id: int = None, code: str = None):

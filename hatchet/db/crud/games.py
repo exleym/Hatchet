@@ -21,8 +21,10 @@ def list_games(team_id: int = None, season: int = None) -> List[Game]:
     query = Game.query
     if team_id:
         query = query.filter(Game.participants.any(team_id=team_id))
+    games = query.all()
     if season:
-        query = query.filter(sa.func.year(Game.game_time) == season)
+        # query = query.filter(sa.func.year(Game.game_time) == season)
+        games = [g for g in games if g.game_time.year == season]
     return query.all()
 
 

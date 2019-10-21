@@ -64,11 +64,8 @@ class TeamGames(Resource):
     @ns.marshal_with(game)
     def get(self, id: int):
         args = season_arg.parse_args()
-        logger.info(args)
         season = int(args.get("season")) if args.get("season") else None
-        logger.info(season)
         games = list_games(team_id=id, season=season)
-        logger.info(games)
         return games
         # team = queries.get_resource(id, db.Team)
         # games = team.games

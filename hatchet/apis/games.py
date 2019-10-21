@@ -26,8 +26,10 @@ class GameCollection(Resource):
     @ns.marshal_with(game)
     def post(self):
         data = game_schema.load(ns.payload)
-        print(data)
-        participants = [models.GameParticipant(**gp) for gp in data.pop("participants")]
+        participants = [
+            models.GameParticipant(**gp)
+            for gp in data.pop("participants", [])
+        ]
         game = models.Game(**data)
         for p in participants:
             game.participants.append(p)
