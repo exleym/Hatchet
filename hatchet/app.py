@@ -17,11 +17,6 @@ def create_app(env='prd') -> Flask:
     configure_app(app, env)
     register_extensions(app)
     register_error_handlers(app)
-
-    @app.errorhandler(Exception)
-    def handle(exception):
-        raise exception
-
     register_blueprints(app)
     add_special_routes(app)
     return app
