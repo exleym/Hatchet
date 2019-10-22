@@ -226,3 +226,19 @@ class Player(db.Model):
     @property
     def name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Bookmaker(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    code = db.Column(db.String(32), unique=True)
+    name = db.Column(db.String(128), unique=True)
+    website = db.Column(db.String(256))
+
+
+class Line(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    game_id = db.Column(db.Integer, db.ForeignKey("game.id"))
+    team_id = db.Column(db.Integer, db.ForeignKey("team.id"))
+    bookmaker_id = db.Column(db.Integer, db.ForeignKey("bookmaker.id"))
+    spread = db.Column(db.Float)
+    vigorish = db.Column(db.Integer)
