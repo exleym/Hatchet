@@ -53,7 +53,6 @@ class ListRestplusField(MarshmallowRestplusMixin, List):
 
 class NestedRestplusField(MarshmallowRestplusMixin, Nested):
 
-
     def __init__(self, *args, **kwargs):
         model = kwargs.get("mm_field")
         self.__schema_name__ = model.nested.replace("Schema", "")

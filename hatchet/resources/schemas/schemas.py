@@ -6,6 +6,11 @@ from hatchet.resources.schemas.validators import (
 from hatchet.resources.schemas.base import BaseSchema
 
 
+class Bookmaker(BaseSchema):
+    code = fields.String(example="BOV")
+    name = fields.String(example="Bovada")
+    website = fields.String(example="http://www.bovada.lv")
+
 
 class CoachSchema(BaseSchema):
     firstName = fields.String(attribute="first_name")
@@ -59,6 +64,14 @@ class GameSchema(BaseSchema):
         allow_none=True,
         dump_only=True
     )
+
+
+class Line(BaseSchema):
+    gameId = fields.Integer(attribute="game_id")
+    teamId = fields.Integer(attribute="team_id")
+    bookmakerId = fields.Integer(attribute="bookmaker_id")
+    spread = fields.Float()
+    vigorish = fields.Integer()
 
 
 class PlayerSchema(BaseSchema):
