@@ -76,9 +76,12 @@ def get_restplus_field(field):
 
 def restplus_model_from_schema(schema):
     res={}
-    for fieldName, field in schema._declared_fields.items():
+    for field_name, field in schema._declared_fields.items():
         RestplusClass = get_restplus_field(field)
-        res[fieldName] = RestplusClass(mm_field=field)
+        if RestplusClass == NestedRestplusField:
+            res[field_name] = RestplusClass(mm_field=field, skip_none=True)
+        else:
+            res[field_name] = RestplusClass(mm_field=field)
     return res
 
 
@@ -98,6 +101,9 @@ class MarshmallowRestplusConverter(object):
         )
         self._registry.update({schema_name: model})
         return model
+
+    def get(self, schema_name):
+        return self._registry.get(schema_name)
 
     def enrich_nested(self, model):
         for k, v in model.items():

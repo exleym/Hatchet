@@ -1,78 +1,35 @@
-from flask_restplus import Namespace, Resource, fields
-import logging
-
+from flask_restplus import Resource
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
-from hatchet.apis.serializers import subdivision, conference, team
-from hatchet.util import default_list_parser
+from hatchet.resources.schemas.schemas import ConferenceSchema, SubdivisionSchema, TeamSchema
+from hatchet.apis.api_v1 import api_manager
 
 
-logger = logging.getLogger(__name__)
-ns = Namespace("subdivisions", description="subdivision related operations")
-parser = default_list_parser(namespace=ns)
-parser.add_argument(
-    "code",
-    type=str,
-    required=False,
-    help="fetch subdivision matching code",
-    location="args"
+ns_subdivisions = api_manager.add_resource(
+    name="subdivisions",
+    resource=db.Subdivision,
+    schema=SubdivisionSchema,
+    description="NCAA Subdivisions"
 )
+conference = api_manager.model(ConferenceSchema)
+team = api_manager.model(TeamSchema)
 
 
-@ns.route("")
-class SubdivisionCollection(Resource):
-    @ns.doc('list subdivisions', parser=parser)
-    @ns.marshal_with(subdivision)
-    def get(self):
-        args = parser.parse_args()
-        logger.warning(args)
-        return queries.list_resources(db.Subdivision, code=args.get("code"))
-
-    @ns.expect(subdivision, validate=True)
-    @ns.doc("create a new subdivision")
-    @ns.marshal_with(subdivision)
-    def post(self):
-        conf = ns.payload
-        return queries.persist_resource(conf, db.Subdivision)
-
-
-@ns.route("/<int:id>")
-@ns.response(404, 'Subdivision not found')
-@ns.param('id', 'The subdivision identifier')
-class Subdivision(Resource):
-    @ns.doc("get subdivision by id")
-    @ns.marshal_with(subdivision)
-    def get(self, id: int):
-        return queries.get_resource(id, db.Subdivision)
-
-    @ns.expect(subdivision, validate=True)
-    @ns.doc("update subdivision")
-    @ns.marshal_with(subdivision)
-    def put(self, id: int):
-        return queries.edit_resource(id, ns.payload, db.Subdivision)
-
-    @ns.doc("delete subdivision")
-    @ns.response(204, "subdivision deleted")
-    def delete(self, id: int):
-        queries.remove_resource_by_id(id, db.Subdivision)
-        return ""
-
-
-@ns.route("/<int:id>/conferences")
-@ns.param("id", "the subdivision identifier")
+@ns_subdivisions.route("/<int:id>/conferences")
+@ns_subdivisions.param("id", "the subdivision identifier")
 class SubdivisionConferences(Resource):
-    @ns.doc("get subdivision conferences")
-    @ns.marshal_with(conference)
+    @ns_subdivisions.doc("get subdivision conferences")
+    @ns_subdivisions.marshal_with(conference)
     def get(self, id: int):
         subdiv = queries.get_resource(id, db.Subdivision)
         return subdiv.conferences
 
 
-@ns.route("/<int:id>/teams")
-@ns.param("id", "the subdivision identifier")
+@ns_subdivisions.route("/<int:id>/teams")
+@ns_subdivisions.param("id", "the subdivision identifier")
 class SubdivisionTeams(Resource):
-    @ns.doc("get teams beloning to a subdivision")
-    @ns.marshal_with(team)
+    @ns_subdivisions.doc("get teams beloning to a subdivision")
+    @ns_subdivisions.marshal_with(team)
     def get(self, id: int):
         subdiv = queries.get_resource(id, db.Subdivision)
         return subdiv.teams

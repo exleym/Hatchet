@@ -1,22 +1,19 @@
 from flask_restplus import fields
 from hatchet.apis.api_v1 import api
 import hatchet.resources.schemas.schemas as schemas
-from hatchet.resources.schemas.converters import MarshmallowRestplusConverter
+from hatchet.apis.api_v1 import api_manager
 
 
-schema_converter = MarshmallowRestplusConverter(api=api)
-
-
-coach = schema_converter.create_model(schemas.CoachSchema)
-player = schema_converter.create_model(schemas.PlayerSchema)
-subdivision = schema_converter.create_model(schemas.SubdivisionSchema)
-surface = schema_converter.create_model(schemas.SurfaceSchema)
-conference = schema_converter.create_model(schemas.ConferenceSchema)
-division = schema_converter.create_model(schemas.DivisionSchema)
-stadium = schema_converter.create_model(schemas.StadiumSchema)
-team = schema_converter.create_model(schemas.TeamSchema)
-participant = schema_converter.create_model(schemas.GameParticipantSchema)
-game = schema_converter.create_model(schemas.GameSchema)
+coach = api_manager.create_model(schemas.CoachSchema)
+player = api_manager.create_model(schemas.PlayerSchema)
+subdivision = api_manager.create_model(schemas.SubdivisionSchema)
+surface = api_manager.create_model(schemas.SurfaceSchema)
+conference = api_manager.create_model(schemas.ConferenceSchema)
+division = api_manager.create_model(schemas.DivisionSchema)
+stadium = api_manager.create_model(schemas.StadiumSchema)
+team = api_manager.create_model(schemas.TeamSchema)
+participant = api_manager.create_model(schemas.GameParticipantSchema)
+game = api_manager.create_model(schemas.GameSchema)
 
 
 play = api.model("Play", {

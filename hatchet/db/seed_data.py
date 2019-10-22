@@ -2,7 +2,7 @@ import logging
 import pathlib
 from hatchet.extensions import db
 from hatchet.db.models import (
-    Subdivision, Conference, Division, Stadium, Team, LocationType
+    Bookmaker, Subdivision, Conference, Division, Stadium, Team, LocationType
 )
 from hatchet.db.crud.conferences import list_conferences
 from hatchet.db.crud.divisions import list_divisions
@@ -17,6 +17,7 @@ seed_path = pathlib.Path() / "hatchet" / "static" / "seeds"
 
 
 def insert_seed_data():
+    insert_bookmakers()
     insert_surfaces()
     insert_location_types()
     insert_stadiums()
@@ -146,4 +147,18 @@ def insert_location_types():
         db.session.add(loc)
     db.session.commit()
     logger.warning(f"created {len(LOC_TYPES)} location types in database...")
+    return 0
+
+
+def insert_bookmakers():
+    BOOKMAKERS = [
+        Bookmaker(code="BOV", name="Bovada", website="http://www.bovada.lv"),
+        Bookmaker(code="FIVE", name="5Dimes", website="http://www.5dimes.eu"),
+        Bookmaker(code="BM", name="BookMaker", website="http://www.bookmaker.eu"),
+        Bookmaker(code="HRTG", name="Heritage Sports", website="http://www.heritagesports.eu")
+    ]
+    for bookie in BOOKMAKERS:
+        db.session.add(bookie)
+    db.session.commit()
+    logger.warning(f"created bookmakers...")
     return 0

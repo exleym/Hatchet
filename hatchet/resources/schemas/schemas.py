@@ -6,7 +6,7 @@ from hatchet.resources.schemas.validators import (
 from hatchet.resources.schemas.base import BaseSchema
 
 
-class Bookmaker(BaseSchema):
+class BookmakerSchema(BaseSchema):
     code = fields.String(example="BOV")
     name = fields.String(example="Bovada")
     website = fields.String(example="http://www.bovada.lv")
@@ -66,7 +66,7 @@ class GameSchema(BaseSchema):
     )
 
 
-class Line(BaseSchema):
+class LineSchema(BaseSchema):
     gameId = fields.Integer(attribute="game_id")
     teamId = fields.Integer(attribute="team_id")
     bookmakerId = fields.Integer(attribute="bookmaker_id")

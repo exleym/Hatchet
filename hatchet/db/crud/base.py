@@ -1,4 +1,5 @@
 import logging
+from sqlalchemy import asc
 from typing import List
 from hatchet.extensions import db
 from hatchet.errors import MissingResourceException
@@ -18,9 +19,16 @@ def persist_resource(data: dict, model: ModelType) -> db.Model:
 
 def list_resources(model: ModelType, **kwargs) -> List[db.Model]:
     q = model.query
+    limit = kwargs.pop("limit", None)
+    offset = kwargs.pop("offset", None)
     for k, v in kwargs.items():
         if v:
             q = q.filter_by(**{k: v})
+    q = q.order_by(asc(model.id))
+    if limit:
+        q = q.limit(limit)
+    if offset:
+        q = q.offset(offset)
     return q.all()
 
 
