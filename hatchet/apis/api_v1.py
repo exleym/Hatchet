@@ -16,25 +16,15 @@ api = Api(
 
 api_manager = APIManager(title="demo", version="1.0", api=api)
 
-from hatchet.apis.subdivisions import ns_subdivisions
-from hatchet.apis.conferences import ns_conferences
-from hatchet.apis.divisions import ns_divisions
-from hatchet.apis.teams import ns_teams
+import hatchet.apis.subdivisions
+import hatchet.apis.conferences
+import hatchet.apis.divisions
+import hatchet.apis.teams
 from hatchet.apis.games import ns as ns_games
-from hatchet.apis.stadiums import ns as ns_stadiums
-from hatchet.apis.coaches import ns as ns_coaches
-from hatchet.apis.players import ns as ns_players
-from hatchet.apis.data_sources import ns as ns_data_sources
+api.add_namespace(ns=ns_games)
+import hatchet.apis.stadiums
+import hatchet.apis.coaches
+import hatchet.apis.players
+import hatchet.apis.data_sources
+import hatchet.apis.bookmakers
 
-
-api.add_namespace(ns_games)
-api.add_namespace(ns_stadiums)
-api.add_namespace(ns_coaches)
-api.add_namespace(ns_players)
-api.add_namespace(ns_data_sources)
-
-
-from hatchet.db.models import Bookmaker
-from hatchet.resources.schemas.schemas import BookmakerSchema
-
-api_manager.add_resource("bookmakers", Bookmaker, BookmakerSchema, "bookmaker resources")

@@ -7,5 +7,5 @@ ns_divisions = api_manager.add_resource(
     name="divisions",
     resource=db.Division,
     schema=DivisionSchema,
-    description="Conference Divisions"
+    description="Sub-conference organizations of teams"
 )

@@ -4,8 +4,8 @@ import hatchet.resources.schemas.schemas as schemas
 
 
 ns = api_manager.add_resource(
-    name="players",
-    resource=db.Player,
-    schema=schemas.PlayerSchema,
-    description="Football Player management endpoints"
+    name="bookmakers",
+    resource=db.Bookmaker,
+    schema=schemas.BookmakerSchema,
+    description="Sports Bookmaker management resources"
 )

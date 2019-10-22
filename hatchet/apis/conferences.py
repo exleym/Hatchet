@@ -1,4 +1,5 @@
 from flask_restplus import Resource
+from hatchet.apis.serializers import team
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
 from hatchet.resources.schemas.schemas import ConferenceSchema
