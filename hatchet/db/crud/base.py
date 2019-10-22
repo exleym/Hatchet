@@ -17,6 +17,10 @@ def persist_resource(data: dict, model: ModelType) -> db.Model:
     return obj
 
 
+def create_resource(model: ModelType, **kwargs) -> db.Model:
+    persist_resource(kwargs, model)
+
+
 def list_resources(model: ModelType, **kwargs) -> List[db.Model]:
     q = model.query
     limit = kwargs.pop("limit", None)
