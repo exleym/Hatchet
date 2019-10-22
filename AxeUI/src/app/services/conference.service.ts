@@ -24,7 +24,8 @@ export class ConferenceService {
   }
 
   getConference(id: number): Observable<Conference> {
-    return this._http.get<Conference>(this.conferencesUrl + '/' + id)
+    const url = this._conferenceUrl(id);
+    return this._http.get<Conference>(url)
       .pipe(map(result => {
         return new Conference(result);
       }));
@@ -44,18 +45,22 @@ export class ConferenceService {
   }
 
   updateConference(conference: Conference): Observable<Conference> {
-    const url = `${this.conferencesUrl}/${conference.id}`;
+    const url = this._conferenceUrl(conference.id);
     return this._http.put<Conference>(url, conference)
       .pipe(map(resp => new Conference(resp)));
   }
 
   deleteConference(conference: Conference): Observable<any> {
-    const url = `${this.conferencesUrl}/${conference.id}`;
+    const url = this._conferenceUrl(conference.id);;
     return this._http.delete<any>(url);
   }
 
+  _conferenceUrl(id: number): string {
+    return `${this.conferencesUrl}/${id}`
+  }
+
   _conferenceMembersUrl(id: number): string {
-    return this.conferencesUrl + '/' + id + '/members';
+    return `${this.conferencesUrl}/${id}/teams`;
   }
 
 }

@@ -1,33 +1,33 @@
 import logging
 from marshmallow.exceptions import ValidationError
 from typing import List, Union
+import sqlalchemy as sa
 
 logger = logging.getLogger(__name__)
 
 from hatchet.extensions import db
 from hatchet.errors import MissingResourceException
-from hatchet.api.schemas import GameSchema, GameParticipantSchema
 from hatchet.db.models import Game, GameParticipant, Team
+from sqlalchemy import asc
 
 
-game_schema = GameSchema()
-participant_schema = GameParticipantSchema()
+# def persist_game(game: dict) -> Game:
+#     game = game_schema.load(game, many=False)
+#     db.session.add(game)
+#     db.session.commit()
+#     return game
 
 
-def persist_game(game: dict) -> Game:
-    game = game_schema.load(game, many=False)
-    db.session.add(game)
-    db.session.commit()
-    return game
+def list_games(team_id: int = None, season: int = None) -> List[Game]:
+    query = Game.query
+    if team_id:
+        query = query.filter(Game.participants.any(team_id=team_id))
+    games = query.order_by(asc(Game.game_time)).all()
+    if season:
+        # query = query.filter(sa.func.year(Game.game_time) == season)
+        games = [g for g in games if g.game_time.year == season]
+    return games
 
-
-def list_games(game_id: int = None) -> Union[Game, List[Game]]:
-    if not game_id:
-        return Game.query.all()
-    game = Game.query.filter_by(id=game_id).first()
-    if not game:
-        raise MissingResourceException(f'No Game with id={game_id}')
-    return game
 
 
 def search_games(filters: List[dict]) -> List[Game]:

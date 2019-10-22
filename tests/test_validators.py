@@ -1,7 +1,7 @@
 import datetime
 import unittest
 
-from hatchet.api.schemas.validators import (
+from hatchet.resources.schemas.validators import (
     modern_date_validator, modern_year_validator,
     score_validator
 )

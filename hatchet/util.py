@@ -1,6 +1,29 @@
 import csv
+from flask_restplus import Namespace
+from flask_restplus.reqparse import RequestParser
 import json
+import re
 from typing import List, Union
+
+
+def default_list_parser(namespace: Namespace) -> RequestParser:
+    parser = namespace.parser()
+    parser.add_argument(
+        "limit",
+        type=int,
+        required=False,
+        help="number of items to include in response",
+        location="args"
+    )
+    parser.add_argument(
+        "offset",
+        type=int,
+        required=False,
+        help="number of items to offset from the start of response",
+        location="args"
+    )
+    return parser
+
 
 
 def load_json(file: str):
@@ -37,3 +60,32 @@ def load_csv(file: str, headers=False) -> List[dict]:
     with open(file, 'r', newline='', encoding='utf-8-sig') as fp:
         reader = csv.reader(fp, delimiter=',')
         return [x for x in reader]
+
+
+def validate_xor(**kwargs):
+    try:
+        assert sum(x is not None for x in kwargs.values()) == 1
+    except AssertionError:
+        raise ValueError(
+            f"one and only one of {kwargs.values()} must be non null"
+        )
+
+
+first_cap_re = re.compile('(.)([A-Z][a-z]+)')
+all_cap_re = re.compile('([a-z0-9])([A-Z])')
+
+
+def _camel_to_snake(camel: str) -> str:
+    s1 = first_cap_re.sub(r'\1_\2', camel)
+    return all_cap_re.sub(r'\1_\2', s1).lower()
+
+
+def camel_to_snake(data: Union[list, dict]) -> Union[list, dict]:
+    if isinstance(data, list):
+        return [camel_to_snake(x) for x in data]
+    new = {}
+    for k, v in data.items():
+        if isinstance(v, (dict, list)):
+            v = camel_to_snake(v)
+        new.update({_camel_to_snake(k): v})
+    return new

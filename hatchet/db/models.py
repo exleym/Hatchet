@@ -8,6 +8,35 @@ team_stadium_association = db.Table(
 )
 
 
+class Subdivision(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(8))
+    name = db.Column(db.String(32))
+    division = db.Column(db.Integer)
+
+    @property
+    def teams(self):
+        _teams = []
+        for c in self.conferences:
+            _teams += c.members
+        return _teams
+
+    def __repr__(self):
+        return f"<Subdivision(id={self.id}, code='{self.code}')>"
+
+
+class Surface(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(16))
+    name = db.Column(db.String(128))
+    category = db.Column(db.String(8))
+
+    def __repr__(self):
+        return f"<Surface(id={self.id}, code='{self.code}', " \
+               f"name='{self.name}')>"
+
+
+
 class GameParticipant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     team_id = db.Column(db.Integer, db.ForeignKey('team.id'))
@@ -22,10 +51,13 @@ class GameParticipant(db.Model):
 
 class Conference(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    subdivision_id = db.Column(db.Integer, db.ForeignKey("subdivision.id"))
     code = db.Column(db.String(8), unique=True, nullable=False)
     name = db.Column(db.String(256), unique=True, nullable=False)
     short_name = db.Column(db.String(32), unique=True, nullable=True)
     inception_year = db.Column(db.Integer)
+
+    subdivision = db.relationship("Subdivision", backref="conferences")
 
     @property
     def links(self):
@@ -33,7 +65,7 @@ class Conference(db.Model):
 
     def __repr__(self):
         return f"<Conference(id={self.id}, code='{self.code}'," \
-               f" name='{self.name})>"
+               f" name='{self.name}, short_name='{self.short_name}')>"
 
 
 class Division(db.Model):
@@ -80,38 +112,49 @@ class Game(db.Model):
     @property
     def winner(self):
         max_score = 0
+        max_scorer = None
         for p in self.participants:
             if p.score and p.score > max_score:
                 max_score = p.score
-        for p in self.participants:
-            if p.score == max_score:
-                return p
-        return None
+                max_scorer = p
+        return max_scorer
 
     @property
     def loser(self):
-        if self.home_team_score < self.away_team_score:
-            return self.home_team
-        return self.away_team
-
+        min_score = 9999
+        min_scorer = None
+        for p in self.participants:
+            if p.score and p.score < min_score:
+                min_score = p.score
+                min_scorer = p
+        return min_scorer
     def __repr__(self):
         return f"<Game(id={self.id})>"
 
 
 class Stadium(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(16))
     name = db.Column(db.String(128))
-    nickname = db.Column(db.String(64))
+    state = db.Column(db.String(2))
+    city = db.Column(db.String(64))
+    latitude = db.Column(db.String(16))
+    longitude = db.Column(db.String(16))
     built = db.Column(db.Integer)
     capacity = db.Column(db.Integer)
-    surface = db.Column(db.String(128))
+    surface_id = db.Column(
+        db.Integer,
+        db.ForeignKey("surface.id")
+    )
+
+    surface = db.relationship("Surface", backref="stadiums")
 
     def __repr__(self):
-        return f"<Stadium(id={self.id}, name='{self.name}', " \
-               f"nickname='{self.nickname}')>"
+        return f"<Stadium(id={self.id}, name='{self.name}')>"
 
 class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(8), unique=True)
     name = db.Column(db.String(128), unique=True, nullable=False)
     short_name = db.Column(db.String(64), nullable=True)
     mascot = db.Column(db.String(128), nullable=False)
@@ -138,7 +181,7 @@ class Team(db.Model):
 
     def __repr__(self):
         return f"<Team(id={self.id}, name='{self.name}', " \
-               f"mascot='{self.mascot}')>"
+               f"mascot='{self.mascot}', code='{self.code}')>"
 
 
 class LocationType(db.Model):
@@ -151,6 +194,7 @@ class LocationType(db.Model):
 
 class Play(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    quarter = db.Column(db.Integer)
     play_number = db.Column(db.Integer)
     game_clock = db.Column(db.Time)
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
@@ -158,3 +202,43 @@ class Play(db.Model):
     to_go = db.Column(db.Float)
     play_occurred = db.Column(db.Boolean)
     penalty_occurred = db.Column(db.Boolean)
+
+    game = db.relationship("Game", backref="plays")
+
+
+class Coach(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(64))
+    dob = db.Column(db.Date, nullable=True)
+
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+class Player(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(64))
+    dob = db.Column(db.Date, nullable=True)
+
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+class Bookmaker(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    code = db.Column(db.String(32), unique=True)
+    name = db.Column(db.String(128), unique=True)
+    website = db.Column(db.String(256))
+
+
+class Line(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    game_id = db.Column(db.Integer, db.ForeignKey("game.id"))
+    team_id = db.Column(db.Integer, db.ForeignKey("team.id"))
+    bookmaker_id = db.Column(db.Integer, db.ForeignKey("bookmaker.id"))
+    spread = db.Column(db.Float)
+    vigorish = db.Column(db.Integer)
