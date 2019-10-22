@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 from hatchet.extensions import db
 from hatchet.errors import MissingResourceException
 from hatchet.db.models import Game, GameParticipant, Team
+from sqlalchemy import asc
 
 
 # def persist_game(game: dict) -> Game:
@@ -21,11 +22,11 @@ def list_games(team_id: int = None, season: int = None) -> List[Game]:
     query = Game.query
     if team_id:
         query = query.filter(Game.participants.any(team_id=team_id))
-    games = query.all()
+    games = query.order_by(asc(Game.game_time)).all()
     if season:
         # query = query.filter(sa.func.year(Game.game_time) == season)
         games = [g for g in games if g.game_time.year == season]
-    return query.all()
+    return games
 
 
 
