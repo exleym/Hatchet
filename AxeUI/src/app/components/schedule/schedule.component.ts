@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Game } from '../../models/game';
 import { Team } from '../../models/team';
 import { GameService } from '../../services/game.service';
@@ -12,7 +12,7 @@ export class ScheduleComponent implements OnInit {
 
   @Input() games: Game[];
   @Input() team: Team;
-  private activeGame: Game;
+  activeGame: Game;
 
   constructor(private gameService: GameService) { }
 
@@ -26,7 +26,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   setActive(game: Game): void {
-    console.log(`setting active game ${game.id}`);
+    console.log(`setting activeGame=${game}`);
     this.activeGame = game;
   }
 

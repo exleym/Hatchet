@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { TitleService } from '../../services/title.service';
-import { Team } from '../../models/team';
-import { TeamService } from '../../services/team.service';
-import { Game } from '../../models/game';
+import { TitleService } from '../../../services/title.service';
+import { Team } from '../../../models/team';
+import { TeamService } from '../../../services/team.service';
+import { Game } from '../../../models/game';
+import { Record } from '../../../models/record';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,6 +19,8 @@ export class TeamDetailComponent implements OnInit {
   private teamId: number;
   team$: Observable<Team>;
   games$: Observable<Game[]>;
+  record$: Observable<Record>;
+  activeGame: Game;
 
   constructor(private route: ActivatedRoute,
               public titleService: TitleService,
@@ -27,9 +30,9 @@ export class TeamDetailComponent implements OnInit {
   ngOnInit() {
     this.setTeamId();
     this.getTeam();
-    // this.setPageTitle();
+    this.setPageTitle();
     this.setGames();
-    console.log(this.games$);
+    this.setRecord();
   }
 
   getTeam(): void {
@@ -46,8 +49,21 @@ export class TeamDetailComponent implements OnInit {
       .pipe(game => this.games$ = game);
   }
 
+  setRecord(): void {
+    this._teamService.getTeamRecord(this.teamId)
+      .pipe(record => this.record$ = record);
+  }
+
+  setPageTitle(): void {
+    this.titleService.setTitle('Team Details');
+  }
+
   goBack(): void {
     this.location.back();
+  }
+
+  setActiveGame(game: Game): void {
+    this.activeGame = game;
   }
 
 }

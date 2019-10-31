@@ -29,7 +29,7 @@ a {
 .card {
   background-color: $primary_muted_dark;
   margin: 0 0 20px 0;
-  border-radius: 10px;
+  border-radius: 5px;
   border-style: solid;
   border-width: 1px;
   border-color: $text_color;
@@ -41,14 +41,15 @@ a {
 
 .card-header {
   background-color: $primary_darker;
-  border-radius: 10px 10px 0 0;
+  border-radius: 5px;
   border-style: none none solid none;
   border-width: 1px;
   border-color: $text_color;
 }
 
+
 .card-standard {
-  height: 350px;
+  padding: 25px;
 }
 
 .card-short {
@@ -56,9 +57,12 @@ a {
 }
 
 .card-highlight:hover {
-  background-color: $primary_muted_medium;
   color: $text_color;
   text-decoration: none;
+  box-shadow:
+    0 0 3px #fff,        /* outer white */
+    -1px 0 5px $accent_light,     /* outer left magenta */
+    1px 0 8px #0ff;      /* outer right cyan */
 }
 
 .action {
@@ -67,9 +71,49 @@ a {
   border-color: $text_color;
   border-width: 2px;
   border-style: solid;
-  border-radius: 25px;
+  border-radius: 50%;
 }
 
 .action:hover {
-  background-color: $primary_darker;
+  box-shadow:
+    0 0 3px #fff,        /* outer white */
+    -1px 0 5px $accent_light,        /* outer left magenta */
+    1px 0 8px #0ff;        /* outer right cyan */
+}
+
+.action-button {
+  background-color: $primary_muted_darker;
+  border-color: white;
+}
+
+.action-button:hover {
+  background-color: $primary_muted_darker;
+  box-shadow:
+    0 0 3px #fff,        /* outer white */
+    -1px 0 5px $accent_light,   /* outer left accent color */
+    1px 0 8px #0ff;        /* outer right cyan */
+}
+
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.hatchet-table {
+  color: white;
+}
+
+td a {
+  display: inline-block;
+  height:100%;
+  width:100%;
+}
+
+.card-actions {
+  margin: -20px -20px 10px -20px;
+  padding: 20px 20px 20px 20px;
+  border-color: white;
+  border-width: 1px;
+  border-style: none none solid none;
 }

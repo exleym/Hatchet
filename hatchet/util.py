@@ -1,9 +1,17 @@
 import csv
+from flask import jsonify
 from flask_restplus import Namespace
 from flask_restplus.reqparse import RequestParser
 import json
+import logging
 import re
-from typing import List, Union
+from typing import List, Union, Tuple
+
+
+logger = logging.getLogger(__name__)
+first_cap_re = re.compile('(.)([A-Z][a-z]+)')
+all_cap_re = re.compile('([a-z0-9])([A-Z])')
+record_re = re.compile(r" \([0-9]+.[0-9]+\)")
 
 
 def default_list_parser(namespace: Namespace) -> RequestParser:
@@ -31,35 +39,31 @@ def load_json(file: str):
         return json.load(fp.read())
 
 
-def load_csv(file: str, headers=False) -> List[dict]:
+def load_csv(file: str, headers=False, sort: str = None) -> List[dict]:
     """ load a CSV into a list of rows or a list of json objects
 
     If the parameter `headers` is set to True, `load_csv` will return a
     list of json objects where each value is keyed on the column header.
     Otherwise, the default value of False will result in a list of tuples.
 
-    Parameters
-    ----------
-    file
-    headers
-
-    Returns
-    -------
-
+    :param file
+    :param headers
     """
     if headers:
         data = load_csv(file, headers=False)
         hdrs = data[0]
-        return [
-            {
-                xx: (yy if yy else None)
-                for xx, yy in zip(hdrs, x)
-            }
+        data = [
+            { xx: (yy if yy else None) for xx, yy in zip(hdrs, x) }
             for x in data[1:]
         ]
+        if sort:
+            key = lambda x: int(x[sort]) #TODO: this shouldn't autocast as int
+            data.sort(key=key)
+        return data
     with open(file, 'r', newline='', encoding='utf-8-sig') as fp:
         reader = csv.reader(fp, delimiter=',')
-        return [x for x in reader]
+        data = [x for x in reader]
+    return data
 
 
 def validate_xor(**kwargs):
@@ -69,10 +73,6 @@ def validate_xor(**kwargs):
         raise ValueError(
             f"one and only one of {kwargs.values()} must be non null"
         )
-
-
-first_cap_re = re.compile('(.)([A-Z][a-z]+)')
-all_cap_re = re.compile('([a-z0-9])([A-Z])')
 
 
 def _camel_to_snake(camel: str) -> str:
@@ -89,3 +89,14 @@ def camel_to_snake(data: Union[list, dict]) -> Union[list, dict]:
             v = camel_to_snake(v)
         new.update({_camel_to_snake(k): v})
     return new
+
+
+def error(code: int, message: str, details: str) -> Tuple[str, int]:
+    response = [
+        {"message": message, "details": details}
+    ]
+    return jsonify(response), code
+
+
+def strip_record(team_name: str) -> str:
+    return re.sub(record_re, "", team_name)

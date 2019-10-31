@@ -1,25 +1,24 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-3">
-      <app-schedule-item *ngFor="let game of games"
-                         [game]="game"
-                         [referenceTeam]="team"
-                         (click)="setActive(game)"
-                         [class.active-item]="game===activeGame">
-      </app-schedule-item>
-      <div class="card">
-        <div class="card-header">
-          <h3>Add a Game</h3>
-        </div>
-        <div class="card-content">
-          <app-create-game></app-create-game>
-        </div>
+<div class="row">
+  <div class="col-md-4">
+    <app-schedule-item *ngFor="let game of games"
+                       [game]="game"
+                       [referenceTeam]="team"
+                       (click)="setActive(game)"
+                       [class.active-item]="game===activeGame">
+    </app-schedule-item>
+    <div class="card">
+      <div class="card-header">
+        <h3>Add a Game</h3>
+      </div>
+      <div class="card-content">
+        <app-create-game></app-create-game>
       </div>
     </div>
-    <div class="col-lg-9">
-      <div class="card">
-        <div class="card-header">
-          <h3>
+  </div>
+  <div *ngIf="activeGame" class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h3>
             <span>
               {{team.name}}
               {{activeGame.participant(team.id).location()}}
@@ -27,18 +26,18 @@
                 {{activeGame.opponent(team.id).team.shortName}}
               </a>
             </span>
-            <span style="float:right;"><i class="material-icons">edit</i></span>
-          </h3>
-        </div>
-        <div class="card-content">
-          <ul>
-            <li>Kickoff: {{activeGame.kickoffTime | date: 'shortTime' : '+0' }}</li>
-            <li>B: 2</li>
-            <li>C: 3</li>
-            <li>D: 4</li>
-          </ul>
-        </div>
+          <span style="float:right;"><i class="material-icons">edit</i></span>
+        </h3>
+      </div>
+      <div class="card-content">
+        <ul>
+          <li>Kickoff: {{activeGame.kickoffTime | date: 'shortTime' : '+0' }}</li>
+          <li>B: 2</li>
+          <li>C: 3</li>
+          <li>D: 4</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
+

@@ -1,4 +1,5 @@
 import requests
+from typing import Any
 
 
 class BaseClient(object):
@@ -30,3 +31,9 @@ class BaseClient(object):
         resp = requests.post(self.base_url, json=kwargs)
         resp.raise_for_status()
         return self.unwrap(resp.json())
+
+    def search(self, field: str, op: str, value: Any):
+        pkg = {"filters": [{"field": field, "op": op, "value": value}]}
+        resp = requests.post(f"{self.base_url}/search", json=pkg)
+        print(f"looking for {pkg} at {resp.url} ... found {resp.json()}")
+        return resp.json()

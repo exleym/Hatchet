@@ -5,9 +5,14 @@ import logging
 from marshmallow import Schema
 from typing import List
 import hatchet.db.crud.base as queries
+from hatchet.extensions import filtr
+from hatchet.resources.schemas.converters import MarshmallowRestplusConverter
+from hatchet.resources.schemas.schemas import PostFilterSchema, SearchSchema
 from hatchet.util import default_list_parser
 
+
 logger = logging.getLogger(__name__)
+search_schema = SearchSchema()
 
 
 class Cruddite(object):
@@ -17,10 +22,13 @@ class Cruddite(object):
         self.ns = namespace
         self.resource = resource
         self.schema = schema()
+        self.converter = MarshmallowRestplusConverter(api=self.ns)
         self.description = description
         self.rp_model = rp_model
         self.parser = default_list_parser(namespace=self.ns)
         parser_args = parser_args or []
+        self.converter.create_model(PostFilterSchema)
+        self.search_model = self.converter.create_model(SearchSchema)
         for p in parser_args:
             self.parser.add_argument(p)
 
@@ -69,6 +77,22 @@ class Cruddite(object):
             def delete(subclass_self, id: int):
                 queries.remove_resource_by_id(id, model=self.resource)
                 return ""
+
+    def create_search_endpoint(self):
+
+        @self.ns.route("/search")
+        class ResourceSearch(Resource):
+
+            @self.ns.doc(f"execute a resource search for {self.ns.name}")
+            @self.ns.expect(self.search_model)
+            @self.ns.marshal_with(self.rp_model)
+            def post(subclass_self):
+                filters = self.ns.payload.get("filters")
+                return filtr.search(
+                    DbModel=self.resource,
+                    filters=filters,
+                    ModelSchema=self.schema
+                )
 
     @property
     def default_mask(self):

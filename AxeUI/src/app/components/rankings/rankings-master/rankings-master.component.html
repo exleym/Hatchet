@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-11">
+      <table class="table table-bordered">
+        <tr>
+          <td class="season-selector">2019</td>
+          <td *ngFor="let week of weeks"
+              class="week-selector"
+              [class.week-selected]="week==activeWeek"
+              (click)="setActiveWeek(week)">
+            Week {{ week.number }}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <app-weekly-ranking [week]="activeWeek"></app-weekly-ranking>
+    </div>
+  </div>
+</div>
