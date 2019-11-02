@@ -10,11 +10,14 @@ class HatchetClient(object):
     domain = "http://localhost:5000/api/v1"
 
     def __init__(self):
-        self.team_client = self.register_client(context="/teams",
-                                                schema=schemas.ClientTeamSchema,
-                                                model=TeamClient)
-        self.conf_client = self.register_client("/conferences",
-                                                schemas.ClientConferenceSchema)
+        self.team_client = TeamClient(domain=self.domain,
+                                      context="/teams",
+                                      schema=schemas.ClientTeamSchema,
+                                      model=TeamClient)
+        self.conf_client = self.register_client(
+            context="/conferences",
+            schema=schemas.ClientConferenceSchema
+        )
 
     def list_teams(self, limit: int = None, offset: int = None):
         """get a list of Team objects from Hatchet
@@ -67,11 +70,19 @@ class HatchetClient(object):
             stadium_id=stadium_id
         )
 
+    def get_team_games(self, team_id: int, season: int = None):
+        return self.team_client.get_team_games(team_id=team_id, season=season)
+
+
     def list_conferences(self, **kwargs):
         return self.conf_client.list_resources(**kwargs)
 
     def find_game(self, team_id: int, date: dt.date):
-        pass
+        games = self.get_team_games(team_id=team_id, season=date.year)
+        match = [g for g in games if g.game_time.date() == date]
+        if match:
+            return match[0]
+        return None
 
     def register_client(self, context: str, schema: type(ma.Schema),
                         model: type(ResourceClient) = None):

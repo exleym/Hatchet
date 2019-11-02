@@ -21,6 +21,7 @@ def create_app(env='prd') -> Flask:
     app = Flask(__name__)
     configure_app(app, env)
     register_extensions(app)
+    setup_db(app)
     register_error_handlers(app)
     register_blueprints(app)
     add_special_routes(app)
@@ -42,10 +43,15 @@ def register_extensions(app: Flask) -> None:
     db.init_app(app)
     filtr.init_app(app)
     CORS(app)
+
+
+def setup_db(app: Flask) -> None:
     if app.config.get('CREATE_SCHEMA'):
         with app.app_context():
             db.create_all()
-            insert_seed_data()
+            if app.config.get("SEED_DATA"):
+                insert_seed_data()
+
 
 
 def add_special_routes(app: Flask):

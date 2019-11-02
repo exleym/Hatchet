@@ -8,6 +8,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SWAGGER_URL = '/resources/v1/swagger'
     OPENAPI_PATH = '/static/swagger/openapi.yml'
+    SEED_DATA = False
 
     @classmethod
     def get(cls, env: str):
@@ -24,6 +25,7 @@ class DevelopmentConfig(Config):
     ENV = Environment.DEV0
     DEBUG = True
     CREATE_SCHEMA = True
+    SEED_DATA = True
     #SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.getcwd()}/data.sqlite'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 

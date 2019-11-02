@@ -1,5 +1,6 @@
 import dataclasses
 import datetime
+from typing import List
 
 
 class Resource:
@@ -26,18 +27,6 @@ class Conference(Resource):
 
 
 @dataclasses.dataclass
-class Team(Resource):
-    id: int
-    code: str
-    name: str
-    short_name: str
-    mascot: str
-    conference_id: int
-    division_id: int
-    stadium_id: int
-
-
-@dataclasses.dataclass
 class Surface(Resource):
     id: int
     code: str
@@ -60,9 +49,32 @@ class Stadium(Resource):
 
 
 @dataclasses.dataclass
+class Team(Resource):
+    id: int
+    code: str
+    name: str
+    short_name: str
+    mascot: str
+    conference_id: int
+    division_id: int
+    stadium_id: int
+    stadium: Stadium = None
+
+
+@dataclasses.dataclass
+class Participant(Resource):
+    team_id: int
+    game_id: int
+    location_type_id: int
+    score: int
+    team: Team = None
+
+
+@dataclasses.dataclass
 class Game(Resource):
     id: int
     game_time: datetime.datetime
     stadium_id: int
     espn_id: int
-    stadium: Stadium
+    participants: List[Participant]
+    stadium: Stadium = None
