@@ -26,6 +26,7 @@ class ClientSurfaceSchema(schemas.SurfaceSchema, HatchetClientMixin):
 
 class ClientStadiumSchema(schemas.StadiumSchema, HatchetClientMixin):
     model = cm.Stadium
+    surface = ma.fields.Nested("ClientSurfaceSchema", missing=None, allow_none=True)
 
 
 class ClientConferenceSchema(schemas.ConferenceSchema, HatchetClientMixin):
@@ -34,6 +35,7 @@ class ClientConferenceSchema(schemas.ConferenceSchema, HatchetClientMixin):
 
 class ClientTeamSchema(schemas.TeamSchema, HatchetClientMixin):
     model = cm.Team
+    stadium = ma.fields.Nested("ClientStadiumSchema", missing=None, allow_none=True)
 
 
 class ClientGameSchema(schemas.GameSchema, HatchetClientMixin):

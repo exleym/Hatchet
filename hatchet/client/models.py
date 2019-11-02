@@ -38,13 +38,14 @@ class Surface(Resource):
 class Stadium(Resource):
     id: int
     code: str
+    name: str
     state: str
     city: str
     latitude: str
     longitude: str
     built: int
     capacity: int
-    surfaceId: int
+    surface_id: int
     surface: Surface = None
 
 
