@@ -8,13 +8,15 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SWAGGER_URL = '/resources/v1/swagger'
     OPENAPI_PATH = '/static/swagger/openapi.yml'
+    SEED_DATA = False
 
     @classmethod
     def get(cls, env: str):
         config_map = {
             'prd': ProductionConfig,
             'dev': DevelopmentConfig,
-            'test': TestingConfig
+            'test': TestingConfig,
+            'dev-stable': StableDevelopmentConfig,
         }
         return config_map.get(env)
 
@@ -24,8 +26,19 @@ class DevelopmentConfig(Config):
     ENV = Environment.DEV0
     DEBUG = True
     CREATE_SCHEMA = True
+    SEED_DATA = True
     #SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.getcwd()}/data.sqlite'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+
+
+class StableDevelopmentConfig(Config):
+    RESTART_ON_CHANGE = True
+    ENV = Environment.DEV0
+    DEBUG = True
+    CREATE_SCHEMA = True
+    SEED_DATA = False
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.getcwd()}/data.sqlite'
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 
 
 class ProductionConfig(Config):

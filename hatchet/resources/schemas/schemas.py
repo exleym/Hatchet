@@ -1,4 +1,5 @@
-from marshmallow import fields
+from flask_filter.schemas import vali1date_operator
+from marshmallow import fields, Schema
 
 from hatchet.resources.schemas.validators import (
     modern_datetime_validator, modern_year_validator, score_validator
@@ -65,12 +66,12 @@ class GameSchema(BaseSchema):
         dump_only=True
     )
 
-
 class LineSchema(BaseSchema):
     gameId = fields.Integer(attribute="game_id")
     teamId = fields.Integer(attribute="team_id")
     bookmakerId = fields.Integer(attribute="bookmaker_id")
     spread = fields.Float()
+    overUnder = fields.Float(attribute="over_under")
     vigorish = fields.Integer()
 
 
@@ -115,9 +116,42 @@ class TeamSchema(BaseSchema):
     name = fields.String()
     shortName = fields.String(attribute='short_name', allow_none=True)
     mascot = fields.String()
-    conferenceId = fields.Integer(attribute='conference_id', load_only=True)
+    conferenceId = fields.Integer(attribute='conference_id')
     divisionId = fields.Integer(attribute='division_id')
     stadiumId = fields.Integer(attribute='stadium_id', allow_none=True)
     stadium = fields.Nested("StadiumSchema", dump_only=True)
     conference = fields.Nested("ConferenceSchema", dump_only=True)
     division = fields.Nested("DivisionSchema", dump_only=True)
+
+
+class PostFilterSchema(Schema):
+    field = fields.String(required=True, allow_none=False)
+    op = fields.String(required=True, attribute="OP", validate=vali1date_operator)
+    value = fields.Field(required=True, allow_none=False)
+
+
+class SearchSchema(Schema):
+    filters = fields.List(fields.Nested("PostFilterSchema"))
+
+
+class PollSchema(BaseSchema):
+    code = fields.String()
+    name = fields.String()
+    url = fields.String()
+
+
+class RankingSchema(BaseSchema):
+    weekId = fields.Integer(attribute="week_id")
+    pollId = fields.Integer(attribute="poll_id")
+    teamId = fields.Integer(attribute="team_id")
+    rank = fields.Integer()
+    priorRank = fields.Integer(attribute="prior_rank")
+    poll = fields.Nested("PollSchema")
+    team = fields.Nested("TeamSchema")
+
+
+class WeekSchema(BaseSchema):
+    number = fields.Integer()
+    season = fields.Integer()
+    startDate = fields.Date(attribute="start_date")
+    endDate = fields.Date(attribute="end_date")

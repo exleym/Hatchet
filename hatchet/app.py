@@ -1,14 +1,19 @@
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 import logging
+from marshmallow.exceptions import ValidationError
 
 
 from hatchet import Environment
-from hatchet.extensions import db
+from hatchet.extensions import db, filtr
 from config import Config
 
 from hatchet.apis.api_v1 import blueprint as api_v1
 from hatchet.db.seed_data import insert_seed_data
+from hatchet.util import error
+
+
+logger = logging.getLogger(__name__)
 
 
 def create_app(env='prd') -> Flask:
@@ -16,6 +21,7 @@ def create_app(env='prd') -> Flask:
     app = Flask(__name__)
     configure_app(app, env)
     register_extensions(app)
+    setup_db(app)
     register_error_handlers(app)
     register_blueprints(app)
     add_special_routes(app)
@@ -35,11 +41,17 @@ def register_blueprints(app: Flask):
 
 def register_extensions(app: Flask) -> None:
     db.init_app(app)
+    filtr.init_app(app)
     CORS(app)
+
+
+def setup_db(app: Flask) -> None:
     if app.config.get('CREATE_SCHEMA'):
         with app.app_context():
             db.create_all()
-            insert_seed_data()
+            if app.config.get("SEED_DATA"):
+                insert_seed_data()
+
 
 
 def add_special_routes(app: Flask):
@@ -50,7 +62,14 @@ def add_special_routes(app: Flask):
 
 def register_error_handlers(app: Flask) -> None:
 
+    @app.errorhandler(ValidationError)
+    def validation_error_handler(err):
+        logger.error("marshmallow validation error", err)
+        return error(500, message='uncaught exception', details=str(err))
+
     @app.errorhandler(Exception)
     def generic_error_handler(err):
-        return jsonify({"errors": [{'message': 'uncaught exception',
-                                    'err': str(err)}]}), 500
+        logger.error("unhandled application exception", err)
+        code = getattr(err, "status_code", 500)
+        message = getattr(err, "message", "uncaught exception")
+        return error(code, message=message, details=str(err))

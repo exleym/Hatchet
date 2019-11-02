@@ -6,27 +6,37 @@
 
 
 class ApplicationException(Exception):
+
+    default_status: int
+    default_message: str
+
     def __init__(self, message, status_code=None, payload=None):
         super().__init__()
         if not isinstance(message, dict) and not isinstance(message, list):
             messages = [message]
         else:
             messages = message
-        self.messages = messages
-        self.status_code = status_code
+        self.messages = messages or self.default_message
+        self.status_code = status_code or self.default_status
         self.payload = payload
 
 
 class MalformedRequestException(ApplicationException):
-    def __init__(self, message=None, status_code=400, payload=None):
-        message = message or "malformed request body"
-        super().__init__(message, status_code, payload)
+
+    default_status: int = 404
+    default_message: str = "malformed request body"
 
 
 class MissingResourceException(ApplicationException):
-    def __init__(self, message=None, status_code=404, payload=None):
-        message = message or "the resource you requested cannot be found"
-        super().__init__(message, status_code, payload)
+
+    default_status: int = 404
+    default_message: str = "the resource you requested cannot be found"
+
+
+class InvalidArgumentError(ApplicationException):
+
+    default_status: int = 400
+    default_message: str = "user passed an invalid argument"
 
 
 def throw_mre(id: int, model_class):

@@ -27,4 +27,6 @@ import hatchet.apis.coaches
 import hatchet.apis.players
 import hatchet.apis.data_sources
 import hatchet.apis.bookmakers
-
+import hatchet.apis.lines
+import hatchet.apis.weeks
+import hatchet.apis.polls

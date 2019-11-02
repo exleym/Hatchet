@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Game } from '../../models/game';
 import { Team } from '../../models/team';
 import { GameService } from '../../services/game.service';
+import {Stadium} from '../../models/stadium';
+import {StadiumService} from '../../services/stadium.service';
 
 @Component({
   selector: 'app-schedule',
@@ -12,9 +14,11 @@ export class ScheduleComponent implements OnInit {
 
   @Input() games: Game[];
   @Input() team: Team;
-  private activeGame: Game;
+  activeGame: Game;
+  activeStadium: Stadium;
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService,
+              private stadiumService: StadiumService) { }
 
   addGame(game: Game): void {
     this.gameService.createGame(game)
@@ -22,16 +26,24 @@ export class ScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activeGame = this.games[1];
+    this.setActive(this.games[0]);
   }
 
   setActive(game: Game): void {
-    console.log(`setting active game ${game.id}`);
+    console.log(`setting activeGame=${game}`);
     this.activeGame = game;
+    this.setActiveStadium(game.stadiumId);
   }
 
   showGameForm(): void {
     console.log('you clicked the thing!');
+  }
+
+  setActiveStadium(stadiumId: number): void {
+    this.stadiumService.getStadium(stadiumId)
+      .subscribe(stadium => {
+        this.activeStadium = stadium;
+      });
   }
 
 }

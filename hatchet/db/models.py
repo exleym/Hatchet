@@ -177,7 +177,48 @@ class Team(db.Model):
 
     @property
     def wins(self):
-        return len([g for g in self.games if g.winner_id == self.id])
+        return len(
+            [
+                g for g in self.games
+                if g.winner and g.winner.team_id == self.id
+            ])
+
+    @property
+    def losses(self):
+        return len(
+            [
+                g for g in self.games
+                if g.winner and g.winner.team_id != self.id
+            ])
+
+    @property
+    def conference_wins(self):
+        return len(
+            [
+                g for g in self.games
+                if g.winner
+                   and g.winner.team_id == self.id
+                   and g.loser.team.conference_id == self.conference_id
+            ])
+
+    @property
+    def conference_losses(self):
+        return len([
+            g for g in self.games
+            if g.winner
+               and g.winner.team_id != self.id
+               and g.winner.team.conference_id == self.conference_id
+        ])
+
+    def record(self, season: int):
+        return {
+            "season": season,
+            "wins": self.wins,
+            "losses": self.losses,
+            "confWins": self.conference_wins,
+            "confLosses": self.conference_losses
+        }
+
 
     def __repr__(self):
         return f"<Team(id={self.id}, name='{self.name}', " \
@@ -241,4 +282,32 @@ class Line(db.Model):
     team_id = db.Column(db.Integer, db.ForeignKey("team.id"))
     bookmaker_id = db.Column(db.Integer, db.ForeignKey("bookmaker.id"))
     spread = db.Column(db.Float)
+    over_under = db.Column(db.Float)
     vigorish = db.Column(db.Integer)
+
+
+class Week(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    number = db.Column(db.Integer)
+    season = db.Column(db.Integer)
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
+
+
+class Poll(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    code = db.Column(db.String(16))
+    name = db.Column(db.String(128))
+    url = db.Column(db.String(256))
+
+
+class Ranking(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    week_id = db.Column(db.Integer, db.ForeignKey("week.id"))
+    poll_id = db.Column(db.Integer, db.ForeignKey("poll.id"))
+    team_id = db.Column(db.Integer, db.ForeignKey("team.id"))
+    rank = db.Column(db.Integer)
+    prior_rank = db.Column(db.Integer)
+
+    poll = db.relationship("Poll")
+    team = db.relationship("Team")

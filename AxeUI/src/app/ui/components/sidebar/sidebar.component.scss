@@ -36,6 +36,8 @@
 .sidebar-element:hover {
   border-radius: 5px;
   background-color: $accent_darker;
+  box-shadow:
+    inset 0 0 150px $accent_dark,
 }
 .sidebar-element-underlined {
   border-bottom: solid;
