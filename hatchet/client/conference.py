@@ -1,26 +1,14 @@
 import dataclasses
 import requests
 from hatchet.client.base import BaseClient
-from hatchet.util import camel_to_snake
-from hatchet.resources.schemas.schemas import TeamSchema
+import hatchet.resources.schemas.schemas as schemas
+from hatchet.client.subdivision import Subdivision
 
 
-schema = TeamSchema()
+schema = schemas.ConferenceSchema()
 
 
-@dataclasses.dataclass
-class Team:
-    id: int
-    code: str
-    name: str
-    short_name: str
-    mascot: str
-    conference_id: int
-    division_id: int
-    stadium_id: int
-
-
-class TeamClient(BaseClient):
+class SubdivisionClient(BaseClient):
 
     base_url = "http://localhost:5000/api/v1/teams"
 

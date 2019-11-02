@@ -186,7 +186,11 @@ def insert_bookmakers():
         models.Bookmaker(code="BOV", name="Bovada", website="http://www.bovada.lv"),
         models.Bookmaker(code="FIVE", name="5Dimes", website="http://www.5dimes.eu"),
         models.Bookmaker(code="BM", name="BookMaker", website="http://www.bookmaker.eu"),
-        models.Bookmaker(code="HRTG", name="Heritage Sports", website="http://www.heritagesports.eu")
+        models.Bookmaker(code="HRTG", name="Heritage Sports", website="http://www.heritagesports.eu"),
+        models.Bookmaker(code="CEZ", name="Caesars", website=""),
+        models.Bookmaker(code="CONS", name="Consensus", website=""),
+        models.Bookmaker(code="NF", name="numberfire", website=""),
+        models.Bookmaker(code="TR", name="teamrankings", website=""),
     ]
     for bookie in BOOKMAKERS:
         db.session.add(bookie)
@@ -240,7 +244,6 @@ def insert_rankings():
 
 def do_rankings_for_season(season: int):
     RANKINGS = seed_path / f"rankings-{season}.csv"
-    logger.warning(f"loading rankings from CSV {RANKINGS}...")
     rankings = util.load_csv(RANKINGS, headers=True, sort="Wk")
     weeks = {week.number: week for week in list_resources(models.Week, season=season)}
 
@@ -266,7 +269,6 @@ def do_rankings_for_season(season: int):
             rank=rank.get("Rk"),
             prior_rank=prior_rank
         )
-        logger.warning(f"ranking: week={week}, prior_week={prior_week}, ranking={ranking.rank}")
         db.session.add(ranking)
         db.session.commit()
     logger.warning(f"added rankings for {season} to database...")

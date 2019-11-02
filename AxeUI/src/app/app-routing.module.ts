@@ -10,6 +10,7 @@ import { TeamDetailComponent } from './components/teams/team-detail/team-detail.
 import { StadiumMasterComponent } from './components/stadiums/stadium-master/stadium-master.component';
 import { StadiumDetailComponent } from './components/stadiums/stadium-detail/stadium-detail.component';
 import { RankingsMasterComponent } from './components/rankings/rankings-master/rankings-master.component';
+import {GamblingMasterComponent} from './components/gambling/gambling-master/gambling-master.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'stadiums', component: StadiumMasterComponent},
   { path: 'stadiums/:id', component: StadiumDetailComponent },
   { path: 'rankings', component: RankingsMasterComponent },
+  { path: 'gambling', component: GamblingMasterComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 

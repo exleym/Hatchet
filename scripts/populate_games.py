@@ -6,7 +6,7 @@ import requests
 logger = logging.getLogger(__name__)
 
 from hatchet import Environment
-from hatchet.client.team import TeamClient, Team
+from hatchet.client.resource_clients.team import TeamClient, Team
 from hatchet.client.game import GameClient
 from hatchet.util import load_csv
 

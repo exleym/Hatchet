@@ -66,12 +66,12 @@ class GameSchema(BaseSchema):
         dump_only=True
     )
 
-
 class LineSchema(BaseSchema):
     gameId = fields.Integer(attribute="game_id")
     teamId = fields.Integer(attribute="team_id")
     bookmakerId = fields.Integer(attribute="bookmaker_id")
     spread = fields.Float()
+    overUnder = fields.Float(attribute="over_under")
     vigorish = fields.Integer()
 
 
@@ -116,7 +116,7 @@ class TeamSchema(BaseSchema):
     name = fields.String()
     shortName = fields.String(attribute='short_name', allow_none=True)
     mascot = fields.String()
-    conferenceId = fields.Integer(attribute='conference_id', load_only=True)
+    conferenceId = fields.Integer(attribute='conference_id')
     divisionId = fields.Integer(attribute='division_id')
     stadiumId = fields.Integer(attribute='stadium_id', allow_none=True)
     stadium = fields.Nested("StadiumSchema", dump_only=True)

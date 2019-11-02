@@ -6,4 +6,5 @@ DATA_SOURCES = [
     DataSource("BOV", "Bovada", "http://www.bovada.lv"),
     DataSource("SR", "SportsReference", "http://www.sports-reference.com/cfb"),
     DataSource("ESPN", "ESPN", "http://www.espn.com"),
+    DataSource("CFBD", "CFB Data", "https://collegefootballdata.com/")
 ]

@@ -27,6 +27,10 @@ import { StadiumMasterComponent } from './components/stadiums/stadium-master/sta
 import { StadiumDetailComponent } from './components/stadiums/stadium-detail/stadium-detail.component';
 import { RankingsMasterComponent } from './components/rankings/rankings-master/rankings-master.component';
 import { WeeklyRankingComponent } from './components/rankings/weekly-ranking/weekly-ranking.component';
+import { GamblingMasterComponent } from './components/gambling/gambling-master/gambling-master.component';
+import { LiveBetsComponent } from './components/gambling/live-bets/live-bets.component';
+import { BetsHistoryComponent } from './components/gambling/bets-history/bets-history.component';
+import { BetCreatorComponent } from './components/gambling/bet-creator/bet-creator.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { WeeklyRankingComponent } from './components/rankings/weekly-ranking/wee
     StadiumMasterComponent,
     StadiumDetailComponent,
     RankingsMasterComponent,
-    WeeklyRankingComponent
+    WeeklyRankingComponent,
+    GamblingMasterComponent,
+    LiveBetsComponent,
+    BetsHistoryComponent,
+    BetCreatorComponent
   ],
   imports: [
     BrowserModule,

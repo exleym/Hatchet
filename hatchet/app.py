@@ -64,4 +64,6 @@ def register_error_handlers(app: Flask) -> None:
     @app.errorhandler(Exception)
     def generic_error_handler(err):
         logger.error("unhandled application exception", err)
-        return error(500, message='uncaught exception', details=str(err))
+        code = getattr(err, "status_code", 500)
+        message = getattr(err, "message", "uncaught exception")
+        return error(code, message=message, details=str(err))

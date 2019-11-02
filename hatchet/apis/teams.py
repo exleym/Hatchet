@@ -15,7 +15,7 @@ ns_teams = api_manager.add_resource(
     resource=db.Team,
     schema=TeamSchema,
     description="NCAA Football Teams representing a University",
-    parser_args=["code"]
+    parser_args=["code", "name", "short_name"]
 )
 parser = default_list_parser(namespace=ns_teams)
 parser.add_argument("code", type=str, required=False)

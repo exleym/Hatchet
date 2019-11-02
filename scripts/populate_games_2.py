@@ -5,8 +5,8 @@ import re
 import requests
 from typing import List
 from dateutil.parser import parse
-from hatchet.client.team import Team, TeamClient
-from hatchet.client.game import GameClient
+from hatchet.client.hatchet_client import HatchetClient
+import hatchet.client.models as client_models
 from hatchet.util import load_csv
 
 
@@ -14,8 +14,7 @@ logger = logging.getLogger(__name__)
 PATH = pathlib.Path(__file__).parent.parent / "hatchet/static/seeds/temp-games.csv"
 UPLOAD_URL = 'http://localhost:5000/api/v1/games'
 RANKING = re.compile(r"\([0-9]+\) ")
-team_client = TeamClient()
-game_client = GameClient()
+client = HatchetClient()
 __SR_CACHE = {}
 
 
@@ -24,20 +23,20 @@ def load_data(path: str) -> List[dict]:
     return raw_data
 
 
-def get_team(team_name: str) -> Team:
+def get_team(team_name: str) -> client_models.Team:
     global __SR_CACHE
     sanitized = re.sub(RANKING, "", team_name)
     team = __SR_CACHE.get(sanitized)
     if team:
         return team
-    team = team_client.get_team_by_sr_id(sanitized)
+    team = client.get_team_by_external_id(sanitized, source="SportsReference")
     if not team:
         return None
     __SR_CACHE[sanitized] = team
     return team
 
 
-def game_exists(school: Team, date: dt.date):
+def game_exists(school: client_models.Team, date: dt.date):
     if game_client.find_game(team_id=school.id, date=date):
         return True
     return False

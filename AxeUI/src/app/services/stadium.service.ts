@@ -28,4 +28,12 @@ export class StadiumService {
         });
       }));
   }
+
+  getStadium(stadiumId): Observable<Stadium> {
+    const url = `${this.baseUrl}/${stadiumId}`;
+    return this._http.get<Stadium>(url)
+      .pipe(map(result => {
+        return new Stadium(result);
+      }));
+  }
 }

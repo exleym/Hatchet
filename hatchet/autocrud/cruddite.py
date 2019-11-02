@@ -48,6 +48,7 @@ class Cruddite(object):
             @self.ns.marshal_with(self.rp_model)
             def post(subclass_self):
                 data = self.schema.load(self.ns.payload)
+                logger.warning(data)
                 model = queries.persist_resource(data, self.resource)
                 logger.info(f"created model {model}...")
                 return model

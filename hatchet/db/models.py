@@ -282,6 +282,7 @@ class Line(db.Model):
     team_id = db.Column(db.Integer, db.ForeignKey("team.id"))
     bookmaker_id = db.Column(db.Integer, db.ForeignKey("bookmaker.id"))
     spread = db.Column(db.Float)
+    over_under = db.Column(db.Float)
     vigorish = db.Column(db.Integer)
 
 
