@@ -7,7 +7,7 @@ install:
 script:
   - pip install sphinx
   - pytest --cov hatchet
-  - bash ./publish.sh
+#  - bash ./publish.sh
 env:
   global:
   - GH_USER: exleym
