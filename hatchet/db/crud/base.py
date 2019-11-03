@@ -56,7 +56,6 @@ def edit_resource(id: int, data: dict, model: ModelType) -> db.Model:
         setattr(obj, k, v)
     db.session.add(obj)
     db.session.commit()
-    logger.info(f"updated {obj}...")
     return obj
 
 

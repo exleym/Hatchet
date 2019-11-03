@@ -34,8 +34,11 @@ class CFBDataClient(object):
             return schema.load(data, many=True)
         return schema.load(**data)
 
-    def get_games(self, season: int):
-        data = self.get_data("/games", {"year": season})
+    def get_games(self, season: int, team: str = None):
+        params = {"year": season}
+        if team:
+            params.update({"team": team})
+        data = self.get_data("/games", params)
         return self.unwrap(data, schema=self.game_schema)
 
     def get_teams(self, conference: str = None, fbs_only: bool = False):

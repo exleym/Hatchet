@@ -13,6 +13,8 @@ class HatchetClientMixin:
 
     @ma.post_load
     def make_object(self, data, **kwargs):
+        if not data:
+            return None
         try:
             return self.model(**data)
         except TypeError as e:
@@ -48,5 +50,12 @@ class ClientTeamSchema(schemas.TeamSchema, HatchetClientMixin):
     stadium = ma.fields.Nested("ClientStadiumSchema", missing=None, allow_none=True)
 
 
+class ClientGameParticipantSchema(schemas.GameParticipantSchema, HatchetClientMixin):
+    model = cm.Participant
+    team = ma.fields.Nested("ClientTeamSchema")
+
+
 class ClientGameSchema(schemas.GameSchema, HatchetClientMixin):
     model = cm.Game
+    participants = ma.fields.List(ma.fields.Nested("ClientGameParticipantSchema"), load_only=True)
+    winner = ma.fields.Nested("ClientGameParticipantSchema",load_only=True)

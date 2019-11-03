@@ -16,3 +16,10 @@ ways:
 
 Go Tigers!
 
+
+[ESPN-API]: http://www.espn.com/apis/devcenter/overview.html#api-consumer-tiers
+[REDDIT-PLAYDUMP]: https://www.reddit.com/r/CFBAnalysis/comments/6htfc6/play_by_play_data_dump_20012016/
+[REDDIT-CFBANALYSIS]: https://www.reddit.com/r/CFBAnalysis/
+[CFBDATA-API]: https://api.collegefootballdata.com/api/docs/?url=/api-docs.json#/
+
+

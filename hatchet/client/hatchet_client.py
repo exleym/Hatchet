@@ -18,6 +18,10 @@ class HatchetClient(object):
             context="/conferences",
             schema=schemas.ClientConferenceSchema
         )
+        self.game_client = self.register_client(
+            context="/games",
+            schema=schemas.ClientGameSchema
+        )
 
     def list_teams(self, limit: int = None, offset: int = None):
         """get a list of Team objects from Hatchet
@@ -100,6 +104,9 @@ class HatchetClient(object):
         if match:
             return match[0]
         return None
+
+    def update_game(self, game):
+        return self.game_client.update_resource(game)
 
     def register_client(self, context: str, schema: type(ma.Schema),
                         model: type(ResourceClient) = None):
