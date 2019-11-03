@@ -66,15 +66,6 @@ def load_csv(file: str, headers=False, sort: str = None) -> List[dict]:
     return data
 
 
-def validate_xor(**kwargs):
-    try:
-        assert sum(x is not None for x in kwargs.values()) == 1
-    except AssertionError:
-        raise ValueError(
-            f"one and only one of {kwargs.values()} must be non null"
-        )
-
-
 def _camel_to_snake(camel: str) -> str:
     s1 = first_cap_re.sub(r'\1_\2', camel)
     return all_cap_re.sub(r'\1_\2', s1).lower()
@@ -91,10 +82,8 @@ def camel_to_snake(data: Union[list, dict]) -> Union[list, dict]:
     return new
 
 
-def error(code: int, message: str, details: str) -> Tuple[str, int]:
-    response = [
-        {"message": message, "details": details}
-    ]
+def error(code: int, messages: List[dict]) -> Tuple[str, int]:
+    response = { "errors": messages }
     return jsonify(response), code
 
 

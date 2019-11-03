@@ -30,4 +30,5 @@ class TeamClient(ResourceClient):
     def get_team_games(self, team_id: int, season: int = None) -> List[cm.Game]:
         url = f"{self.base_url}/{team_id}/games"
         params = {"season": season} if season else {}
-        return self.game_schema.load(self.get_data(url=url, params=params), many=True)
+        data = self.get_data(url=url, params=params)
+        return self.game_schema.load(data, many=True)

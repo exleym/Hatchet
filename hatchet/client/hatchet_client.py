@@ -18,6 +18,10 @@ class HatchetClient(object):
             context="/conferences",
             schema=schemas.ClientConferenceSchema
         )
+        self.game_client = self.register_client(
+            context="/games",
+            schema=schemas.ClientGameSchema
+        )
 
     def list_teams(self, limit: int = None, offset: int = None):
         """get a list of Team objects from Hatchet
@@ -60,6 +64,23 @@ class HatchetClient(object):
             name=name, source=source
         )
 
+    def add_external_mapping(self, team_id: int, external_name: str =  None,
+                             external_id: int = None):
+        """create an external data-source mapping for a team
+
+
+
+        Parameters
+        ----------
+        team_id
+        external_name
+        external_id
+
+        Returns
+        -------
+
+        """
+
 
     def create_team(self, code: str, name: str, short_name: str, mascot: str,
                     conference_id: int, division_id: int, stadium_id: int):
@@ -83,6 +104,9 @@ class HatchetClient(object):
         if match:
             return match[0]
         return None
+
+    def update_game(self, game):
+        return self.game_client.update_resource(game)
 
     def register_client(self, context: str, schema: type(ma.Schema),
                         model: type(ResourceClient) = None):

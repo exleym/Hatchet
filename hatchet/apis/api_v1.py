@@ -20,8 +20,7 @@ import hatchet.apis.subdivisions
 import hatchet.apis.conferences
 import hatchet.apis.divisions
 import hatchet.apis.teams
-from hatchet.apis.games import ns as ns_games
-api.add_namespace(ns=ns_games)
+import hatchet.apis.games
 import hatchet.apis.stadiums
 import hatchet.apis.coaches
 import hatchet.apis.players

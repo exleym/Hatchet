@@ -1,5 +1,6 @@
 import dataclasses
 import datetime
+import pytz
 from typing import List
 
 
@@ -23,6 +24,10 @@ class Game:
     away_conference: str
     away_points: int
     away_line_scores: List[int]
+
+    @property
+    def game_date(self):
+        return self.start_date.astimezone(pytz.timezone("US/Eastern")).date()
 
 
 @dataclasses.dataclass

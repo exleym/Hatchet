@@ -1,5 +1,6 @@
 import dataclasses
 import datetime
+import pytz
 from typing import List
 
 
@@ -45,7 +46,7 @@ class Stadium(Resource):
     longitude: str
     built: int
     capacity: int
-    surface_id: int
+    surface_id: int = None
     surface: Surface = None
 
 
@@ -64,6 +65,7 @@ class Team(Resource):
 
 @dataclasses.dataclass
 class Participant(Resource):
+    id: int
     team_id: int
     game_id: int
     location_type_id: int
@@ -77,5 +79,7 @@ class Game(Resource):
     game_time: datetime.datetime
     stadium_id: int
     espn_id: int
-    participants: List[Participant]
+    participants: List[Participant] = None
+    winner: Participant = None
     stadium: Stadium = None
+

@@ -9,9 +9,8 @@ logger = logging.getLogger(__name__)
 def lookup_team_by_external_id(source: str, identifier: str):
     src = meta.DataSource.query.filter_by(name=source).first()
     if not src:
-        raise errors.InvalidArgumentError(
-            message=f"{source} is not a valid data source."
-        )
+        message = f"{source} is not a valid data source."
+        raise errors.InvalidArgumentError(message)
     ext_id = meta.ExternalTeamIdentifier.query \
         .filter_by(source_id=src.id) \
         .filter_by(value=identifier) \

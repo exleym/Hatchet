@@ -18,6 +18,9 @@ seed_path = pathlib.Path() / "hatchet" / "static" / "seeds"
 
 
 def insert_seed_data():
+    conf = list_resources(model=models.Conference)
+    if conf:
+        return None
     insert_weeks()
     insert_data_sources()
     insert_bookmakers()
@@ -28,7 +31,7 @@ def insert_seed_data():
     insert_conferences()
     insert_divisions()
     insert_teams()
-    insert_sr_team_mappers()
+    insert_team_mappers()
     insert_polls()
     insert_rankings()
 
@@ -199,11 +202,13 @@ def insert_bookmakers():
     return 0
 
 
-def insert_sr_team_mappers():
+def insert_team_mappers():
     SR_TEAM_MAPPING = seed_path / "sr-team-mapping.csv"
     ESPN_TEAM_MAPPING = seed_path / "espn-team-mapping.csv"
+    CFBDATA_TEAM_MAPPING = seed_path / "cfbd-team-mapping.csv"
     insert_external_team_mappings(SR_TEAM_MAPPING, ds_code="SR")
     insert_external_team_mappings(ESPN_TEAM_MAPPING, ds_code="ESPN")
+    insert_external_team_mappings(CFBDATA_TEAM_MAPPING, ds_code="CFBD")
 
 
 def insert_external_team_mappings(f_path, ds_code: str):

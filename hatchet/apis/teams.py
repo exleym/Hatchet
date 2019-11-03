@@ -32,6 +32,28 @@ lookup = ns_teams.model("lookup", {
     "teamName": fields.String()
 })
 
+external_mapping = ns_teams.model("external_mapping", {
+    "dataSource": fields.String(),
+    "teamName": fields.String(),
+    "externalId": fields.Integer(),
+    "teamId": fields.Integer()
+})
+
+
+@ns_teams.route("/external/mapping")
+class ExternalTeamMappings(Resource):
+    @ns_teams.doc("create an external mapping")
+    @ns_teams.expect(external_mapping)
+    @ns_teams.marshal_with(external_mapping)
+    def post(self):
+        return None
+
+    @ns_teams.doc("list external mappings")
+    @ns_teams.marshal_with(external_mapping)
+    def get(self):
+        return []
+
+
 
 @ns_teams.route("/external/search")
 class ExternalTeamLookup(Resource):

@@ -36,7 +36,7 @@ class StableDevelopmentConfig(Config):
     ENV = Environment.DEV0
     DEBUG = True
     CREATE_SCHEMA = True
-    SEED_DATA = False
+    SEED_DATA = True
     SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.getcwd()}/data.sqlite'
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 

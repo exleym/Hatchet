@@ -1,7 +1,11 @@
+import logging
 from marshmallow import Schema
 import requests
 from typing import Any
 import hatchet.client.models as client_models
+
+
+logger = logging.getLogger(__name__)
 
 
 class ResourceClient(object):
@@ -40,6 +44,14 @@ class ResourceClient(object):
     def get_resource_by_code(self, code: str):
         data = self.get_data(url=self.base_url, params={"code": code})
         return self.unwrap(data[0])
+
+    def update_resource(self, resource):
+        data = self.schema.dump(resource)
+        url = f"{self.base_url}/{resource.id}"
+        resp = requests.put(url, json=data)
+        logger.info(data)
+        resp.raise_for_status()
+        return self.unwrap(resp.json())
 
     def create_resource(self, **kwargs):
         data = self.schema.dump(kwargs)

@@ -65,11 +65,11 @@ def register_error_handlers(app: Flask) -> None:
     @app.errorhandler(ValidationError)
     def validation_error_handler(err):
         logger.error("marshmallow validation error", err)
-        return error(500, message='uncaught exception', details=str(err))
+        return error(422, [{"message": "Validation error", "details": str(err)}])
 
     @app.errorhandler(Exception)
     def generic_error_handler(err):
         logger.error("unhandled application exception", err)
         code = getattr(err, "status_code", 500)
-        message = getattr(err, "message", "uncaught exception")
-        return error(code, message=message, details=str(err))
+        message = getattr(err, "messages", "uncaught exception")
+        return error(code, [dict(message=message, details=str(err))])
