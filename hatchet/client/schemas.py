@@ -13,7 +13,11 @@ class HatchetClientMixin:
 
     @ma.post_load
     def make_object(self, data, **kwargs):
-        return self.model(**data)
+        try:
+            return self.model(**data)
+        except TypeError as e:
+            logger.error(f"error loading {self.model} from {data}...")
+            raise e
 
 
 class ClientSubdivisionSchema(schemas.SubdivisionSchema, HatchetClientMixin):
@@ -27,6 +31,12 @@ class ClientSurfaceSchema(schemas.SurfaceSchema, HatchetClientMixin):
 class ClientStadiumSchema(schemas.StadiumSchema, HatchetClientMixin):
     model = cm.Stadium
     surface = ma.fields.Nested("ClientSurfaceSchema", missing=None, allow_none=True)
+
+    @ma.post_load
+    def make_object(self, data, **kwargs):
+        if not data.get("code"):
+            return None
+        return self.model(**data)
 
 
 class ClientConferenceSchema(schemas.ConferenceSchema, HatchetClientMixin):

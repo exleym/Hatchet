@@ -11,6 +11,7 @@ https://github.com/BlueSCar/cfb-api
 """
 import requests
 import hatchet.client.ext.cfb.schemas as schemas
+import hatchet.util
 
 
 class CFBDataClient(object):
@@ -37,7 +38,13 @@ class CFBDataClient(object):
         data = self.get_data("/games", {"year": season})
         return self.unwrap(data, schema=self.game_schema)
 
-    def get_teams(self, conference: str = None):
+    def get_teams(self, conference: str = None, fbs_only: bool = False):
         params = {"conference": conference} if conference else {}
-        data = self.get_data("/teams", params)
+        context = "/teams"
+        if fbs_only:
+            context += "/fbs"
+            params = {}
+        data = self.get_data(context, params)
         return self.unwrap(data, schema=self.team_schema)
+
+

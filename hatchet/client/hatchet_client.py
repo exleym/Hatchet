@@ -60,6 +60,23 @@ class HatchetClient(object):
             name=name, source=source
         )
 
+    def add_external_mapping(self, team_id: int, external_name: str =  None,
+                             external_id: int = None):
+        """create an external data-source mapping for a team
+
+
+
+        Parameters
+        ----------
+        team_id
+        external_name
+        external_id
+
+        Returns
+        -------
+
+        """
+
 
     def create_team(self, code: str, name: str, short_name: str, mascot: str,
                     conference_id: int, division_id: int, stadium_id: int):

@@ -45,7 +45,7 @@ class Stadium(Resource):
     longitude: str
     built: int
     capacity: int
-    surface_id: int
+    surface_id: int = None
     surface: Surface = None
 
 
