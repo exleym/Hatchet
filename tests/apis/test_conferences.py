@@ -42,3 +42,9 @@ def test_update_conference(client):
     data["subdivision"] = sub
     assert resp.status_code == 200
     assert resp.json == data
+
+
+def test_delete_conference(client):
+    add_conferences(client)
+    resp = client.delete("/api/v1/conferences/4")
+    assert resp.status_code == 204
