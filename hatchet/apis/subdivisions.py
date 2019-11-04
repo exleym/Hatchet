@@ -1,18 +1,19 @@
 from flask_restplus import Resource
+import logging
 import hatchet.db.models as db
 import hatchet.db.crud.base as queries
 from hatchet.resources.schemas.schemas import ConferenceSchema, SubdivisionSchema, TeamSchema
 from hatchet.apis.api_v1 import api_manager
+from hatchet.apis.serializers import conference, team
 
 
+logger = logging.getLogger(__name__)
 ns_subdivisions = api_manager.add_resource(
     name="subdivisions",
     resource=db.Subdivision,
     schema=SubdivisionSchema,
     description="NCAA Subdivisions"
 )
-conference = api_manager.model(ConferenceSchema)
-team = api_manager.model(TeamSchema)
 
 
 @ns_subdivisions.route("/<int:id>/conferences")
@@ -22,6 +23,7 @@ class SubdivisionConferences(Resource):
     @ns_subdivisions.marshal_with(conference)
     def get(self, id: int):
         subdiv = queries.get_resource(id, db.Subdivision)
+        logger.warning(subdiv.conferences)
         return subdiv.conferences
 
 

@@ -24,7 +24,7 @@ class ConferenceSchema(BaseSchema):
     code = fields.String()
     name = fields.String()
     shortName = fields.String(attribute="short_name")
-    inceptionYear = fields.String(
+    inceptionYear = fields.Integer (
         attribute="inception_year",
         validate=modern_year_validator,
         allow_none=True

@@ -1,4 +1,4 @@
-from tests.helpers import add_subdivisions
+from tests.helpers import add_subdivisions, add_conferences
 
 
 def test_create_subdivision(client):
@@ -41,6 +41,14 @@ def test_delete_subdivision(client):
     assert resp.status_code == 204
     resp = client.get("/api/v1/subdivisions")
     assert len(resp.json) == 1
+
+
+def test_subdivision_conferences(client):
+    add_conferences(client)
+    resp = client.get("/api/v1/subdivisions/1/conferences")
+
+    assert resp.status_code == 200
+    assert len(resp.json) == 3
 
 
 # def test_missing_subdivision(client):
