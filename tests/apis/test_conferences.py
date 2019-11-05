@@ -1,4 +1,4 @@
-from tests.helpers import add_conferences, add_subdivisions
+from tests.helpers import add_conferences, add_subdivisions, add_teams
 
 
 def test_create_conference(client):
@@ -48,3 +48,11 @@ def test_delete_conference(client):
     add_conferences(client)
     resp = client.delete("/api/v1/conferences/4")
     assert resp.status_code == 204
+
+
+def test_conference_teams(client):
+    add_teams(client)
+    resp = client.get("/api/v1/conferences/1/teams")
+    assert resp.status_code == 200
+    assert len(resp.json) == 6
+

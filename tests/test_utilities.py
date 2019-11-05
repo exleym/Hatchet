@@ -32,3 +32,15 @@ def test_camel_to_snake_on_basic_dictionary():
         "this_one_is_long": 3
     }
     assert util.camel_to_snake(original) == expected
+
+
+def test_camel_to_snake_on_list_of_dicts():
+    original = [{"exampleA": "exampleA", "exampleB": "exampleB"}]
+    expected = [{"example_a": "exampleA", "example_b": "exampleB"}]
+    assert util.camel_to_snake(original) == expected
+
+
+def test_camel_to_snake_on_nested_data():
+    original = {"exampleA": {"exampleB": 101}}
+    expected = {"example_a": {"example_b": 101}}
+    assert util.camel_to_snake(original) == expected
