@@ -1,3 +1,9 @@
+from hatchet.util.util import load_csv
+
+
+GAMES = load_csv("./tests/mocks/mock-games.csv", headers=True)
+
+
 def add_subdivisions(client):
     SUB = [
         {"code": "FBS", "name": "Football Bowl Subdivision", "division": 1},
@@ -17,7 +23,7 @@ def add_conferences(client, limit: int = None):
         (2, "EEE", "Echo Conference", "Echo", 2003),
         (2, "FFF", "Foxtrot Conference", "Foxtrot", 2004)
     ]
-    if limit: CONFERENCES = CONFERENCES[:limit] # optionally reduce count
+    if limit: CONFERENCES = CONFERENCES[:limit]  # optionally reduce count
     for c in CONFERENCES:
         pkg = {
             "subdivisionId": c[0],
@@ -75,8 +81,8 @@ def add_teams(client, limit: int = None):
 
 def add_stadiums(client):
     STADIUMS = [
-        ("S1", "Stadium 1", "AL", "Hottown", None, None, 1900, 100000, None, None),
-        ("S2", "Stadium 2", "AK", "Coldtown", None, None, 1901, 100000, None, None)
+        ("S1", "Stadium 1", "AL", "Hottown", "38N", "94W", 1900, 100000, 1),
+        ("S2", "Stadium 2", "AK", "Coldtown", "38N", "56W", 1901, 100000, 1)
     ]
     for s in STADIUMS:
         pkg = {
@@ -84,10 +90,30 @@ def add_stadiums(client):
             "name": s[1],
             "state": s[2],
             "city": s[3],
-            "latitude": None,
-            "longitude": None,
+            "latitude": s[4],
+            "longitude": s[5],
             "build": s[6],
             "capacity": s[7],
-            "surfaceId": None
+            "surfaceId": s[8]
         }
         client.post("/api/v1/stadiums", json=pkg)
+
+
+def add_games(client):
+    add_stadiums(client)
+    add_teams(client)
+    for game in GAMES:
+        game["participants"] = [
+            {
+                "teamId": int(game.pop("home")),
+                "locationTypeId": 1,
+                "score": int(game.pop("home_score"))
+            },
+            {
+                "teamId": int(game.pop("away")),
+                "locationTypeId": 2,
+                "score": int(game.pop("away_score"))
+            }
+        ]
+        print(game)
+        client.post("/api/v1/games", json=game)

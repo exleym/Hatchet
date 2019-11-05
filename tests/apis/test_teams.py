@@ -1,4 +1,4 @@
-from tests.helpers import add_divisions, add_teams, add_stadiums
+from tests.helpers import add_divisions, add_games, add_teams, add_stadiums
 
 
 def test_create_team(client):
@@ -44,12 +44,12 @@ def test_delete_team(client):
     assert len(resp.json) == 9
 
 
-# def test_team_games(client):
-#     add_teams(client)
-#     resp = client.get("/api/v1/subdivisions/1/conferences")
-#
-#     assert resp.status_code == 200
-#     assert len(resp.json) == 3
+def test_team_games(client):
+    add_games(client)
+    resp = client.get("/api/v1/teams/1/games")
+
+    assert resp.status_code == 200
+    assert len(resp.json) == 3
 
 
 # def test_missing_subdivision(client):

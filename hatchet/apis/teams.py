@@ -1,9 +1,8 @@
 from flask_restplus import Resource, fields
 import hatchet.db.models as db
-import hatchet.db.meta_models as meta
+import hatchet.db.crud.games as game_queries
 import hatchet.db.crud.base as queries
 from hatchet.apis.api_v1 import api_manager
-from hatchet.db.crud.games import list_games
 from hatchet.db.queries.lookups import lookup_team_by_external_id
 from hatchet.apis.serializers import game, player, team, record
 from hatchet.resources.schemas.schemas import TeamSchema
@@ -74,7 +73,7 @@ class TeamGames(Resource):
     def get(self, id: int):
         args = season_arg.parse_args()
         season = int(args.get("season")) if args.get("season") else None
-        games = list_games(team_id=id, season=season)
+        games = game_queries.list_games(team_id=id, season=season)
         return games
 
 
