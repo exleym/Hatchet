@@ -23,7 +23,6 @@ class SubdivisionConferences(Resource):
     @ns_subdivisions.marshal_with(conference)
     def get(self, id: int):
         subdiv = queries.get_resource(id, db.Subdivision)
-        logger.warning(subdiv.conferences)
         return subdiv.conferences
 
 
