@@ -48,10 +48,8 @@ class Cruddite(object):
             @self.ns.marshal_with(self.rp_model)
             def post(subclass_self):
                 data = self.schema.load(self.ns.payload)
-                logger.warning(data)
                 model = queries.persist_resource(data, self.resource)
-                logger.info(f"created model {model}...")
-                return model
+                return model, 201
 
     def create_single_resource_endpoints(self):
         
@@ -77,7 +75,7 @@ class Cruddite(object):
             @self.ns.response(204, "resource deleted")
             def delete(subclass_self, id: int):
                 queries.remove_resource_by_id(id, model=self.resource)
-                return ""
+                return "", 204
 
     def create_search_endpoint(self):
 

@@ -73,7 +73,7 @@ def insert_conferences():
             code=c[1],
             name=c[2],
             short_name=c[3],
-            inception_year=c[4]
+            inception_year=int(c[4]) if c[4] else None
         )
         logger.debug(f"added {conf} to database...")
     logger.warning(f"added conferences to database...")

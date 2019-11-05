@@ -24,7 +24,7 @@ class ConferenceSchema(BaseSchema):
     code = fields.String()
     name = fields.String()
     shortName = fields.String(attribute="short_name")
-    inceptionYear = fields.String(
+    inceptionYear = fields.Integer (
         attribute="inception_year",
         validate=modern_year_validator,
         allow_none=True
@@ -120,7 +120,7 @@ class TeamSchema(BaseSchema):
     divisionId = fields.Integer(attribute='division_id')
     stadiumId = fields.Integer(attribute='stadium_id', allow_none=True)
     stadium = fields.Nested("StadiumSchema", dump_only=True)
-    conference = fields.Nested("ConferenceSchema", dump_only=True)
+    #conference = fields.Nested("ConferenceSchema", dump_only=True)
     division = fields.Nested("DivisionSchema", dump_only=True)
 
 
@@ -155,3 +155,9 @@ class WeekSchema(BaseSchema):
     season = fields.Integer()
     startDate = fields.Date(attribute="start_date")
     endDate = fields.Date(attribute="end_date")
+
+
+class DataSourceSchema(BaseSchema):
+    code = fields.String()
+    name = fields.String()
+    url = fields.String()

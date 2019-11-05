@@ -65,7 +65,7 @@ class Conference(db.Model):
 
     def __repr__(self):
         return f"<Conference(id={self.id}, code='{self.code}'," \
-               f" name='{self.name}, short_name='{self.short_name}')>"
+               f" name='{self.name}', short_name='{self.short_name}')>"
 
 
 class Division(db.Model):
@@ -90,7 +90,7 @@ class Division(db.Model):
 
     def __repr__(self):
         return f"<Division(id={self.id}, conference_id={self.conference_id}," \
-               f" name='{self.name})>"
+               f" name='{self.name}')>"
 
 
 class Game(db.Model):
