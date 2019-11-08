@@ -25,10 +25,13 @@ def list_resources(model: ModelType, **kwargs) -> List[db.Model]:
     q = model.query
     limit = kwargs.pop("limit", None)
     offset = kwargs.pop("offset", None)
+    order_by = kwargs.pop("order_by", None)
     for k, v in kwargs.items():
         if v:
             q = q.filter_by(**{k: v})
-    q = q.order_by(asc(model.id))
+    if not order_by:
+        order_by = model.id
+    q = q.order_by(asc(order_by))
     if limit:
         q = q.limit(limit)
     if offset:

@@ -9,6 +9,22 @@ class Resource:
 
 
 @dataclasses.dataclass
+class Bookmaker(Resource):
+    id: int
+    code: str
+    name: str
+    website: str
+
+
+@dataclasses.dataclass
+class DataSource(Resource):
+    id: int
+    code: str
+    name: str
+    url: str
+
+
+@dataclasses.dataclass
 class Subdivision(Resource):
     id: int
     code: str
@@ -24,7 +40,15 @@ class Conference(Resource):
     name: str
     short_name: str
     inception_year: int
-    subdivision: Subdivision
+    subdivision: Subdivision = None
+
+
+@dataclasses.dataclass
+class Division(Resource):
+    id: int
+    conference_id: int
+    name: str
+    conference: Conference = None
 
 
 @dataclasses.dataclass
@@ -61,6 +85,7 @@ class Team(Resource):
     division_id: int
     stadium_id: int
     stadium: Stadium = None
+    division: Division = None
 
 
 @dataclasses.dataclass
@@ -83,3 +108,25 @@ class Game(Resource):
     winner: Participant = None
     stadium: Stadium = None
 
+
+@dataclasses.dataclass
+class Line(Resource):
+    id: int
+    game_id: int
+    team_id: int
+    bookmaker_id: int
+    spread: float
+    over_under: float
+    vigorish: int
+    game: Game = None
+    team: Team = None
+    bookmaker: Bookmaker = None
+
+
+@dataclasses.dataclass
+class Week:
+    id: int
+    number: int
+    season: int
+    start_date: datetime.date
+    end_date: datetime.date

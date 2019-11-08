@@ -1,8 +1,9 @@
 from flask_restplus import Namespace, Resource, fields
 
+from hatchet.apis.serializers import search
 import hatchet.db.models as models
 import hatchet.db.crud.base as queries
-from hatchet.extensions import db
+from hatchet.extensions import db, filtr
 from hatchet.resources.schemas.schemas import GameSchema, GameParticipantSchema
 from hatchet.apis.serializers import game, play
 from hatchet.util import default_list_parser, camel_to_snake
@@ -19,7 +20,7 @@ class GameCollection(Resource):
     @ns.marshal_with(game)
     def get(self):
         args = parser.parse_args()
-        return queries.list_resources(models.Game)
+        return queries.list_resources(models.Game, order_by=models.Game.game_time)
 
     @ns.expect(game)
     @ns.doc("create a new game", parser=parser)
@@ -58,6 +59,21 @@ class Game(Resource):
     def delete(self, id: int):
         queries.remove_resource_by_id(id, models.Game)
         return ""
+
+
+@ns.route("/search")
+class GameSearch(Resource):
+    @ns.doc(f"execute a resource search for games")
+    @ns.expect(search)
+    @ns.marshal_with(game)
+    def post(self):
+        filters = ns.payload.get("filters")
+        return filtr.search(
+            DbModel=models.Game,
+            filters=filters,
+            ModelSchema=game_schema
+        )
+
 
 
 @ns.route("/<int:id>/plays")

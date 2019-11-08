@@ -53,6 +53,12 @@ class ResourceClient(object):
         resp.raise_for_status()
         return self.unwrap(resp.json())
 
+    def delete_resource(self, id: int):
+        url = f"{self.base_url}/{id}"
+        resp = requests.delete(url=url)
+        resp.raise_for_status()
+        return None
+
     def create_resource(self, **kwargs):
         data = self.schema.dump(kwargs)
         resp = requests.post(self.base_url, json=data)

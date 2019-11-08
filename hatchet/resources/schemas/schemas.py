@@ -34,7 +34,7 @@ class ConferenceSchema(BaseSchema):
 
 class DivisionSchema(BaseSchema):
     conferenceId = fields.Integer(attribute="conference_id")
-    name = fields.String(attribute="name", dump_only=True)
+    name = fields.String(attribute="name")
     conference = fields.Nested("ConferenceSchema", allow_none=True)
 
 
@@ -48,7 +48,11 @@ class GameParticipantSchema(BaseSchema):
     gameId = fields.Integer(attribute='game_id')
     locationTypeId = fields.Integer(attribute='location_type_id')
     score = fields.Integer(validate=score_validator, allow_none=True)
-    team = fields.Nested('TeamSchema', many=False)
+    team = fields.Nested(
+        'TeamSchema',
+        many=False,
+        exclude=["stadium"]
+    )
 
 
 class GameSchema(BaseSchema):
@@ -72,7 +76,7 @@ class LineSchema(BaseSchema):
     bookmakerId = fields.Integer(attribute="bookmaker_id")
     spread = fields.Float()
     overUnder = fields.Float(attribute="over_under")
-    vigorish = fields.Integer()
+    vigorish = fields.Integer(allow_none=True)
 
 
 class PlayerSchema(BaseSchema):

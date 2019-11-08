@@ -41,6 +41,28 @@ class GameSchema(FBSClientSchema):
     away_line_scores = ma.fields.List(ma.fields.Integer())
 
 
+class CFBLineSchema(FBSClientSchema):
+
+    model = models.Line
+
+    provider = ma.fields.String()
+    spread = ma.fields.String()
+    formattedSpread = ma.fields.String(attribute="formatted_spread")
+    overUnder = ma.fields.String(attribute="over_under")
+
+
+class GameLinesSchema(FBSClientSchema):
+
+    model = models.GameLine
+
+    id = ma.fields.Integer()
+    homeTeam = ma.fields.String(attribute="home_team")
+    homeScore = ma.fields.Integer(attribute="home_score")
+    awayTeam = ma.fields.String(attribute="away_team")
+    awayScore = ma.fields.Integer(attribute="away_score")
+    lines = ma.fields.List(ma.fields.Nested("CFBLineSchema"))
+
+
 class TeamSchema(FBSClientSchema):
 
     model = models.Team

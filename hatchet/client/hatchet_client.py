@@ -1,8 +1,14 @@
 import datetime as dt
+import logging
 import marshmallow as ma
 from hatchet.client.base import ResourceClient
 from hatchet.client.resource_clients import TeamClient
 import hatchet.client.schemas as schemas
+from hatchet.errors import MissingResourceException
+from hatchet.util.validators import validate_xor
+
+
+logger = logging.getLogger(__name__)
 
 
 class HatchetClient(object):
@@ -21,6 +27,18 @@ class HatchetClient(object):
         self.game_client = self.register_client(
             context="/games",
             schema=schemas.ClientGameSchema
+        )
+        self.bookmaker_client = self.register_client(
+            context="/bookmakers",
+            schema=schemas.ClientBookmakerSchema
+        )
+        self.line_client = self.register_client(
+            context="/lines",
+            schema=schemas.ClientLineSchema
+        )
+        self.week_client = self.register_client(
+            context="/weeks",
+            schema=schemas.ClientWeekSchema
         )
 
     def list_teams(self, limit: int = None, offset: int = None):
@@ -66,20 +84,8 @@ class HatchetClient(object):
 
     def add_external_mapping(self, team_id: int, external_name: str =  None,
                              external_id: int = None):
-        """create an external data-source mapping for a team
-
-
-
-        Parameters
-        ----------
-        team_id
-        external_name
-        external_id
-
-        Returns
-        -------
-
-        """
+        """create an external data-source mapping for a team"""
+        pass
 
 
     def create_team(self, code: str, name: str, short_name: str, mascot: str,
@@ -105,8 +111,47 @@ class HatchetClient(object):
             return match[0]
         return None
 
+    def get_game(self, id: int = None, espn_id: int = None):
+        validate_xor(id=id, espn_id=espn_id)
+        if id:
+            return self.game_client.get_resource_by_id(id=id)
+        games = self.game_client.search("espnId", "=", espn_id)
+        if not games:
+            raise MissingResourceException(f"no game with ESPN id = {espn_id}")
+        return games[0]
+
+    def get_bookmakers(self, **kwargs):
+        return self.bookmaker_client.list_resources(**kwargs)
+
     def update_game(self, game):
         return self.game_client.update_resource(game)
+
+    def list_lines(self):
+        return self.line_client.list_resources()
+
+    def delete_line(self, id: int):
+        return self.line_client.delete_resource(id=id)
+
+    def create_line(self, game_id: int, team_id: int, bookmaker_id: int,
+                    spread: float, over_under: float = None, vigorish: int = None):
+        return self.line_client.create_resource(
+            game_id=game_id,
+            team_id=team_id,
+            bookmaker_id=bookmaker_id,
+            spread=spread,
+            over_under=over_under,
+            vigorish=vigorish
+        )
+
+    def clear_lines(self):
+        logger.warning(f"clearing lines from Hatchet database...")
+        lines = self.list_lines()
+        for line in lines:
+            self.delete_line(id=line.id)
+        logger.warning(f"{len(lines)} lines removed.")
+
+    def list_weeks(self, season: int):
+        return self.week_client.list_resources(season=season)
 
     def register_client(self, context: str, schema: type(ma.Schema),
                         model: type(ResourceClient) = None):
