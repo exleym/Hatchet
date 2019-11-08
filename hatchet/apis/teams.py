@@ -1,5 +1,6 @@
 from flask_restplus import Resource, fields
 import hatchet.db.models as db
+import hatchet.db.meta_models as mm
 import hatchet.db.crud.games as game_queries
 import hatchet.db.crud.base as queries
 from hatchet.apis.api_v1 import api_manager
@@ -25,6 +26,10 @@ season_arg.add_argument("season", type=int, required=False)
 record_arg = ns_teams.parser()
 record_arg.add_argument("season", type=int, required=False)
 
+ext_map_arg = ns_teams.parser()
+ext_map_arg.add_argument("sourceId", type=int, required=False)
+ext_map_arg.add_argument("teamId", type=int, required=False)
+
 
 lookup = ns_teams.model("lookup", {
     "dataSource": fields.String(),
@@ -32,10 +37,11 @@ lookup = ns_teams.model("lookup", {
 })
 
 external_mapping = ns_teams.model("external_mapping", {
-    "dataSource": fields.String(),
-    "teamName": fields.String(),
-    "externalId": fields.Integer(),
-    "teamId": fields.Integer()
+    "dataSource": fields.String(attribute="source.name", dump_only=True),
+    "sourceId": fields.Integer(attribute="source_id", load_only=True),
+    "teamName": fields.String(attribute="value"),
+    "externalId": fields.Integer(attribute="external_id"),
+    "teamId": fields.Integer(attribute="team_id")
 })
 
 
@@ -48,9 +54,15 @@ class ExternalTeamMappings(Resource):
         return None
 
     @ns_teams.doc("list external mappings")
+    @ns_teams.param("sourceId", "external dataSource to filter")
+    @ns_teams.param("teamId", "external dataSource to filter")
     @ns_teams.marshal_with(external_mapping)
     def get(self):
-        return []
+        args = ext_map_arg.parse_args()
+        params = {}
+        params.update(args)
+        print(args)
+        return queries.list_resources(mm.ExternalTeamIdentifier, **params)
 
 
 

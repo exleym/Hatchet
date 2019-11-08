@@ -13,8 +13,8 @@ api = Api(
     version="1.0",
     description="API for managing Hatchet CFB data"
 )
-
 api_manager = APIManager(title="demo", version="1.0", api=api)
+
 
 import hatchet.apis.subdivisions
 import hatchet.apis.conferences
@@ -30,4 +30,5 @@ import hatchet.apis.bookmakers
 import hatchet.apis.lines
 import hatchet.apis.weeks
 import hatchet.apis.polls
+
 

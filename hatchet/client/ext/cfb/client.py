@@ -18,6 +18,7 @@ class CFBDataClient(object):
 
     base_url = "https://api.collegefootballdata.com"
     game_schema = schemas.GameSchema()
+    line_schema = schemas.GameLinesSchema()
     team_schema = schemas.TeamSchema()
 
     def __init__(self):
@@ -50,4 +51,10 @@ class CFBDataClient(object):
         data = self.get_data(context, params)
         return self.unwrap(data, schema=self.team_schema)
 
-
+    def get_lines(self, season: int, week: int = 1):
+        params = {"year": season}
+        if week:
+            params.update({"week": week})
+        context = "/lines"
+        data = self.get_data(context, params)
+        return self.unwrap(data, self.line_schema)

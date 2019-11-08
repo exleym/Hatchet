@@ -7,5 +7,6 @@ ns = api_manager.add_resource(
     name="lines",
     resource=db.Line,
     schema=schemas.LineSchema,
-    description="Sports Gambling lines"
+    description="Sports Gambling lines",
+    parser_args=["game_id", "team_id"]
 )

@@ -16,6 +16,7 @@ class ExternalTeamIdentifier(db.Model):
     external_id = db.Column(db.Integer, nullable=True)
 
     team = db.relationship("Team", backref="external_identifiers")
+    source = db.relationship("DataSource")
 
 
 class ExternalGameIdentifier(db.Model):

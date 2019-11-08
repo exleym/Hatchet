@@ -31,6 +31,24 @@ class Game:
 
 
 @dataclasses.dataclass
+class Line:
+    provider: str
+    spread: str
+    formatted_spread: str
+    over_under: str
+
+
+@dataclasses.dataclass
+class GameLine:
+    id: int
+    home_team: str
+    home_score: int
+    away_team: str
+    away_score: int
+    lines: List[Line]
+
+
+@dataclasses.dataclass
 class Team:
     id: int
     school: str

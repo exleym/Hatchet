@@ -22,6 +22,10 @@ class HatchetClientMixin:
             raise e
 
 
+class ClientBookmakerSchema(schemas.BookmakerSchema, HatchetClientMixin):
+    model = cm.Bookmaker
+
+
 class ClientSubdivisionSchema(schemas.SubdivisionSchema, HatchetClientMixin):
     model = cm.Subdivision
 
@@ -59,3 +63,15 @@ class ClientGameSchema(schemas.GameSchema, HatchetClientMixin):
     model = cm.Game
     participants = ma.fields.List(ma.fields.Nested("ClientGameParticipantSchema"), load_only=True)
     winner = ma.fields.Nested("ClientGameParticipantSchema",load_only=True)
+
+
+class ClientLineSchema(schemas.LineSchema, HatchetClientMixin):
+    model = cm.Line
+
+    game = ma.fields.Nested("ClientGameSchema")
+    team = ma.fields.Nested("ClientTeamSchema")
+    bookmaker = ma.fields.Nested("ClientBookmakerSchema")
+
+
+class ClientWeekSchema(schemas.WeekSchema, HatchetClientMixin):
+    model = cm.Week

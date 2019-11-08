@@ -31,6 +31,7 @@
       </div>
       <div class="card-content">
         <ul>
+          <li>Hatchet ID: {{activeGame.id}}</li>
           <li>Kickoff: {{ activeGame.kickoffTime | date: 'shortTime' : '-4' }}</li>
           <li>
             <span *ngIf="activeStadium">
@@ -38,8 +39,24 @@
             </span>
           </li>
           <li>ESPN ID: {{activeGame.espnId}}</li>
-          <li>D: 4</li>
         </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Betting Lines</h3>
+      </div>
+      <div class="card-content">
+        <table class="table hatchet-table table-sm">
+          <thead><tr><th>Bookmaker</th><th>Spread</th><th>Over/Under</th></tr></thead>
+          <tbody>
+          <tr *ngFor="let line of activeLines">
+            <td>{{getBookmakerName(line.bookmakerId)}}</td>
+            <td>{{line.spread}}</td>
+            <td>{{line.overUnder}}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

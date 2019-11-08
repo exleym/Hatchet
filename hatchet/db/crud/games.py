@@ -15,6 +15,7 @@ def list_games(team_id: int = None, season: int = None) -> List[Game]:
     games = query.all()
     if season:
         games = [g for g in games if g.game_time.year == season]
+    games.sort(key=lambda x: x.game_time)
     return games
 
 
