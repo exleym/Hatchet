@@ -40,7 +40,7 @@ class Conference(Resource):
     name: str
     short_name: str
     inception_year: int
-    subdivision: Subdivision
+    subdivision: Subdivision = None
 
 
 @dataclasses.dataclass
