@@ -151,3 +151,43 @@ def test_conference_schema_raises_validation_error_for_future_year():
     }
     with pytest.raises(ValidationError):
         schema.load(data)
+
+
+def test_client_team_schema_load():
+    schema = cs.ClientTeamSchema()
+    data = {
+        "id": 42,
+        "code": "CLEM",
+        "name": "Clemson",
+        "shortName": "Clemson",
+        "mascot": "Tigers",
+        "conferenceId": 1,
+        "divisionId": 1,
+        "stadiumId": 1
+    }
+    team = schema.load(data)
+    assert isinstance(team, cm.Team)
+    assert team.stadium is None
+    assert team.division is None
+
+
+def test_client_team_schema_loads_with_division():
+    schema = cs.ClientTeamSchema()
+    data = {
+        "id": 42,
+        "code": "CLEM",
+        "name": "Clemson",
+        "shortName": "Clemson",
+        "mascot": "Tigers",
+        "conferenceId": 1,
+        "divisionId": 3,
+        "stadiumId": 1,
+        "division": {
+            "id": 3,
+            "conferenceId": 1,
+            "name": "ACC Atlantic"
+        }
+    }
+    team = schema.load(data)
+    assert isinstance(team, cm.Team)
+    assert isinstance(team.division, cm.Division)

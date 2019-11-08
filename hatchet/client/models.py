@@ -44,6 +44,14 @@ class Conference(Resource):
 
 
 @dataclasses.dataclass
+class Division(Resource):
+    id: int
+    conference_id: int
+    name: str
+    conference: Conference = None
+
+
+@dataclasses.dataclass
 class Surface(Resource):
     id: int
     code: str
@@ -77,6 +85,7 @@ class Team(Resource):
     division_id: int
     stadium_id: int
     stadium: Stadium = None
+    division: Division = None
 
 
 @dataclasses.dataclass

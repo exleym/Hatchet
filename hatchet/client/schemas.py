@@ -50,9 +50,15 @@ class ClientConferenceSchema(schemas.ConferenceSchema, HatchetClientMixin):
     subdivision = ma.fields.Nested("ClientSubdivisionSchema", missing=None, allow_none=True)
 
 
+class ClientDivisionSchema(schemas.DivisionSchema,HatchetClientMixin):
+    model = cm.Division
+    conference = ma.fields.Nested("ClientConferenceSchema", missing=None, allow_none=None)
+
+
 class ClientTeamSchema(schemas.TeamSchema, HatchetClientMixin):
     model = cm.Team
     stadium = ma.fields.Nested("ClientStadiumSchema", missing=None, allow_none=True)
+    division = ma.fields.Nested("ClientDivisionSchema", missing=None, allow_none=True)
 
 
 class ClientGameParticipantSchema(schemas.GameParticipantSchema, HatchetClientMixin):

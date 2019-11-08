@@ -34,7 +34,7 @@ class ConferenceSchema(BaseSchema):
 
 class DivisionSchema(BaseSchema):
     conferenceId = fields.Integer(attribute="conference_id")
-    name = fields.String(attribute="name", dump_only=True)
+    name = fields.String(attribute="name")
     conference = fields.Nested("ConferenceSchema", allow_none=True)
 
 
