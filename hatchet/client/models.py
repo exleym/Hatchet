@@ -39,7 +39,7 @@ class Conference(Resource):
     code: str
     name: str
     short_name: str
-    inception_year: int
+    inception_year: int = None
     subdivision: Subdivision = None
 
 
@@ -47,7 +47,7 @@ class Conference(Resource):
 class Division(Resource):
     id: int
     conference_id: int
-    name: str
+    name: str = None
     conference: Conference = None
 
 
