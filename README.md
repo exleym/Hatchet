@@ -16,6 +16,9 @@ powerful dataset to support research on the topic. To that end, we aim to
 simplify the data-cleaning and wrangling process surrounding general purpose 
 college football analysis. 
 
+Check out our full documentation at [GitHub Pages](https://exleym.github.io/Hatchet/)!
+
+
 ### Components
 
 The Hatchet College Football toolkit is made up of several key components 
