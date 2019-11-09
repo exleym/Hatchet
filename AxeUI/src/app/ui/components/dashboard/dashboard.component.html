@@ -1,0 +1,12 @@
+<div>
+  <div id="dashboard" class="container-fluid">
+    <div class="row">
+      <div *ngFor="let card of cards" class="col-lg-{{card.width}}">
+        <div class="card card-standard">
+          <h4>{{card.title}}</h4>
+          <h6>{{card.subtitle}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

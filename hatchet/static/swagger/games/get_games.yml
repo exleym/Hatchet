@@ -1,0 +1,9 @@
+summary: list games.
+description: "get all active games"
+tags:
+  - games
+responses:
+  200:
+    description: list of active games
+    schema:
+      $ref: "#/definitions/Game"

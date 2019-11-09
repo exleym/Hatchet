@@ -1,0 +1,11 @@
+summary: list stadiums.
+description: "get all active stadiums"
+tags:
+  - stadiums
+responses:
+  200:
+    description: list of active stadiums
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Stadium"

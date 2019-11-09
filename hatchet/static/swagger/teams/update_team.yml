@@ -1,0 +1,26 @@
+summary: update an existing team.
+description: "use this endpoint to alter attributes of an existing
+team. You can provide partial or full objects, but the id field
+cannot be altered. If you provide the id field in the Team body,
+it will be discarded."
+tags:
+  - teams
+parameters:
+  - in: path
+    name: team_id
+    type: integer
+  - in: body
+    name: team
+    type: object
+    schema:
+      $ref: "#/definitions/Team"
+responses:
+  201:
+    description: successfully created object
+    schema:
+      $ref: "#/definitions/Team"
+  400:
+    description: malformed request
+    schema:
+      $ref: "#/definitions/Error"
+

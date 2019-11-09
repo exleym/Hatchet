@@ -1,0 +1,18 @@
+summary: get team by id.
+description: "get a Team by its primary identifier"
+tags:
+  - teams
+parameters:
+  - in: path
+    name: team_id
+    type: integer
+responses:
+  200:
+    description: a team object
+    schema:
+      $ref: "#/definitions/Team"
+  404:
+    description: team not found
+    schema:
+      $ref: "#/definitions/Error"
+

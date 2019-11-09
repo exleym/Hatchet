@@ -1,0 +1,21 @@
+summary: get divisions belonging to a conference.
+description: "get a list of Divisions by a Conference primary identifier"
+tags:
+  - conferences
+  - divisions
+parameters:
+  - in: path
+    name: conference_id
+    type: integer
+responses:
+  200:
+    description: Divisions in Conference
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Division"
+  404:
+    description: conference not found
+    schema:
+      $ref: "#/definitions/Error"
+

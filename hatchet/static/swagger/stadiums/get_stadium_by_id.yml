@@ -1,0 +1,18 @@
+summary: get stadium by id.
+description: "get a Stadium by its primary identifier"
+tags:
+  - stadiums
+parameters:
+  - in: path
+    name: stadium_id
+    type: integer
+responses:
+  200:
+    description: a stadium object
+    schema:
+      $ref: "#/definitions/Stadium"
+  404:
+    description: stadium not found
+    schema:
+      $ref: "#/definitions/Error"
+

@@ -1,0 +1,20 @@
+summary: create a new stadium.
+description: "use this endpoint to create a new stadium."
+tags:
+  - stadiums
+parameters:
+  - in: body
+    name: stadium
+    type: object
+    schema:
+      $ref: "#/definitions/Stadium"
+responses:
+  201:
+    description: successfully created stadium
+    schema:
+      $ref: "#/definitions/Stadium"
+  400:
+    description: malformed request
+    schema:
+      $ref: "#/definitions/Error"
+

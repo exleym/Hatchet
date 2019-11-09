@@ -1,0 +1,11 @@
+summary: list conferences.
+description: "get all active conferences"
+tags:
+  - conferences
+responses:
+  200:
+    description: list of active conferences
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Conference"

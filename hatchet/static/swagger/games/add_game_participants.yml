@@ -1,0 +1,24 @@
+summary: add game participants.
+description: "Add a GameParticipant to a Game"
+tags:
+  - games
+parameters:
+  - in: path
+    name: game_id
+    type: integer
+  - in: body
+    name: body
+    type:
+      $ref: "#/definitions/GameParticipant"
+responses:
+  200:
+    description: Game participants
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/GameParticipant"
+  404:
+    description: conference not found
+    schema:
+      $ref: "#/definitions/Error"
+

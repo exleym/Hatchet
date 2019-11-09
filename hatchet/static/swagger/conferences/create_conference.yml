@@ -1,0 +1,20 @@
+summary: create a new conference.
+description: "use this endpoint to create a new conference. but why tho?"
+tags:
+  - conferences
+parameters:
+  - in: body
+    name: conference
+    type: object
+    schema:
+      $ref: "#/definitions/Conference"
+responses:
+  201:
+    description: successfully created object
+    schema:
+      $ref: "#/definitions/Conference"
+  400:
+    description: malformed request
+    schema:
+      $ref: "#/definitions/Error"
+

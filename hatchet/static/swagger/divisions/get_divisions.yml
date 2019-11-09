@@ -1,0 +1,11 @@
+summary: list divisions.
+description: "get all active divisions"
+tags:
+  - divisions
+responses:
+  200:
+    description: list of active divisions
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Division"

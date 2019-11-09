@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-4">
+    <app-schedule-item *ngFor="let game of games"
+                       [game]="game"
+                       [referenceTeam]="team"
+                       (click)="setActive(game)"
+                       [class.active-item]="game===activeGame">
+    </app-schedule-item>
+    <div class="card">
+      <div class="card-header">pip
+        <h3>Add a Game</h3>
+      </div>
+      <div class="card-content">
+        <app-create-game></app-create-game>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="activeGame" class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h3>
+            <span>
+              {{team.name}}
+              {{activeGame.participant(team.id).location()}}
+              <a id="selected-opponent" href="/teams/{{activeGame.opponent(team.id).team.id}}">
+                {{activeGame.opponent(team.id).team.shortName}}
+              </a>
+            </span>
+          <span style="float:right;"><i class="material-icons">edit</i></span>
+        </h3>
+      </div>
+      <div class="card-content">
+        <ul>
+          <li>Hatchet ID: {{activeGame.id}}</li>
+          <li>Kickoff: {{ activeGame.kickoffTime | date: 'shortTime' : '-4' }}</li>
+          <li>
+            <span *ngIf="activeStadium">
+              Stadium: <a href="/stadiums/{{activeStadium.id}}">{{ activeStadium.name }}</a>
+            </span>
+          </li>
+          <li>ESPN ID: {{activeGame.espnId}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Betting Lines</h3>
+      </div>
+      <div class="card-content">
+        <table class="table hatchet-table table-sm">
+          <thead><tr><th>Bookmaker</th><th>Spread</th><th>Over/Under</th></tr></thead>
+          <tbody>
+          <tr *ngFor="let line of activeLines">
+            <td>{{getBookmakerName(line.bookmakerId)}}</td>
+            <td>{{line.spread}}</td>
+            <td>{{line.overUnder}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
