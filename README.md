@@ -34,7 +34,7 @@ The [Hatchet Web API][H1] provides a model of the college football landscape.
 It seeks to model as many data points about each game as possible, and make 
 them available in an easy to use and reliable format. 
 
-![Swagger](documentation/static/swagger.png)
+![Swagger](docs/static/swagger.png)
 
 See the [Data Model][DM] section of our full documentation for a complete list 
 of the entities we model and their attributes.
@@ -56,7 +56,7 @@ of the entities we model and their attributes.
   * *Line* - betting lines for each game, includes spreads, O/U & vig data
   * *Bet* (not implemented) - track bets, outcomes, and P&L
   
-![Schema-Diagram](documentation/static/schema-diagram.png)
+![Schema-Diagram](docs/static/schema-diagram.png)
 
 #### Hatchet Client
 Python client for interacting with the API. Abstrcts the HTTP / JSON 
