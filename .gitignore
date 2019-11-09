@@ -10,6 +10,7 @@ Untitled*
 # build / test documents
 .coverage
 htmlcov/
+documentation/build/
 
 # Virtual Environment
 venv/
