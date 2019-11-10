@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developer Guide &mdash; Hatchet 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Hatchet
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Component Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Technical Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-model.html">Core Data Model</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hatchet</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Developer Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/developer-guide.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developer-guide">
+<h1>Developer Guide<a class="headerlink" href="#developer-guide" title="Permalink to this headline">¶</a></h1>
+<p>Operating / altering an application can be complicated, especially if there
+are multiple components working together. This section of the documentation
+outlines the tooling decisions made for this project and details the steps
+required to make changes to the application.</p>
+<div class="section" id="part-i-running-locally">
+<h2>Part I: Running Locally<a class="headerlink" href="#part-i-running-locally" title="Permalink to this headline">¶</a></h2>
+<p>The full application suite can be run on a local machine, treating each
+service as a fully independent component and running them separately, while
+allowing them to communicate with one-another over local HTTP.</p>
+<div class="section" id="step-1-boot-the-hatchet-api-in-local-mode">
+<h3>Step 1 - Boot the Hatchet API in “local mode”<a class="headerlink" href="#step-1-boot-the-hatchet-api-in-local-mode" title="Permalink to this headline">¶</a></h3>
+<p>Setting up the Hatchet API for local development should be fairly
+straightforward. Clone the full Hatchet repo from GitHub to your local
+machine.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note for Windows users:</p>
+<p>This application was developed on Mac and Linux and has not been tested
+on Windows machines. There isn’t a good reason that it shouldn’t run on
+Windows, but it may take some extra tweaking and configuration.</p>
+</div>
+<p>Once the application is checked out locally and you have a project build in
+your IDE of choice, you need to create a Python virtual environment to serve
+as your runtime. We recommend using virtualenv and pip for package management.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m virtualenv venv
+$ <span class="nb">source</span> venv/bin/activate
+<span class="o">(</span>venv<span class="o">)</span>$ pip install -r requirements.txt
+<span class="o">(</span>venv<span class="o">)</span>$ python wsgi.py
+</pre></div>
+</div>
+<p>That should be it. As long as you have a suitable python runtime (Python 3.6+)
+and the dependencies installed, the basic API should “just work”. Depending
+on the configuration / environment selected, however, you may have varying
+degrees of pre-seeded data.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory of the project contains several scripts to seed
+additional data into the application. Scripts have been provided for the
+following functionality:</p>
+<ul class="simple">
+<li><p>adding basic game information,</p></li>
+<li><p>external mappings to ESPN, CFB-Data, etc</p></li>
+<li><p>adding betting data</p></li>
+<li><p>adding TV ratings data</p></li>
+</ul>
+</div>
+<div class="section" id="step-2-boot-the-axe-ui-in-local-mode">
+<h3>Step 2 - Boot the Axe UI in “local mode”<a class="headerlink" href="#step-2-boot-the-axe-ui-in-local-mode" title="Permalink to this headline">¶</a></h3>
+<p>AxeUI is an Angular application and will require you to have Node, NPM, and
+the Angular CLI installed to function properly. Let’s assume those are all
+already handled, and you just need to boot the application.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> AxeUI
+$ npm install
+$ ng serve --open
+</pre></div>
+</div>
+<p>This will install all NPM dependencies and boot your Angular application on
+port 4200. The <code class="docutils literal notranslate"><span class="pre">--open</span></code> command will cause it to load in your browser as
+soon as the application is finished compiling and is served on the local dev
+server.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Exley McCormick
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
