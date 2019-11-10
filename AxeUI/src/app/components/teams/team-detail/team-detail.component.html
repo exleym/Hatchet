@@ -23,6 +23,19 @@
               </div>
             </div>
           </div>
+          <div>
+            <table class="table table-bordered hatchet-table">
+              <tr>
+                <td>Select a Seson</td>
+                <td *ngFor="let season of availableSeasons"
+                    class="season-selector"
+                    [class.season-selected]="season==currentSeason"
+                    (click)="setSeason(season)">
+                  {{ season }}
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>

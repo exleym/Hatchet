@@ -22,4 +22,8 @@ export class WeekService {
         });
       }));
   }
+
+  getSeasons(): Observable<number[]> {
+    return this._http.get<number[]>(`${this.baseUrl}/seasons`);
+  }
 }

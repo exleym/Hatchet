@@ -20,7 +20,9 @@ class GameCollection(Resource):
     @ns.marshal_with(game)
     def get(self):
         args = parser.parse_args()
-        return queries.list_resources(models.Game, order_by=models.Game.game_time)
+        return queries.list_resources(models.Game,
+                                      order_by=models.Game.game_time,
+                                      **args)
 
     @ns.expect(game)
     @ns.doc("create a new game", parser=parser)
@@ -52,7 +54,8 @@ class Game(Resource):
     @ns.doc("update game")
     @ns.marshal_with(game)
     def put(self, id: int):
-        return queries.edit_resource(id, ns.payload, models.Game)
+        data = game_schema.load(ns.payload, partial=True)
+        return queries.edit_resource(id, data, models.Game)
 
     @ns.doc("delete game")
     @ns.response(204, "game deleted")

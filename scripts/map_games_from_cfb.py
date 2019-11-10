@@ -3,7 +3,7 @@ from hatchet.client.ext.cfb.client import CFBDataClient
 from hatchet.client.hatchet_client import HatchetClient
 
 
-SEASON = 2019
+SEASONS = [2018, 2019]
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 cfb_client = CFBDataClient()
@@ -31,4 +31,5 @@ def main(season: int):
 
 
 if __name__ == "__main__":
-    main(SEASON)
+    for season in SEASONS:
+        main(season)

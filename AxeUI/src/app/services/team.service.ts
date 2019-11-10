@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -39,9 +39,13 @@ export class TeamService {
       }));
   }
 
-  getTeamGames(teamId: number): Observable<Game[]> {
+  getTeamGames(teamId: number, season?: number): Observable<Game[]> {
+    let params = new HttpParams();
+    if (season != null) {
+     params = params.set('season', season.toString());
+    }
     const url = `${this.teamsUrl}/${teamId}/games`;
-    return this._http.get<any>(url)
+    return this._http.get<any>(url, { params })
       .pipe(map(result => {
         return result.map(item => {
           return new Game(item);

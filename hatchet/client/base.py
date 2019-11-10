@@ -49,7 +49,6 @@ class ResourceClient(object):
         data = self.schema.dump(resource)
         url = f"{self.base_url}/{resource.id}"
         resp = requests.put(url, json=data)
-        logger.info(data)
         resp.raise_for_status()
         return self.unwrap(resp.json())
 

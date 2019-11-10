@@ -74,8 +74,8 @@ class LineSchema(BaseSchema):
     gameId = fields.Integer(attribute="game_id")
     teamId = fields.Integer(attribute="team_id")
     bookmakerId = fields.Integer(attribute="bookmaker_id")
-    spread = fields.Float()
-    overUnder = fields.Float(attribute="over_under")
+    spread = fields.Float(allow_none=True)
+    overUnder = fields.Float(attribute="over_under", allow_none=True)
     vigorish = fields.Integer(allow_none=True)
 
 

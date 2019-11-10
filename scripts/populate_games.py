@@ -11,7 +11,7 @@ from hatchet.util import load_csv
 
 
 logger = logging.getLogger(__name__)
-PATH = pathlib.Path(__file__).parent.parent / "hatchet/static/seeds/temp-games.csv"
+PATH = pathlib.Path(__file__).parent.parent / "hatchet/static/seeds/games-2019.csv"
 UPLOAD_URL = 'http://localhost:5000/api/v1/games'
 RANKING = re.compile(r"\([0-9]+\) ")
 client = HatchetClient()

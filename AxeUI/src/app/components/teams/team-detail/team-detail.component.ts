@@ -8,6 +8,7 @@ import { TeamService } from '../../../services/team.service';
 import { Game } from '../../../models/game';
 import { Record } from '../../../models/record';
 import { Observable } from 'rxjs';
+import {WeekService} from '../../../services/week.service';
 
 @Component({
   selector: 'app-team-detail',
@@ -17,22 +18,39 @@ import { Observable } from 'rxjs';
 export class TeamDetailComponent implements OnInit {
 
   private teamId: number;
+  currentSeason: number;
   team$: Observable<Team>;
   games$: Observable<Game[]>;
   record$: Observable<Record>;
   activeGame: Game;
+  availableSeasons: number[];
 
   constructor(private route: ActivatedRoute,
               public titleService: TitleService,
               private _teamService: TeamService,
+              private _weekService: WeekService,
               private location: Location) { }
 
   ngOnInit() {
+    this.currentSeason = 2019;
     this.setTeamId();
     this.getTeam();
     this.setPageTitle();
-    this.setGames();
+    this.setGames(this.currentSeason);
     this.setRecord();
+    this.setAvailableSeasons();
+  }
+
+  setAvailableSeasons(): void {
+    this._weekService.getSeasons()
+      .subscribe(seasons => {
+        this.availableSeasons = seasons;
+      });
+  }
+
+  setSeason(season: number): void {
+    this.currentSeason = season;
+    this.setGames(this.currentSeason);
   }
 
   getTeam(): void {
@@ -44,8 +62,8 @@ export class TeamDetailComponent implements OnInit {
     this.teamId = +this.route.snapshot.paramMap.get('id');
   }
 
-  setGames(): void {
-    this._teamService.getTeamGames(this.teamId)
+  setGames(season?: number): void {
+    this._teamService.getTeamGames(this.teamId, season)
       .pipe(game => this.games$ = game);
   }
 

@@ -13,3 +13,13 @@ ns_weeks = api_manager.add_resource(
     description="NCAA Football Weeks / Rankings",
     parser_args=["season"]
 )
+
+
+@ns_weeks.route("/seasons")
+class SeasonCollection(Resource):
+    @ns_weeks.doc("list available seasons")
+    def get(self):
+        return list(set([
+            x.season for x in
+            models.Week.query.distinct(models.Week.season).all()
+        ]))

@@ -1,1 +1,20 @@
 @import '../../../../styles';
+
+
+.season-selector {
+  color: white;
+}
+
+.season-selector:hover {
+  background-color: $primary-muted-medium;
+}
+
+.season-selected {
+  background-color: $primary-medium;
+}
+
+.season-selected:hover {
+  background-color: $primary-dark;
+}
+
+
