@@ -13,6 +13,9 @@ logger = logging.getLogger(__name__)
 
 class HatchetClient(object):
 
+    __EXTERNAL_CACHE = {}
+    __TEAM_CACHE = {}
+    __GAME_CACHE = {}
     domain = "http://localhost:5000/api/v1"
 
     def __init__(self):
@@ -40,6 +43,31 @@ class HatchetClient(object):
             context="/weeks",
             schema=schemas.ClientWeekSchema
         )
+        self.stadium_client = self.register_client(
+            context="/stadiums",
+            schema=schemas.ClientStadiumSchema
+        )
+        self.network_client = self.register_client(
+            context="/networks",
+            schema=schemas.ClientNetworkSchema
+        )
+        self.rating_client = self.register_client(
+            context="/ratings",
+            schema=schemas.ClientRatingSchema
+        )
+
+    def list_conferences(self, **kwargs):
+        return self.conf_client.list_resources(**kwargs)
+
+    def list_games(self, limit: int = None, offset: int = None):
+        """get a list of Game objects from Hatchet
+
+        keyword arguments work for paginating data, for filtering data, you
+        should use the :meth:`find_game` method.
+        """
+        games = self.game_client.list_resources(limit=limit, offset=offset)
+        self.__GAME_CACHE.update({g.id: g for g in games})
+        return games
 
     def list_teams(self, limit: int = None, offset: int = None):
         """get a list of Team objects from Hatchet
@@ -47,12 +75,21 @@ class HatchetClient(object):
         keyword arguments work for paginating data, for filtering data, you
         should use the :meth:`find_team` method.
         """
-        return self.team_client.list_resources(limit=limit, offset=offset)
+        teams = self.team_client.list_resources(limit=limit, offset=offset)
+        self.__TEAM_CACHE.update({t.id: t for t in teams})
+        return teams
+
+    def list_lines(self):
+        return self.line_client.list_resources()
 
     def get_team(self, id: int = None, code: str = None):
         """get a single Team by its id or code identifier"""
         if id:
-            return self.team_client.get_resource_by_id(id=id)
+            team = self.__TEAM_CACHE.get(id)
+            if team: return team
+            team = self.team_client.get_resource_by_id(id=id)
+            self.__TEAM_CACHE[team.id] = team
+            return team
         return self.team_client.get_resource_by_code(code=code)
 
     def find_team(self, query: str):
@@ -70,6 +107,7 @@ class HatchetClient(object):
             team = self.team_client.search(field="name", op="like", value=v)
         return team
 
+
     def get_team_by_external_id(self, name: str, source: str):
         """get a team by an external mapping identifier
 
@@ -78,9 +116,13 @@ class HatchetClient(object):
         from our team objects to each of these external identifiers. this
         method does a reverse-lookup from external id to team.
         """
-        return self.team_client.get_team_by_external_id(
-            name=name, source=source
-        )
+        team = self.__EXTERNAL_CACHE.get((name, source))
+        if not team:
+            team = self.team_client.get_team_by_external_id(
+                name=name, source=source
+            )
+            self.__EXTERNAL_CACHE[(name, source)] = team
+        return team
 
     def add_external_mapping(self, team_id: int, external_name: str =  None,
                              external_id: int = None):
@@ -97,18 +139,15 @@ class HatchetClient(object):
             stadium_id=stadium_id
         )
 
-    def get_team_games(self, team_id: int, season: int = None):
-        return self.team_client.get_team_games(team_id=team_id, season=season)
-
-
-    def list_conferences(self, **kwargs):
-        return self.conf_client.list_resources(**kwargs)
+    def get_team_games(self, team_id: int, season: int = None,
+                       date: dt.date = None):
+        return self.team_client.get_team_games(team_id=team_id, season=season,
+                                               date=date)
 
     def find_game(self, team_id: int, date: dt.date):
-        games = self.get_team_games(team_id=team_id, season=date.year)
-        match = [g for g in games if g.game_time.date() == date]
-        if match:
-            return match[0]
+        games = self.get_team_games(team_id=team_id, date=date)
+        if games:
+            return games[0]
         return None
 
     def get_game(self, id: int = None, espn_id: int = None):
@@ -125,9 +164,6 @@ class HatchetClient(object):
 
     def update_game(self, game):
         return self.game_client.update_resource(game)
-
-    def list_lines(self):
-        return self.line_client.list_resources()
 
     def delete_line(self, id: int):
         return self.line_client.delete_resource(id=id)
@@ -161,4 +197,19 @@ class HatchetClient(object):
             context=context,
             schema=schema,
             model=schema.model
+        )
+
+    def get_stadium_by_external_id(self, name: str, source: str):
+        raise NotImplementedError
+
+    def list_networks(self):
+        return self.network_client.list_resources()
+
+    def create_rating(self, game_id: int, network_id: int, rating: float = None,
+                      viewers: float = None):
+        return self.rating_client.create_resource(
+            game_id=game_id,
+            network_id=network_id,
+            rating=rating,
+            viewers=viewers
         )

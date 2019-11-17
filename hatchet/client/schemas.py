@@ -66,10 +66,20 @@ class ClientGameParticipantSchema(schemas.GameParticipantSchema, HatchetClientMi
     team = ma.fields.Nested("ClientTeamSchema")
 
 
+class ClientNetworkSchema(schemas.NetworkSchema, HatchetClientMixin):
+    model = cm.Network
+
+
+class ClientRatingSchema(schemas.RatingSchema, HatchetClientMixin):
+    model = cm.Rating
+
+
 class ClientGameSchema(schemas.GameSchema, HatchetClientMixin):
     model = cm.Game
     participants = ma.fields.List(ma.fields.Nested("ClientGameParticipantSchema"), load_only=True)
     winner = ma.fields.Nested("ClientGameParticipantSchema",load_only=True)
+    # rating = ma.fields.List(ma.fields.Nested("ClientRatingSchema", required=False,
+    #                           allow_none=True, many=False))
 
 
 class ClientLineSchema(schemas.LineSchema, HatchetClientMixin):
@@ -77,7 +87,8 @@ class ClientLineSchema(schemas.LineSchema, HatchetClientMixin):
 
     game = ma.fields.Nested("ClientGameSchema")
     team = ma.fields.Nested("ClientTeamSchema")
-    bookmaker = ma.fields.Nested("ClientBookmakerSchema")
+    bookmaker = ma.fields.Nested("ClientBookmakerSchema", required=False,
+                                 allow_none=True)
 
 
 class ClientWeekSchema(schemas.WeekSchema, HatchetClientMixin):

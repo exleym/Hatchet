@@ -1,10 +1,10 @@
 import logging
+from typing import List
 from hatchet.client.ext.cfb.client import CFBDataClient
 from hatchet.client.hatchet_client import HatchetClient
 
 
-SEASONS = [2018, 2019]
-logging.basicConfig(level=logging.INFO)
+SEASONS = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 logger = logging.getLogger(__name__)
 cfb_client = CFBDataClient()
 hatchet_client = HatchetClient()
@@ -28,8 +28,11 @@ def main(season: int):
             logger.info(f"added espn_id: {new_game.espn_id} to {new_game}")
 
 
+def run(seasons: List[int] = None):
+    seasons = seasons or SEASONS
+    for season in seasons:
+        main(season)
 
 
 if __name__ == "__main__":
-    for season in SEASONS:
-        main(season)
+    run()

@@ -30,5 +30,7 @@ import hatchet.apis.bookmakers
 import hatchet.apis.lines
 import hatchet.apis.weeks
 import hatchet.apis.polls
+import hatchet.apis.networks
+import hatchet.apis.ratings
 
 

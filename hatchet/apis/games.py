@@ -48,7 +48,9 @@ class Game(Resource):
     @ns.doc("get game by id")
     @ns.marshal_with(game)
     def get(self, id: int):
-        return queries.get_resource(id, models.Game)
+        x = queries.get_resource(id, models.Game)
+        return x
+
 
     @ns.expect(game)
     @ns.doc("update game")

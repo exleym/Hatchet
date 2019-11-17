@@ -17,24 +17,35 @@
                   <span class="action"><i class="material-icons">edit</i></span>
                 </h4>
               </div>
-              <div *ngIf="record$ | async as record">
-                <span>{{ record.wins }}-{{ record.losses }}</span>
-                <span> ({{record.confWins}}-{{record.confLosses}} in conference)</span>
-              </div>
             </div>
           </div>
-          <div>
-            <table class="table table-bordered hatchet-table">
-              <tr>
-                <td>Select a Seson</td>
-                <td *ngFor="let season of availableSeasons"
-                    class="season-selector"
-                    [class.season-selected]="season==currentSeason"
-                    (click)="setSeason(season)">
-                  {{ season }}
-                </td>
-              </tr>
-            </table>
+          <div class="card container-fluid">
+            <div class="row season-widget">
+              <div class="season-selector-widget col-md-4">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Season: {{currentSeason}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div *ngFor="let season of availableSeasons"
+                         class="season-selector dropdown-item"
+                         [class.season-selected]="season==currentSeason"
+                         (click)="setSeason(season)">{{season}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="record-widget col-md-5">
+                <button class="btn btn-secondary" *ngIf="record$ | async as record" disabled>
+                  <span>{{ record.wins }}-{{ record.losses }}</span>
+                  <span> ({{record.confWins}}-{{record.confLosses}} in conference)</span>
+                </button>
+              </div>
+              <div class="record-widget col-md-3">
+                <button class="btn btn-secondary" disabled>
+                  <span>8-4 ATS</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

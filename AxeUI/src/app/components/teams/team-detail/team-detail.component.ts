@@ -51,6 +51,7 @@ export class TeamDetailComponent implements OnInit {
   setSeason(season: number): void {
     this.currentSeason = season;
     this.setGames(this.currentSeason);
+    this.setRecord(this.currentSeason);
   }
 
   getTeam(): void {
@@ -67,8 +68,8 @@ export class TeamDetailComponent implements OnInit {
       .pipe(game => this.games$ = game);
   }
 
-  setRecord(): void {
-    this._teamService.getTeamRecord(this.teamId)
+  setRecord(season?: number): void {
+    this._teamService.getTeamRecord(this.teamId, season)
       .pipe(record => this.record$ = record);
   }
 

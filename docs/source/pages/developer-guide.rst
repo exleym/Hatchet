@@ -13,8 +13,8 @@ service as a fully independent component and running them separately, while
 allowing them to communicate with one-another over local HTTP.
 
 
-Step 1 - Boot the Hatchet API in "local mode"
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Step 1 - Boot Hatchet API
+^^^^^^^^^^^^^^^^^^^^^^^^^
 Setting up the Hatchet API for local development should be fairly
 straightforward. Clone the full Hatchet repo from GitHub to your local
 machine.
@@ -54,8 +54,8 @@ following functionality:
 * adding TV ratings data
 
 
-Step 2 - Boot the Axe UI in "local mode"
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Step 2 - Boot Axe UI
+^^^^^^^^^^^^^^^^^^^^
 AxeUI is an Angular application and will require you to have Node, NPM, and
 the Angular CLI installed to function properly. Let's assume those are all
 already handled, and you just need to boot the application.

@@ -83,7 +83,7 @@ class Team(Resource):
     mascot: str
     conference_id: int
     division_id: int
-    stadium_id: int
+    stadium_id: int = None
     stadium: Stadium = None
     division: Division = None
 
@@ -99,6 +99,32 @@ class Participant(Resource):
 
 
 @dataclasses.dataclass
+class Week:
+    id: int
+    number: int
+    season: int
+    start_date: datetime.date
+    end_date: datetime.date
+
+
+@dataclasses.dataclass
+class Network:
+    id: int
+    code: str
+    name: str
+    website: str
+
+
+@dataclasses.dataclass
+class Rating:
+    id: int
+    game_id: int
+    network_id: int
+    rating: float
+    viewers: float
+
+
+@dataclasses.dataclass
 class Game(Resource):
     id: int
     game_time: datetime.datetime
@@ -107,6 +133,7 @@ class Game(Resource):
     participants: List[Participant] = None
     winner: Participant = None
     stadium: Stadium = None
+    rating: Rating = None
 
 
 @dataclasses.dataclass
@@ -121,12 +148,3 @@ class Line(Resource):
     game: Game = None
     team: Team = None
     bookmaker: Bookmaker = None
-
-
-@dataclasses.dataclass
-class Week:
-    id: int
-    number: int
-    season: int
-    start_date: datetime.date
-    end_date: datetime.date

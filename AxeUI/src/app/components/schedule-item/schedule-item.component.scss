@@ -1,11 +1,13 @@
 @import '../../../styles';
 
+$schedule-item-rounding: 5px;
+
 .schedule-item {
   margin-bottom: 5px;
   padding: 0;
   height: 44px;
   background-color: $primary_muted_dark;
-  border-radius: 16px;
+  border-radius: 5px;
   border-style: solid;
   border-width: 1px;
   border-color: $text_color;
@@ -27,7 +29,7 @@
 .date-badge {
   padding: 9px;
   float: left;
-  border-radius: 16px 0 0 16px;
+  border-radius: $schedule-item-rounding 0 0 $schedule-item-rounding;
   background-color: $primary_darker;
   color: $text_color;
   border-color: $text_color;
@@ -41,7 +43,7 @@
 .winner-badge {
   float: right;
   padding: 9px;
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 $schedule-item-rounding $schedule-item-rounding 0;
   background-color: $status-okay;
   color: $status-okay-dark;
 }
@@ -49,7 +51,7 @@
 .loser-badge {
   float: right;
   padding: 9px;
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 $schedule-item-rounding $schedule-item-rounding 0;
   background-color: $status-error;
   color: $status-error-dark;
 }
