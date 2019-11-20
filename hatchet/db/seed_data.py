@@ -266,6 +266,9 @@ def insert_networks():
         models.Network(code="NBC", name="NBC", website=None),
         models.Network(code="ESPNU", name="ESPN U", website=None),
         models.Network(code="ESPNEWS", name="ESPN News", website=None),
+        models.Network(code="BEIN", name="beIN Sports", website=None),
+        models.Network(code="FS2", name="Fox Sports 2", website=None),
+        models.Network(code="NBCSN", name="NBC Sports Network", website=None),
     ]
     for network in NETWORKS:
         db.session.add(network)
