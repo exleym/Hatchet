@@ -124,7 +124,10 @@ Install the application dependencies into your virtual environment:
 
 ```bash
 (venv)$ pip install -r requirements.txt
-``` 
+```
+
+Anything that ends up missing from this requirements file can be manually 
+installed via pip. 
 
 You should now be able to start the application right away from command line 
 with the boot script `wsgi.py`:
