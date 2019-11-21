@@ -53,6 +53,17 @@ following functionality:
 * adding betting data
 * adding TV ratings data
 
+These were written to be run manually through PyCharm -- hence the
+lack of Python-path adjustment -- so you will not be able to run them from
+command line without a little tweaking.
+
+You can run the whole thing from ``scripts/run_complete_backfill.py`` by
+right clicking on the file in PyCharm and hitting run.
+
+If you are backfilling this data, we highly recommend using the `dev-stable`
+environment, as `dev` will restart on any change to your application, and
+consequently clear the in-mem database.
+
 
 Step 2 - Boot Axe UI
 ^^^^^^^^^^^^^^^^^^^^
