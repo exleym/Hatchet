@@ -92,6 +92,86 @@ print(clem.get_losses(season=2018))
 ```
 
 ### Technical Architecture
+
+
+### Developer's Guide
+This project consists of three main components that can be used and run 
+independently of one another.
+
+* Hatchet is a Flask Python back-end for managing the data and exposing it via 
+  API.
+* AxeUI is an Angular front-end for interacting with and visualizing the data 
+* Hatchet Client is a Python client for interacting with the API.
+
+This section will walk you through setting up and using each component on your  
+local machine. For the purpose of this tutorial we will assume you are working 
+on Linux or OSX, but the same ideas generally apply to Windows, and it should 
+be a fairly comparable experience.
+
+For a more comprehensive [Developer's Guide, see our Tutorial][dev-guide].
+
+#### Step 1: Setting up the API
+Once you've cloned the project locally, change directories into the top 
+`Hatchet` folder and create a virtual environment and activate it:
+
+```bash
+$ python -m virtualenv venv
+$ source venv/bin/activate
+(venv)$
+```
+
+Install the application dependencies into your virtual environment:
+
+```bash
+(venv)$ pip install -r requirements.txt
+``` 
+
+You should now be able to start the application right away from command line 
+with the boot script `wsgi.py`:
+
+```shell script
+(venv)$ python wsgi.py
+```
+ 
+ The default configs for a development environment are `dev` and `dev-stable`.
+ `dev` will boot your application with a SQLite in-memory database, and 
+ `dev-stable` will create a sqlite database in your project directory. Both 
+ will automatically generate a schema and seed it with some static content 
+ like conferences and teams. Adding larger datasets must be done manually:
+ 
+ 
+ #### Step 2: Adding Games, Lines, and Ratings
+ Once the application is up and running, you will want to back-fill historical 
+ data. These are included as CSV files in `hatchet/static/seeds` and can be 
+ populated into the application with the backfilling scripts located in 
+ `scripts`. These were written to be run manually through PyCharm -- hence the 
+ lack of Python-path adjustment -- so you will not be able to run them from 
+ command line without a little tweaking.
+ 
+ They also must be run from an active virtual environment with the deps 
+ installed. If you are using PyCharm and have your virtualenv properly 
+ configured for the project, you should be able to simply right-click on the 
+ `scripts/run_complete_backfill.py` script and hit "run". It adds data 
+ by sending POST requests to the API, so obviously the API must be up and 
+ running to use the backfill. 
+ 
+ If you are backfilling this data, we highly recommend using the `dev-stable` 
+ environment, as `dev` will restart on any change to your application, and 
+ consequently clear the in-mem database.
+ 
+ 
+ #### Step 3: Starting AxeUI
+ Let's assume you have the API up and running with data populated in it, 
+ and you'd like to do some exploration. You need to have npm installed, and 
+ it should handle itself from there.
+ 
+ ```bash
+$ cd Hatchet/AxeUI
+$ npm install
+$ ng serve --open  # also can use npm start 
+```
+
+This will boot your application on localhost:4200.
  
 
 Go Tigers!
@@ -108,3 +188,4 @@ Go Tigers!
 [H2]: #
 [h3]: http://localhost:4200/
 [h4]: #
+[dev-guide]: #
