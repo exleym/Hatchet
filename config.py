@@ -9,6 +9,7 @@ class Config(object):
     SWAGGER_URL = '/resources/v1/swagger'
     OPENAPI_PATH = '/static/swagger/openapi.yml'
     SEED_DATA = False
+    PROPAGATE_EXCEPTIONS = True
 
     @classmethod
     def get(cls, env: str):

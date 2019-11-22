@@ -1,9 +1,6 @@
 from hatchet.util.util import load_csv
 
 
-GAMES = load_csv("./tests/mocks/mock-games.csv", headers=True)
-
-
 def add_subdivisions(client):
     SUB = [
         {"code": "FBS", "name": "Football Bowl Subdivision", "division": 1},
@@ -100,6 +97,7 @@ def add_stadiums(client):
 
 
 def add_games(client):
+    GAMES = load_csv("./tests/mocks/mock-games.csv", headers=True)
     add_stadiums(client)
     add_teams(client)
     for game in GAMES:
@@ -115,5 +113,32 @@ def add_games(client):
                 "score": int(game.pop("away_score"))
             }
         ]
-        print(game)
         client.post("/api/v1/games", json=game)
+
+
+def add_networks(client):
+    NETWORKS = [
+        {"code": "ESPN", "name": "ESPN", "website": None},
+        {"code": "ABC", "name": "ABC", "website": None},
+    ]
+    for network in NETWORKS:
+        client.post("/api/v1/networks", json=network)
+
+
+def list_games(client):
+    resp = client.get("/api/v1/games")
+    return resp.json
+
+
+def add_ratings(client):
+    add_networks(client)
+    add_games(client)
+    for game in list_games(client):
+        game_id = game.get("id")
+        pkg = {
+            "gameId": game_id,
+            "networkId": 1,
+            "rating": 2.4,
+            "viewers": 9.8
+        }
+        client.post("/api/v1/ratings", json=pkg)

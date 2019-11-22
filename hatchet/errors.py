@@ -21,6 +21,9 @@ class ApplicationException(Exception):
         self.status_code = status_code or self.default_status
         self.payload = payload
 
+    def __str__(self):
+        return f"{self.__class__.__name__}: {self.messages}"
+
 
 class MalformedRequestException(ApplicationException):
 
