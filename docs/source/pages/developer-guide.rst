@@ -13,8 +13,8 @@ service as a fully independent component and running them separately, while
 allowing them to communicate with one-another over local HTTP.
 
 
-Step 1 - Boot the Hatchet API in "local mode"
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Step 1 - Boot Hatchet API
+^^^^^^^^^^^^^^^^^^^^^^^^^
 Setting up the Hatchet API for local development should be fairly
 straightforward. Clone the full Hatchet repo from GitHub to your local
 machine.
@@ -53,9 +53,20 @@ following functionality:
 * adding betting data
 * adding TV ratings data
 
+These were written to be run manually through PyCharm -- hence the
+lack of Python-path adjustment -- so you will not be able to run them from
+command line without a little tweaking.
 
-Step 2 - Boot the Axe UI in "local mode"
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You can run the whole thing from ``scripts/run_complete_backfill.py`` by
+right clicking on the file in PyCharm and hitting run.
+
+If you are backfilling this data, we highly recommend using the `dev-stable`
+environment, as `dev` will restart on any change to your application, and
+consequently clear the in-mem database.
+
+
+Step 2 - Boot Axe UI
+^^^^^^^^^^^^^^^^^^^^
 AxeUI is an Angular application and will require you to have Node, NPM, and
 the Angular CLI installed to function properly. Let's assume those are all
 already handled, and you just need to boot the application.

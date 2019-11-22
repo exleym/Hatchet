@@ -53,9 +53,13 @@ export class TeamService {
       }));
   }
 
-  getTeamRecord(teamId: number): Observable<Record> {
+  getTeamRecord(teamId: number, season?: number): Observable<Record> {
+    let params = new HttpParams();
+    if (season != null) {
+      params = params.set('season', season.toString());
+    }
     const url = `${this.teamsUrl}/${teamId}/record`;
-    return this._http.get<any>(url)
+    return this._http.get<any>(url, {params})
       .pipe(map(result => {
         return new Record(result);
       }));

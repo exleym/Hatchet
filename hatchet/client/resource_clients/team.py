@@ -1,3 +1,4 @@
+import datetime as dt
 import logging
 import requests
 from typing import List
@@ -27,8 +28,11 @@ class TeamClient(ResourceClient):
         team = None
         return team
 
-    def get_team_games(self, team_id: int, season: int = None) -> List[cm.Game]:
+    def get_team_games(self, team_id: int, season: int = None,
+                       date: dt.date = None) -> List[cm.Game]:
         url = f"{self.base_url}/{team_id}/games"
-        params = {"season": season} if season else {}
+        params = {}
+        if season: params.update({"season": season})
+        if date: params.update({"date": date.isoformat()})
         data = self.get_data(url=url, params=params)
         return self.game_schema.load(data, many=True)

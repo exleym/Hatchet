@@ -7,6 +7,7 @@ import hatchet.db.models as models
 import hatchet.db.meta_models as meta
 from hatchet.db.queries.lookups import lookup_team_by_external_id
 from hatchet.db.crud.base import create_resource, list_resources
+from hatchet.db.seeds.seasons import SEASONS
 from hatchet.db.seeds.conferences import CONFERENCES
 from hatchet.db.seeds.data_sources import DATA_SOURCES
 from hatchet.db.seeds.surfaces import SURFACES
@@ -21,6 +22,7 @@ def insert_seed_data():
     conf = list_resources(model=models.Conference)
     if conf:
         return None
+    insert_seasons()
     insert_weeks()
     insert_data_sources()
     insert_bookmakers()
@@ -34,6 +36,14 @@ def insert_seed_data():
     insert_team_mappers()
     insert_polls()
     insert_rankings()
+    insert_networks()
+
+
+def insert_seasons():
+    for season in SEASONS:
+        db.session.add(season)
+    db.session.commit()
+    logger.warning(f"created {len(SEASONS)} in database...")
 
 
 def insert_weeks():
@@ -235,12 +245,35 @@ def insert_external_team_mappings(f_path, ds_code: str):
 
 def insert_polls():
     POLLS = [
-        models.Poll(code="AP", name="Associated Press", url="https://www.apnews.com/APTop25CollegeFootballPoll")
+        ("AP", "Associated Press", "https://www.apnews.com/APTop25CollegeFootballPoll"),
+        ("COACHES", "Coaches Poll", "https://www.usatoday.com/sports/ncaaf/polls/amway-coaches-poll/"),
+        ("CFP", "CFP Rankings", "https://collegefootballplayoff.com/rankings.aspx")
     ]
-    db.session.add_all(POLLS)
+    polls = [models.Poll(code=p[0], name=p[1], url=p[2]) for p in POLLS]
+    db.session.add_all(polls)
     db.session.commit()
     logger.warning(f"created {len(POLLS)} polls in database...")
-    return 0
+
+
+def insert_networks():
+    NETWORKS = [
+        models.Network(code="ESPN", name="ESPN", website=None),
+        models.Network(code="ABC", name="ABC", website=None),
+        models.Network(code="FOX", name="FOX", website=None),
+        models.Network(code="ESPN2", name="ESPN2", website=None),
+        models.Network(code="CBS", name="CBS", website=None),
+        models.Network(code="FS1", name="Fox Sports 1", website=None),
+        models.Network(code="NBC", name="NBC", website=None),
+        models.Network(code="ESPNU", name="ESPN U", website=None),
+        models.Network(code="ESPNEWS", name="ESPN News", website=None),
+        models.Network(code="BEIN", name="beIN Sports", website=None),
+        models.Network(code="FS2", name="Fox Sports 2", website=None),
+        models.Network(code="NBCSN", name="NBC Sports Network", website=None),
+    ]
+    for network in NETWORKS:
+        db.session.add(network)
+    db.session.commit()
+    logger.warning(f"created {len(NETWORKS)} networks in database...")
 
 
 def insert_rankings():

@@ -1,4 +1,6 @@
-from flask_restplus import Resource, fields
+import datetime as dt
+from flask_restplus import Resource, fields, inputs
+import logging
 import hatchet.db.models as db
 import hatchet.db.meta_models as mm
 import hatchet.db.crud.games as game_queries
@@ -10,6 +12,7 @@ from hatchet.resources.schemas.schemas import TeamSchema
 from hatchet.util import default_list_parser
 
 
+logger = logging.getLogger(__name__)
 ns_teams = api_manager.add_resource(
     name="teams",
     resource=db.Team,
@@ -19,6 +22,10 @@ ns_teams = api_manager.add_resource(
 )
 parser = default_list_parser(namespace=ns_teams)
 parser.add_argument("code", type=str, required=False)
+
+team_games_args = ns_teams.parser()
+team_games_args.add_argument("season", type=int, required=False)
+team_games_args.add_argument("date", type=inputs.date_from_iso8601, required=False)
 
 season_arg = ns_teams.parser()
 season_arg.add_argument("season", type=int, required=False)
@@ -80,12 +87,13 @@ class ExternalTeamLookup(Resource):
 @ns_teams.route("/<int:id>/games")
 @ns_teams.param("id", "the team identifier")
 class TeamGames(Resource):
-    @ns_teams.doc("get team games", parser=season_arg)
+    @ns_teams.doc("get team games", parser=team_games_args)
     @ns_teams.marshal_with(game)
     def get(self, id: int):
-        args = season_arg.parse_args()
+        args = team_games_args.parse_args()
         season = int(args.get("season")) if args.get("season") else None
-        games = game_queries.list_games(team_id=id, season=season)
+        date = args.get("date")
+        games = game_queries.list_games(team_id=id, season=season, date=date)
         return games
 
 
@@ -96,9 +104,9 @@ class TeamRecord(Resource):
     @ns_teams.marshal_with(record)
     def get(self, id: int):
         args = record_arg.parse_args()
-        season = args.get("season", 2019)
-        team = queries.get_resource(id, db.Team)
-        return team.record(season=season)
+        season = args.get("season") or 2019
+        print(season)
+        return game_queries.get_team_record_by_season(team_id=id, season=season)
 
 
 @ns_teams.route("/<int:id>/roster")

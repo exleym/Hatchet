@@ -1,4 +1,5 @@
 from hatchet.extensions import db
+from sqlalchemy.orm import backref
 
 
 team_stadium_association = db.Table(
@@ -6,6 +7,20 @@ team_stadium_association = db.Table(
     db.Column('team_id', db.Integer, db.ForeignKey('team.id')),
     db.Column('stadium_id', db.Integer, db.ForeignKey('stadium.id'))
 )
+
+
+class Season(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
+
+
+class Week(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    number = db.Column(db.Integer)
+    season = db.Column(db.Integer, db.ForeignKey("season.id"))
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
 
 
 class Subdivision(db.Model):
@@ -95,7 +110,7 @@ class Division(db.Model):
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    game_time = db.Column(db.DateTime, nullable=False)
+    game_time = db.Column(db.DateTime, nullable=False, index=True)
     stadium_id = db.Column(db.Integer, db.ForeignKey('stadium.id'))
     espn_id = db.Column(db.Integer, nullable=True)
 
@@ -286,14 +301,6 @@ class Line(db.Model):
     vigorish = db.Column(db.Integer)
 
 
-class Week(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    number = db.Column(db.Integer)
-    season = db.Column(db.Integer)
-    start_date = db.Column(db.Date)
-    end_date = db.Column(db.Date)
-
-
 class Poll(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.String(16))
@@ -311,3 +318,20 @@ class Ranking(db.Model):
 
     poll = db.relationship("Poll")
     team = db.relationship("Team")
+
+
+class Network(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    code = db.Column(db.String(16), unique=True)
+    name = db.Column(db.String(128), unique=True)
+    website = db.Column(db.String(256))
+
+
+class Rating(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    game_id = db.Column(db.Integer, db.ForeignKey("game.id"))
+    network_id = db.Column(db.Integer, db.ForeignKey("network.id"))
+    rating = db.Column(db.Float, nullable=True)
+    viewers = db.Column(db.Float, nullable=True)
+
+    game = db.relationship("Game", backref=backref("rating", uselist=False))

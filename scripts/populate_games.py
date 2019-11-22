@@ -10,12 +10,16 @@ import hatchet.client.models as cm
 from hatchet.util import load_csv
 
 
+START_SEASON = 2000
+END_SEASON = 2019
+SEASONS = range(START_SEASON, END_SEASON + 1)
 logger = logging.getLogger(__name__)
-PATH = pathlib.Path(__file__).parent.parent / "hatchet/static/seeds/games-2019.csv"
+PATH = pathlib.Path(__file__).parent.parent / "hatchet/static/seeds/"
 UPLOAD_URL = 'http://localhost:5000/api/v1/games'
 RANKING = re.compile(r"\([0-9]+\) ")
 client = HatchetClient()
 __SR_CACHE = {}
+__GAMES = set()
 
 
 def load_data(path: str) -> List[dict]:
@@ -37,7 +41,8 @@ def get_team(team_name: str) -> cm.Team:
 
 
 def game_exists(school: cm.Team, date: dt.date):
-    if client.find_game(team_id=school.id, date=date):
+    game = frozenset([school.id, date])
+    if game in __GAMES:
         return True
     return False
 
@@ -78,7 +83,8 @@ def get_stadium(game, school, opponent):
     if loc_type == "@":
         return opponent.stadium_id
     elif loc_type == "N":
-        return None
+        stadium_name = game.get("Notes")
+        stadium = None
     return school.stadium_id
 
 
@@ -95,14 +101,18 @@ def create_game(kickoff_time, stadium_id, participants):
     return resp.json()
 
 
-def main():
-    raw_data = load_data(PATH)
+def main(season):
+    f_in = f"games-{season}.csv"
+    raw_data = load_data(PATH / f_in)
     for game in raw_data:
         kickoff = parse_kickoff_time(game)
         school = get_team(game.get("School"))
         opponent = get_team(game.get("Opponent"))
         if not opponent:
             logger.error(f"{game.get('Opponent')}")
+            continue
+        if not school:
+            logger.error(f"{game.get('School')}")
             continue
         if game_exists(school, kickoff.date()):
             logger.info(f"{school.short_name} / {opponent.short_name} already exists...")
@@ -113,9 +123,17 @@ def main():
             stadium_id=stadium_id,
             participants=get_participants(game, school, opponent, stadium_id)
         )
+        __GAMES.add(frozenset([school.id, kickoff.date()]))
+        __GAMES.add(frozenset([opponent.id, kickoff.date()]))
         logger.info(new_game)
     logger.warning(f"added {len(raw_data)} games ...")
 
 
+def run(seasons: List[int] = None):
+    seasons = seasons or SEASONS
+    for season in seasons:
+        main(season=season)
+
+
 if __name__ == "__main__":
-    main()
+    run()

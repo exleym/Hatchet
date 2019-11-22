@@ -69,6 +69,9 @@ class GameSchema(BaseSchema):
         allow_none=True,
         dump_only=True
     )
+    rating = fields.Nested("RatingSchema", allow_none=True, required=False,
+                           many=False)
+
 
 class LineSchema(BaseSchema):
     gameId = fields.Integer(attribute="game_id")
@@ -165,3 +168,16 @@ class DataSourceSchema(BaseSchema):
     code = fields.String()
     name = fields.String()
     url = fields.String()
+
+
+class NetworkSchema(BaseSchema):
+    code = fields.String()
+    name = fields.String()
+    website = fields.String(allow_none=True, required=False)
+
+
+class RatingSchema(BaseSchema):
+    gameId = fields.Integer(attribute="game_id")
+    networkId = fields.Integer(attribute="network_id")
+    rating = fields.Float(required=False, allow_none=True)
+    viewers = fields.Float(required=False, allow_none=True)

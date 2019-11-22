@@ -1,11 +1,13 @@
 <div class="row">
   <div class="col-md-4">
-    <app-schedule-item *ngFor="let game of games"
-                       [game]="game"
-                       [referenceTeam]="team"
-                       (click)="setActive(game)"
-                       [class.active-item]="game===activeGame">
-    </app-schedule-item>
+    <div class="card schedule-list">
+      <app-schedule-item *ngFor="let game of games"
+                         [game]="game"
+                         [referenceTeam]="team"
+                         (click)="setActive(game)"
+                         [class.active-item]="game===activeGame">
+      </app-schedule-item>
+    </div>
     <div class="card">
       <div class="card-header">
         <h3>Add a Game</h3>
@@ -30,33 +32,36 @@
         </h3>
       </div>
       <div class="card-content">
-        <ul>
-          <li>Hatchet ID: {{activeGame.id}}</li>
-          <li>Kickoff: {{ activeGame.kickoffTime | date: 'shortTime' : '-4' }}</li>
-          <li>
-            <span *ngIf="activeStadium">
-              Stadium: <a href="/stadiums/{{activeStadium.id}}">{{ activeStadium.name }}</a>
-            </span>
-          </li>
-          <li>ESPN ID: {{activeGame.espnId}}</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">
-        <h3>Betting Lines</h3>
-      </div>
-      <div class="card-content">
-        <table class="table hatchet-table table-sm">
-          <thead><tr><th>Bookmaker</th><th>Spread</th><th>Over/Under</th></tr></thead>
-          <tbody>
-          <tr *ngFor="let line of activeLines">
-            <td>{{getBookmakerName(line.bookmakerId)}}</td>
-            <td>{{line.spread}}</td>
-            <td>{{line.overUnder}}</td>
-          </tr>
-          </tbody>
-        </table>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <ul>
+                <li>Hatchet ID: {{activeGame.id}}</li>
+                <li>Kickoff: {{ activeGame.kickoffTime | date: 'shortTime' : '-4' }}</li>
+                <li>
+                  <span *ngIf="activeStadium">
+                    Stadium: <a href="/stadiums/{{activeStadium.id}}">{{ activeStadium.name }}</a>
+                  </span>
+                </li>
+                <li>ESPN ID: {{activeGame.espnId}}</li>
+                <li *ngIf="activeGame.rating.viewers">TV Viewers: {{activeGame.rating.viewers}} million</li>
+                <li *ngIf="activeGame.rating.networkId">Network: {{activeGame.rating.networkId }}</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <table class="table hatchet-table table-sm">
+                <thead><tr><th>Bookmaker</th><th>Spread</th><th>Over/Under</th></tr></thead>
+                <tbody>
+                <tr *ngFor="let line of activeLines">
+                  <td>{{getBookmakerName(line.bookmakerId)}}</td>
+                  <td>{{line.spread}}</td>
+                  <td>{{line.overUnder}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,24 @@
+$primary_darker: hsl(0, 0, 25);  // 20% lightness
+$primary_dark: hsl(0, 0, 35);    // 35% lightness
+$primary_medium: hsl(0, 0, 45);  // 45% lightness
+$primary_light: hsl(0, 0, 65);   // 65% lightness
+$primary_lighter: hsl(0, 0, 80); // 80% lightness
+
+$primary_muted_darker: hsl(0, 0, 5);
+$primary_muted_dark: hsl(0, 0, 15);
+$primary_muted_medium: hsl(0, 0, 25);
+$primary_muted_light: hsl(0, 0, 45);
+$primary_muted_lighter: hsl(0, 0, 60);
+
+$accent_darker: hsl(0, 0, 25);
+$accent_dark: hsl(0, 0, 35);
+$accent_medium: hsl(0, 0, 45);
+$accent_light: hsl(0, 0, 65);
+$accent_lighter: hsl(0, 0, 80);
+
+$status-okay: hsl(156, 75, 75);
+$status-okay-dark: hsl(156, 75, 15);
+$status-error: hsl(0, 75, 75);
+$status-error-dark: hsl(0, 75, 15);
+$status-warn: hsl(15, 75, 75);
+$status-info: hsl(200, 75, 75);

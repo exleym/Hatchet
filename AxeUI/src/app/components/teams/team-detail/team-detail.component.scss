@@ -15,6 +15,21 @@
 
 .season-selected:hover {
   background-color: $primary-dark;
+  color: white;
 }
 
+.dropdown-menu {
+  background-color: $primary_muted_dark;
+  border-width: 1px;
+  border-color: white;
+  border-style: solid;
+  border-radius: 10px;
+}
 
+.season-widget {
+  padding: 20px;
+}
+
+.season-selector-widget {
+  //margin: 20px;
+}

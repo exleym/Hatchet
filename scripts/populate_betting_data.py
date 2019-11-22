@@ -1,19 +1,18 @@
 import logging
+from typing import List
 from hatchet.client.ext.cfb.client import CFBDataClient
 from hatchet.client.hatchet_client import HatchetClient
 from hatchet.errors import MissingResourceException
 
-
-logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
-SEASONS = [2018, 2019]
+SEASONS = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 CFBD = "CFB Data"
 cfb_client = CFBDataClient()
 hct_client = HatchetClient()
 
 
-def main(season, week):
+def main(season, week: int = None):
     game_lines = cfb_client.get_lines(season=season, week=week)
     bookies = {b.name.lower(): b for b in hct_client.get_bookmakers()}
 
@@ -44,14 +43,15 @@ def main(season, week):
             over_under = float(line.over_under) if line.over_under else None
             spread = float(line.spread) if line.spread else None
 
-            hct_client.create_line(
-                game_id=hatchet_game.id,
-                team_id=home_team.id,
-                bookmaker_id=bookie.id,
-                spread=spread,
-                over_under=over_under,
-                vigorish=None
-            )
+            if home_team:
+                hct_client.create_line(
+                    game_id=hatchet_game.id,
+                    team_id=home_team.id,
+                    bookmaker_id=bookie.id,
+                    spread=spread,
+                    over_under=over_under,
+                    vigorish=None
+                )
             if away_team:
                 spread = float(line.spread)
                 hct_client.create_line(
@@ -62,12 +62,15 @@ def main(season, week):
                     over_under=over_under,
                     vigorish=None
                 )
-        logger.warning(f"added {len(game.lines)} lines for {game}")
+        logger.info(f"added {len(game.lines)} lines for {game}")
+
+
+def run(seasons: List[int] = None):
+    seasons = seasons or SEASONS
+    hct_client.clear_lines()
+    for season in seasons:
+        main(season=season)
 
 
 if __name__ == "__main__":
-    hct_client.clear_lines()
-    for season in SEASONS:
-        weeks = hct_client.list_weeks(season=season)
-        for week in weeks:
-            main(season=season, week=week.number)
+    run()
