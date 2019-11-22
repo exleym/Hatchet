@@ -19,6 +19,7 @@ strategies.
    pages/components
    pages/architecture
    pages/data-model
+   pages/developer-guide
 
 
 Indices and tables

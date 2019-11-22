@@ -34,7 +34,8 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Core Data Model" href="data-model.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,10 +80,18 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="components.html">Component Summary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Technical Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-model.html">Core Data Model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#part-i-running-locally">Part I: Running Locally</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-boot-hatchet-api">Step 1 - Boot Hatchet API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-boot-axe-ui">Step 2 - Boot Axe UI</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -158,8 +167,8 @@ required to make changes to the application.</p>
 <p>The full application suite can be run on a local machine, treating each
 service as a fully independent component and running them separately, while
 allowing them to communicate with one-another over local HTTP.</p>
-<div class="section" id="step-1-boot-the-hatchet-api-in-local-mode">
-<h3>Step 1 - Boot the Hatchet API in “local mode”<a class="headerlink" href="#step-1-boot-the-hatchet-api-in-local-mode" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="step-1-boot-hatchet-api">
+<h3>Step 1 - Boot Hatchet API<a class="headerlink" href="#step-1-boot-hatchet-api" title="Permalink to this headline">¶</a></h3>
 <p>Setting up the Hatchet API for local development should be fairly
 straightforward. Clone the full Hatchet repo from GitHub to your local
 machine.</p>
@@ -192,9 +201,17 @@ following functionality:</p>
 <li><p>adding betting data</p></li>
 <li><p>adding TV ratings data</p></li>
 </ul>
+<p>These were written to be run manually through PyCharm – hence the
+lack of Python-path adjustment – so you will not be able to run them from
+command line without a little tweaking.</p>
+<p>You can run the whole thing from <code class="docutils literal notranslate"><span class="pre">scripts/run_complete_backfill.py</span></code> by
+right clicking on the file in PyCharm and hitting run.</p>
+<p>If you are backfilling this data, we highly recommend using the <cite>dev-stable</cite>
+environment, as <cite>dev</cite> will restart on any change to your application, and
+consequently clear the in-mem database.</p>
 </div>
-<div class="section" id="step-2-boot-the-axe-ui-in-local-mode">
-<h3>Step 2 - Boot the Axe UI in “local mode”<a class="headerlink" href="#step-2-boot-the-axe-ui-in-local-mode" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="step-2-boot-axe-ui">
+<h3>Step 2 - Boot Axe UI<a class="headerlink" href="#step-2-boot-axe-ui" title="Permalink to this headline">¶</a></h3>
 <p>AxeUI is an Angular application and will require you to have Node, NPM, and
 the Angular CLI installed to function properly. Let’s assume those are all
 already handled, and you just need to boot the application.</p>
@@ -216,6 +233,13 @@ server.</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="data-model.html" class="btn btn-neutral float-left" title="Core Data Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
