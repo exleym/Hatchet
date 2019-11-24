@@ -15,6 +15,9 @@ import { GamesComponent } from './components/games/games.component';
 
 import { ConferenceService } from './services/conference.service';
 import { TitleService } from './services/title.service';
+import { NavbarComponent } from './components/generic/navbar/navbar.component';
+import { SidebarComponent } from './components/generic/sidebar/sidebar.component';
+import { MasterSearchComponent } from './components/generic/master-search/master-search.component';
 import { TeamMasterComponent } from './components/teams/team-master/team-master.component';
 import { ConferenceDetailComponent } from './components/conferences/conference-detail/conference-detail.component';
 import { TeamDetailComponent } from './components/teams/team-detail/team-detail.component';
@@ -34,6 +37,9 @@ import { BetCreatorComponent } from './components/gambling/bet-creator/bet-creat
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
+    SidebarComponent,
+    MasterSearchComponent,
     DashboardComponent,
     ConferencesComponent,
     DivisionsComponent,
