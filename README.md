@@ -142,6 +142,18 @@ with the boot script `wsgi.py`:
  will automatically generate a schema and seed it with some static content 
  like conferences and teams. Adding larger datasets must be done manually:
  
+ #### Step 1.5: Run me in Docker
+ ```bash
+docker build -t hatchet-web:latest
+docker run -p 8000:8000 hatchet-web.latest 
+```
+
+or 
+
+````bash
+docker-compose up
+````
+ 
  
  #### Step 2: Adding Games, Lines, and Ratings
  Once the application is up and running, you will want to back-fill historical 

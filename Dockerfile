@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.6
 
 RUN apt-get update
 
@@ -14,4 +14,4 @@ WORKDIR /app
 
 EXPOSE 8000
 
-CMD ["gunicorn", "-w 4", "wsgi:app"]
+CMD ["gunicorn", "-w 4", "-b :8000", "wsgi:app"]

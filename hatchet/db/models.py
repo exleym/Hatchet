@@ -26,7 +26,7 @@ class Week(db.Model):
 class Subdivision(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(8))
-    name = db.Column(db.String(32))
+    name = db.Column(db.String(64))
     division = db.Column(db.Integer)
 
     @property

@@ -38,7 +38,7 @@ class StableDevelopmentConfig(Config):
     DEBUG = True
     CREATE_SCHEMA = True
     SEED_DATA = True
-    SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.getcwd()}/data.sqlite'
+    SQLALCHEMY_DATABASE_URI = "postgresql://hello_flask:hello_flask@db:5432/hatchet"
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 
 
