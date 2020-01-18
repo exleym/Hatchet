@@ -7,7 +7,6 @@ certifi==2019.9.11
 chardet==3.0.4
 Click==7.0
 coverage==4.5.4
-dataclasses==0.7
 docutils==0.15.2
 Flask==1.1.1
 Flask-Cors==3.0.8
