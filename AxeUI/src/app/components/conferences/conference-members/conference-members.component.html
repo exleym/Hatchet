@@ -1,0 +1,9 @@
+<div>
+  <div class="cards-horizontal">
+    <div *ngFor="let team of teams" class="app-card-xs card">
+      <a routerLink="/teams/{{team.id}}">
+        <app-team-summary [team]="team"></app-team-summary>
+      </a>
+    </div>
+  </div>
+</div>

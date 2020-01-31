@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.css';
-@import 'assets/themes/purple_dream';
+//@import 'assets/themes/purple_dream';
 //@import 'assets/themes/clemson';
-//@import 'assets/themes/blue_dream';
+@import 'assets/themes/blue_dream';
 //@import 'assets/themes/deep_sea';
 //@import 'assets/themes/darkness';
+@import 'assets/cards';
 
 
 $bg_color: $primary_muted_darker;
@@ -16,6 +17,10 @@ $navbar_color: #4c0080;
 $text_color: white;
 $hover_color: #3d0066;
 
+.workspace {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
 .themed {
   background-color: $bg_color;
@@ -33,7 +38,7 @@ a {
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
-  border-color: $text_color;
+  //border-color: $text_color;
 }
 
 .card-content {
@@ -41,20 +46,16 @@ a {
 }
 
 .card-header {
-  background-color: $primary_darker;
+  background-color: $primary_muted_slightly_darker;
   border-radius: 5px;
   border-style: none none solid none;
   border-width: 1px;
-  border-color: $text_color;
+  //border-color: $text_color;
 }
 
 
 .card-standard {
   padding: 25px;
-}
-
-.card-short {
-  height: 150px;
 }
 
 .card-highlight:hover {
@@ -117,4 +118,10 @@ td a {
   border-color: white;
   border-width: 1px;
   border-style: none none solid none;
+}
+
+.thumbnail {
+  max-width: 100%;
+  padding: 0.5em;
+  height: auto;
 }

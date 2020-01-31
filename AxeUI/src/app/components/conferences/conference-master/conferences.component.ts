@@ -19,7 +19,6 @@ export class ConferencesComponent implements OnInit {
     this._conference.getConferences()
       .subscribe((conferences) => {
         this.conferences = conferences;
-        console.log(this.conferences);
       });
   }
 }

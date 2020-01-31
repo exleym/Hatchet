@@ -1,0 +1,101 @@
+@import '~bootstrap/dist/css/bootstrap.css';
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.cards-horizontal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.app-card-small {
+  flex: 0 1 100%;
+}
+
+.app-card-md {
+  flex: 0 1 100%;
+}
+
+.app-card-lg {
+  flex: 0 1 100%;
+}
+
+// this is for using inside a "large" size supercontainer that
+// is itself part of a flex row of cards. subcard should be aware
+// of the size of its parent container at various breakpoints and
+// resize accordingly
+.app-subcard {
+  flex: 0 1 100%;
+}
+
+@media screen and (min-width: 26em) {
+  .app-card-xs {
+    flex: 0 1 calc(50% - 0.5em);
+  }
+}
+
+// breakpoint 1: 40em (
+@media screen and (min-width: 40em) {
+  .app-card-xs {
+    flex: 0 1 calc(33% - 1em);
+  }
+  .app-card-small {
+    flex: 0 1 calc(50% - 1em);
+  }
+}
+
+@media screen and (min-width: 52em) {
+  .app-card-xs {
+    flex: 0 1 calc(25% - 1em);
+  }
+  .app-card-small {
+    flex: 0 1 calc(33% - 1em);
+  }
+  .app-card-md {
+    flex: 0 1 calc(50% - 1em);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .app-card-small {
+    flex: 0 1 calc(25% - 1em);
+  }
+
+  .app-card-md {
+    flex: 0 1 calc(33% - 1em);
+  }
+
+  .app-card-lg {
+    flex: 0 1 calc(50% - 1em);
+  }
+}
+
+@media screen and (min-width: 66em) {
+  .app-card-xs {
+    flex: 0 1 calc(20% - 1em);
+  }
+}
+
+//@include media-breakpoint-up(sm) {
+//  .app-card-small {
+//    flex: 0 1 calc(50% - 1em);
+//  }
+//}
+//
+//@include media-breakpoint-up(md) {
+//  .app-card-small {
+//    flex: 0 1 calc(33% - 1em);
+//  }
+//}
+//
+//@include media-breakpoint-up(lg) {
+//  .app-card-small {
+//    flex: 0 1 calc(25% - 1em);
+//  }
+//
+//  .app-card-md {
+//    flex: 0 1 calc(50% - 1em);
+//  }
+//}

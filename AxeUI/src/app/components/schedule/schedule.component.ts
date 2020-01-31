@@ -33,7 +33,9 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.bookmakers = new Map<number, Bookmaker>();
-    this.setActive(this.games[0]);
+    if (this.games.length > 0) {
+      this.setActive(this.games[0]);
+    }
     this.setBookmakers();
   }
 

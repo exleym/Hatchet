@@ -24,14 +24,18 @@ export class TeamDetailComponent implements OnInit {
   record$: Observable<Record>;
   activeGame: Game;
   availableSeasons: number[];
+  verbose: boolean;
 
-  constructor(private route: ActivatedRoute,
-              public titleService: TitleService,
-              private _teamService: TeamService,
-              private _weekService: WeekService,
-              private location: Location) { }
+  constructor(
+    private route: ActivatedRoute,
+    public titleService: TitleService,
+    private _teamService: TeamService,
+    private _weekService: WeekService,
+    private location: Location
+  ) { }
 
   ngOnInit() {
+    this.verbose = true;
     this.currentSeason = 2019;
     this.setTeamId();
     this.getTeam();
@@ -84,5 +88,4 @@ export class TeamDetailComponent implements OnInit {
   setActiveGame(game: Game): void {
     this.activeGame = game;
   }
-
 }

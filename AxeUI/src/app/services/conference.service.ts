@@ -5,17 +5,24 @@ import {Observable} from 'rxjs';
 
 import { Conference } from '../models/conference';
 import { Team } from '../models/team';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConferenceService {
-  conferencesUrl = 'http://localhost:5000/api/v1/conferences';
 
-  constructor(private _http: HttpClient) { }
+  baseUrl: string;
+
+  constructor(
+    private _http: HttpClient,
+    private es: EnvironmentService
+  ) {
+    this.setBaseUrl('conferences');
+  }
 
   getConferences(): Observable<Conference[]> {
-    return this._http.get<Conference[]>(this.conferencesUrl)
+    return this._http.get<Conference[]>(this.baseUrl)
       .pipe(map(result => {
         return result.map(item => {
           return new Conference(item);
@@ -24,7 +31,7 @@ export class ConferenceService {
   }
 
   getConference(id: number): Observable<Conference> {
-    const url = this._conferenceUrl(id);
+    const url = `${this.baseUrl}/${id}`;
     return this._http.get<Conference>(url)
       .pipe(map(result => {
         return new Conference(result);
@@ -32,35 +39,34 @@ export class ConferenceService {
   }
 
   getConferenceMembers(id: number): Observable<Team[]> {
-    return this._http.get<Team[]>(this._conferenceMembersUrl(id))
+    const url = `${this.baseUrl}/${id}/teams`;
+    return this._http.get<Team[]>(url)
       .pipe(map(result => {
         return result.map(item => new Team(item));
       }));
   }
 
   createConference(conference: Conference): Observable<Conference> {
-    const url = this.conferencesUrl;
-    return this._http.post<Conference>(url, conference)
+    return this._http.post<Conference>(this.baseUrl, conference)
       .pipe(map(resp => new Conference(resp)));
   }
 
   updateConference(conference: Conference): Observable<Conference> {
-    const url = this._conferenceUrl(conference.id);
+    const url = `${this.baseUrl}/${conference.id}`;
     return this._http.put<Conference>(url, conference)
       .pipe(map(resp => new Conference(resp)));
   }
 
   deleteConference(conference: Conference): Observable<any> {
-    const url = this._conferenceUrl(conference.id);;
+    const url = `${this.baseUrl}/${conference.id}`;
     return this._http.delete<any>(url);
   }
 
-  _conferenceUrl(id: number): string {
-    return `${this.conferencesUrl}/${id}`
+  setBaseUrl(context: string) {
+    if (!this.baseUrl) {
+      if (this.es.config) {
+        this.baseUrl = `${this.es.config.hatchetUrl}/${context}`;
+      }
+    }
   }
-
-  _conferenceMembersUrl(id: number): string {
-    return `${this.conferencesUrl}/${id}/teams`;
-  }
-
 }

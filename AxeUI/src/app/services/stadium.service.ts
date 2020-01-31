@@ -4,16 +4,21 @@ import { map } from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
 import { Stadium } from '../models/stadium';
+import {EnvironmentService} from './environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StadiumService {
 
-  baseUrl = 'http://localhost:5000/api/v1/stadiums';
   stadiums: Stadium[];
+  baseUrl: string;
 
-  constructor(private _http: HttpClient) {
+  constructor(
+    private _http: HttpClient,
+    private es: EnvironmentService
+  ) {
+    this.setBaseUrl('stadiums');
     this.getStadiums()
       .subscribe((stadiums) => {
         this.stadiums = stadiums;
@@ -30,10 +35,17 @@ export class StadiumService {
   }
 
   getStadium(stadiumId): Observable<Stadium> {
-    const url = `${this.baseUrl}/${stadiumId}`;
-    return this._http.get<Stadium>(url)
+    return this._http.get<Stadium>(`${this.baseUrl}/${stadiumId}`)
       .pipe(map(result => {
         return new Stadium(result);
       }));
+  }
+
+  private setBaseUrl(context: string) {
+    if (!this.baseUrl) {
+      if (this.es.config) {
+        this.baseUrl = `${this.es.config.hatchetUrl}/${context}`;
+      }
+    }
   }
 }
