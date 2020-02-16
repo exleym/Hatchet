@@ -1,8 +1,13 @@
 @import "../../../../styles.scss";
 
-.navbar {
-  padding: 15px 30px;
+.app-navbar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem 1rem;
   background-color: $primary-muted_darker !important;
+  //background-color: orangered;
   margin-bottom: 0;
   border-bottom: solid !important;
   border-bottom-color: $accent_dark !important;
@@ -11,4 +16,31 @@
 .nav-icon {
   color: $text_color;
   height: 32px;
+}
+
+.nav-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar-button {
+  background-color: $primary-muted_darker;
+}
+
+.navbar-button:hover {
+  background-color: $primary-muted_dark;
+}
+
+.search-bar {
+  width: 50%;
+}
+
+#title-text {
+  display: none;
+}
+
+@media screen and (min-width: 60em) {
+  #title-text {
+    display: inline-block;
+  }
 }

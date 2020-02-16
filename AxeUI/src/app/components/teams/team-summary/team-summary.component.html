@@ -1,6 +1,11 @@
- <picture>
-   <img class="thumbnail" src="/assets/logos/{{team.teamLogo}}" alt="shit!">
- </picture>
-<div class="card-content">
-  <h6>{{team.shortName}}</h6>
+<div class="team-summary">
+  <div class="team-logo">
+    <picture>
+      <img class="thumbnail" src="/assets/logos/{{team.logo}}" alt="shit!">
+    </picture>
+  </div>
+  <div class="card-footer">
+    <h5>{{team.shortName}} {{team.mascot}}</h5>
+    <p>{{team.name}}</p>
+  </div>
 </div>

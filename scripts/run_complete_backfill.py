@@ -15,7 +15,7 @@ def main(seasons: List[int] = None):
     populate_games.run(seasons=seasons)
     map_games_from_cfb.run(seasons=seasons)
     populate_betting_data.run(seasons=seasons)
-    # populate_ratings.run(seasons=seasons)
+    populate_ratings.run(seasons=seasons)
 
 
 def run(seasons: List[int] = None):

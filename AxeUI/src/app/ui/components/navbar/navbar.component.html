@@ -1,14 +1,20 @@
-<nav class="navbar navbar-default fixed-top">
+<nav class="app-navbar fixed-top">
   <!-- Navbar content -->
-  <div class="container-fluid">
-    <div class="d-block d-md-none">hamdurglar</div>
-    <h3>Axe UI: {{ titleService.title }}</h3>
-    <app-master-search></app-master-search>
-    <div class="navbar-right">
-      <span class="vertical-centered">
-        <i class="material-icons nav-icon">settings</i>
-      </span>
+  <div class="nav-header">
+    <div class="nav-title">
+      <h3>
+        <span>Axe UI</span>
+        <span id="title-text">: {{ titleService.title }}</span>
+      </h3>
     </div>
+  </div>
+  <div class="search-bar">
+    <app-master-search></app-master-search>
+  </div>
+  <div>
+    <span class="vertical-centered">
+      <i class="material-icons nav-icon">settings</i>
+    </span>
   </div>
 </nav>
 

@@ -53,6 +53,13 @@ a {
   //border-color: $text_color;
 }
 
+.app-logo-container {
+  width: 80px;
+}
+
+.card-header-unpadded {
+  padding: 0;
+}
 
 .card-standard {
   padding: 25px;
@@ -86,6 +93,7 @@ a {
 .action-button {
   background-color: $primary_muted_darker;
   border-color: white;
+  width: 100%;
 }
 
 .action-button:hover {

@@ -7,15 +7,12 @@ export class Team {
   conferenceId: number;
   divisionId: number;
   stadiumId: number;
-  teamLogo = 'football.png';
+  logo = 'football.png';
 
   constructor(data) {
-    this.id = data.id;
-    if (this.id === 13) {
-      this.teamLogo = 'clemson.png';
-    }
-    if (this.id === 14) {
-      this.teamLogo = 'boston-college.png';
+    this.id = +data.id;
+    if (data.logo) {
+      this.logo = data.logo;
     }
     this.code = data.code;
     this.name = data.name;

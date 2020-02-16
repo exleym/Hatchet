@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { UiModule } from './ui/ui.module';
 
@@ -32,6 +32,8 @@ import {EnvironmentService} from './services/environment.service';
 import { ConferenceMetaComponent } from './components/conferences/conference-meta/conference-meta.component';
 import { TeamSummaryComponent } from './components/teams/team-summary/team-summary.component';
 import { ConferenceMembersComponent } from './components/conferences/conference-members/conference-members.component';
+import { TeamMetaComponent } from './components/teams/team-meta/team-meta.component';
+import { TeamEditorComponent } from './components/teams/team-editor/team-editor.component';
 
 @NgModule({
   declarations: [
@@ -58,16 +60,19 @@ import { ConferenceMembersComponent } from './components/conferences/conference-
     BetCreatorComponent,
     ConferenceMetaComponent,
     TeamSummaryComponent,
-    ConferenceMembersComponent
+    ConferenceMembersComponent,
+    TeamMetaComponent,
+    TeamEditorComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    NgxSmartModalModule.forRoot(),
-    UiModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        NgxSmartModalModule.forRoot(),
+        UiModule,
+        FormsModule,
+    ],
   providers: [
     FormBuilder,
     {

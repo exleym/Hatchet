@@ -34,10 +34,17 @@ export class TeamService {
   }
 
   getTeam(teamId: number): Observable<Team> {
-    console.log(`TeamService.getTeam(${teamId})`);
     const url = `${this.baseUrl}/${teamId}`;
-    console.log(url);
     return this._http.get<Team>(url)
+      .pipe(map(result => {
+        return new Team(result);
+      }));
+  }
+
+  updateTeam(team: Team): Observable<Team> {
+    const url = `${this.baseUrl}/${team.id}`;
+    console.log(url);
+    return this._http.put<Team>(url, team)
       .pipe(map(result => {
         return new Team(result);
       }));

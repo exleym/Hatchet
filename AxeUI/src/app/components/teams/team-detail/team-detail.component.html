@@ -1,46 +1,64 @@
-<div *ngIf="team$ | async as team" class="container-fluid">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
+<div *ngIf="team" class="container-fluid">
+  <div class="cards-horizontal">
+    <div class="app-card-lg">
+      <div class="cards-vertical">
+        <div class="card">
+          <div class="card-header d-flex flex-row">
+            <div class="app-logo-container">
+              <img class="thumbnail" src="/assets/logos/{{team.logo}}">
+            </div>
+            <div>
               <h4>
-                <span>{{team.name}} </span>
+                <span>{{team.shortName}} </span>
                 <span>{{team.mascot}}</span>
               </h4>
-            </div>
-            <div class="card-content">
-              <div class="card-actions">
-                <h4>
-                  <a routerLink="/conferences/{{team.conferenceId}}"><span class="action"><i class="material-icons">arrow_upward</i></span></a>
-                  <span class="action"><i class="material-icons">edit</i></span>
-                </h4>
-              </div>
+              <h6>{{team.name}}</h6>
             </div>
           </div>
-          <div class="card container-fluid">
-            <div class="row season-widget">
-              <div class="season-selector-widget col-md-4">
+          <div class="card-content">
+            <div class="card-actions">
+              <h4>
+                <a routerLink="/conferences/{{team.conferenceId}}"><span class="action"><i class="material-icons">arrow_upward</i></span></a>
+                <span class="action" (click)="toggleEditor()"><i class="material-icons">edit</i></span>
+              </h4>
+            </div>
+            <div class="team-metadata" *ngIf="editTeam">
+              <app-team-editor [team]="team"
+                               (teamSubject)="onTeamEditSubmit($event)">
+              </app-team-editor>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="season-widget cards-horizontal">
+              <div class="season-selector-widget">
                 <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false">
                     Season: {{currentSeason}}
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <div *ngFor="let season of availableSeasons"
                          class="season-selector dropdown-item"
                          [class.season-selected]="season==currentSeason"
-                         (click)="setSeason(season)">{{season}}</div>
+                         (click)="setSeason(season)">
+                      {{season}}
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="record-widget col-md-5">
+              <div class="record-widget">
                 <button class="btn btn-secondary" *ngIf="record$ | async as record" disabled>
                   <span>{{ record.wins }}-{{ record.losses }}</span>
-                  <span> ({{record.confWins}}-{{record.confLosses}} in conference)</span>
+                  <span> ({{record.confWins}}-{{record.confLosses}} conf)</span>
                 </button>
               </div>
-              <div class="record-widget col-md-3">
+              <div class="record-widget">
                 <button class="btn btn-secondary" disabled>
                   <span>8-4 ATS</span>
                 </button>
@@ -50,13 +68,10 @@
         </div>
       </div>
     </div>
-    <div class="col-md-8"></div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div *ngIf="games$ | async as games">
-        <app-schedule [games]="games" [team]="team"></app-schedule>
-      </div>
+  <div class="schedule">
+    <div *ngIf="games$ | async as games">
+      <app-schedule [games]="games" [team]="team"></app-schedule>
     </div>
   </div>
 </div>

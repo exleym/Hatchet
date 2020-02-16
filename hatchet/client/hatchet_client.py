@@ -18,7 +18,8 @@ class HatchetClient(object):
     __GAME_CACHE = {}
     domain = "http://localhost:5000/api/v1"
 
-    def __init__(self):
+    def __init__(self, base_url: str = None):
+        self.domain = base_url if base_url else self.domain
         self.team_client = TeamClient(domain=self.domain,
                                       context="/teams",
                                       schema=schemas.ClientTeamSchema,

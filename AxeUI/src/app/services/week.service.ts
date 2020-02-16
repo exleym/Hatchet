@@ -17,7 +17,7 @@ export class WeekService {
     private _http: HttpClient,
     private es: EnvironmentService
   ) {
-    this.setBaseUrl('weeks');
+    this.setBaseUrl('/weeks');
   }
 
   getWeeks(season: number): Observable<Week[]> {

@@ -45,9 +45,9 @@ export class ConferenceMetaComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.submitted = true;
     this._conferenceService.updateConference(this.confEditor.value)
       .subscribe(conf => this.conference = conf);
-    this.submitted = true;
     this.toggleEditor();
   }
 

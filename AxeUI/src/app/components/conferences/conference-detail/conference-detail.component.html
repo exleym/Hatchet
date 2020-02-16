@@ -1,8 +1,9 @@
 <div class="workspace">
   <div class="cards-horizontal">
     <app-conference-meta [conference]="conference" class="app-card-lg"></app-conference-meta>
+    <div class="app-card-lg">
+      <app-conference-members [teams]="members"></app-conference-members>
+    </div>
   </div>
-  <div class="cards-horizontal">
-    <app-conference-members [teams]="members"></app-conference-members>
-  </div>
+  <div class="cards-horizontal"></div>
 </div>
