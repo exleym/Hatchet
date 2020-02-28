@@ -5,9 +5,9 @@
   <div class="card-content" *ngIf="conference">
     <div class="card-actions">
       <h4>
-        <span class="action"><a routerLink="/conferences"><i class="material-icons">arrow_upward</i></a></span>
-        <span class="action"><i class="material-icons" (click)="toggleEditor()">edit</i></span>
-        <span class="action" routerLink="/conferences"><i class="material-icons" (click)="deleteConference()">delete</i></span>
+        <a routerLink="/conferences"><button class="action"><i class="material-icons">arrow_upward</i></button></a>
+        <span class="action" (click)="toggleEditor()"><i class="material-icons">edit</i></span>
+        <span class="action" (click)="deleteConference()" routerLink="/conferences"><i class="material-icons">delete</i></span>
       </h4>
     </div>
     <div class="conf-info" *ngIf="!editor">

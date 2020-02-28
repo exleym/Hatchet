@@ -1,5 +1,5 @@
 <div class="cards-vertical">
-  <div *ngFor="let team of teams" class="card">
+  <div *ngFor="let team of teams" class="card card-highlight">
     <a routerLink="/teams/{{team.id}}">
       <app-team-summary [team]="team"></app-team-summary>
     </a>

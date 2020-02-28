@@ -32,6 +32,7 @@
 
 .sidebar-element {
   padding: 20px 28px;
+  color: white;
 }
 .sidebar-element:hover {
   border-radius: 5px;
@@ -47,6 +48,7 @@
 
 .nav-icon {
   margin-right: 10px;
+  color: $sidebar_icon_color;
 }
 
 .vertical-centered {

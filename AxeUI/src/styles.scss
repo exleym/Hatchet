@@ -1,21 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.css';
-//@import 'assets/themes/purple_dream';
-//@import 'assets/themes/clemson';
-@import 'assets/themes/blue_dream';
-//@import 'assets/themes/deep_sea';
-//@import 'assets/themes/darkness';
+@import 'assets/variables';
 @import 'assets/cards';
 
-
-$bg_color: $primary_muted_darker;
-$card_color: $primary_muted_light;
-$accent_1: $primary_dark;
-$accent_2: $primary_medium;
-
-$navbar_color: #4c0080;
-$text_color: white;
-$hover_color: #3d0066;
 
 .workspace {
   padding-left: 20px;
@@ -32,86 +19,55 @@ a {
   text-decoration: none;
 }
 
-.card {
-  background-color: $primary_muted_dark;
-  margin: 0 0 20px 0;
-  border-radius: 5px;
-  border-style: solid;
-  border-width: 1px;
-  //border-color: $text_color;
+i {
+  color: $text_color;
 }
 
-.card-content {
-  padding: 20px;
-}
-
-.card-header {
-  background-color: $primary_muted_slightly_darker;
-  border-radius: 5px;
-  border-style: none none solid none;
-  border-width: 1px;
-  //border-color: $text_color;
-}
 
 .app-logo-container {
   width: 80px;
 }
 
-.card-header-unpadded {
-  padding: 0;
-}
-
-.card-standard {
-  padding: 25px;
-}
-
-.card-highlight:hover {
-  color: $text_color;
-  text-decoration: none;
-  box-shadow:
-    0 0 3px #fff,        /* outer white */
-    -1px 0 5px $accent_light,     /* outer left magenta */
-    1px 0 8px #0ff;      /* outer right cyan */
-}
-
 .action {
-  margin: 10px 10px 10px 10px;
+  margin: 10px 5px;
   padding: 7px 10px 5px 10px;
   border-color: $text_color;
-  border-width: 2px;
+  border-width: 1px;
   border-style: solid;
-  border-radius: 50%;
+  background-color: $primary_muted_dark;
+  border-radius: 10%;
 }
 
 .action:hover {
   box-shadow:
-    0 0 3px #fff,        /* outer white */
-    -1px 0 5px $accent_light,        /* outer left magenta */
-    1px 0 8px #0ff;        /* outer right cyan */
+    0 0 3px $primary_medium,        /* outer glow */
+    -1px 0 5px $accent_light,        /* outer left glow */
+    1px 0 8px $accent_medium;        /* outer right glow */
 }
 
 .action-button {
   background-color: $primary_muted_darker;
-  border-color: white;
+  color: $text_color;
+  border-color: $text_color;
   width: 100%;
 }
 
 .action-button:hover {
-  background-color: $primary_muted_darker;
+  background-color: $primary_muted_dark;
   box-shadow:
-    0 0 3px #fff,        /* outer white */
-    -1px 0 5px $accent_light,   /* outer left accent color */
-    1px 0 8px #0ff;        /* outer right cyan */
+    0 0 3px $primary_medium,        /* outer glow */
+    -1px 0 5px $accent_light,        /* outer left glow */
+    1px 0 8px $accent_medium;        /* outer right glow */
 }
 
 
 a:hover {
-  color: white;
+  color: $text_color;
   text-decoration: none;
 }
 
 .hatchet-table {
-  color: white;
+  color: $text_color;
 }
 
 td a {
@@ -120,16 +76,17 @@ td a {
   width:100%;
 }
 
-.card-actions {
-  margin: -20px -20px 10px -20px;
-  padding: 20px 20px 20px 20px;
-  border-color: white;
-  border-width: 1px;
-  border-style: none none solid none;
-}
-
 .thumbnail {
   max-width: 100%;
   padding: 0.5em;
   height: auto;
+}
+.form-control {
+  background-color: $form-background !important;
+  color: $text_color !important;
+  border: 1px solid $text_color !important;
+}
+
+.form-control:focus {
+  border: 1px solid $form-outline !important;
 }

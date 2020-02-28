@@ -37,12 +37,11 @@
                   <button class="btn btn-secondary dropdown-toggle"
                           type="button"
                           id="dropdownMenuButton"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false">
+                          data-flip="false"
+                          data-toggle="dropdown">
                     Season: {{currentSeason}}
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-menu">
                     <div *ngFor="let season of availableSeasons"
                          class="season-selector dropdown-item"
                          [class.season-selected]="season==currentSeason"

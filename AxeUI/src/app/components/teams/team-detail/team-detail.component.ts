@@ -53,6 +53,7 @@ export class TeamDetailComponent implements OnInit {
     this._weekService.getSeasons()
       .subscribe(seasons => {
         this.availableSeasons = seasons;
+        console.log(this.availableSeasons);
       });
   }
 

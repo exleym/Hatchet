@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <table class="hatchet-table table table-sm table-bordered table-responsive">
+      <table class="hatchet-table table table-sm table-responsive">
         <thead><tr>
           <th>Name</th>
           <th>City</th>
@@ -12,12 +12,12 @@
         </tr></thead>
         <tbody>
           <tr *ngFor="let s of stadiums">
-            <td class="action-button"><a routerLink="/stadiums/{{s.id}}">{{ s.name }}</a></td>
+            <td><a routerLink="/stadiums/{{s.id}}">{{ s.name }}</a></td>
             <td>{{ s.city }}</td>
             <td>{{ s.state }}</td>
             <td>{{ s.latitude }} {{ s.longitude }}</td>
             <td>{{ s.built }}</td>
-            <td>{{ s.capacity }}</td>
+            <td>{{ s.capacity | number: '5.0' }}</td>
           </tr>
         </tbody>
       </table>

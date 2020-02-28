@@ -1,0 +1,31 @@
+$primary_darker: hsl(0, 0, 20);  // 20% lightness
+$primary_dark: hsl(0, 0, 30);    // 30% lightness
+$primary_medium: hsl(0, 0, 40);  // 40% lightness
+$primary_light: hsl(0, 0, 60);   // 60% lightness
+$primary_lighter: hsl(0, 0, 80); // 80% lightness
+
+$primary_muted_darker: hsl(0, 0, 10);
+$primary_muted_slightly_darker: hsl(0, 0, 15);
+$primary_muted_dark: hsl(0, 0, 20);
+$primary_muted_medium: hsl(0, 0, 25);
+$primary_muted_light: hsl(0, 0, 45);
+$primary_muted_lighter: hsl(0, 0, 60);
+
+$accent_darker: hsl(27, 100, 25);
+$accent_dark: hsl(27, 100, 35);
+$accent_medium: hsl(27, 100, 45);
+$accent_light: hsl(27, 100, 65);
+$accent_lighter: hsl(27, 100, 80);
+
+$status-okay: hsl(156, 75, 75);
+$status-okay-dark: hsl(156, 75, 15);
+$status-error: hsl(0, 75, 75);
+$status-error-dark: hsl(0, 75, 15);
+$status-warn: hsl(15, 75, 75);
+$status-info: hsl(200, 75, 75);
+
+$form-background: $primary_darker;
+$form-text-color: $accent-light;
+$form-text-muted: $primary_lighter;
+$form-outline: $accent_medium;
+$form-glow-color: $accent_light;

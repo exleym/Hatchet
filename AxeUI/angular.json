@@ -28,7 +28,8 @@
               "src/conf"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/material-icons/iconfont/material-icons.css",
             ],
             "scripts": []
           },
