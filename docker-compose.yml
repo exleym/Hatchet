@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  web:
+  api:
     build: .
     ports:
       - 8000:8000
@@ -15,9 +15,10 @@ services:
       - POSTGRES_USER=hello_flask
       - POSTGRES_PASSWORD=hello_flask
       - POSTGRES_DB=hatchet
-  proxy:
-    image: nginx:latest
+  web:
+    build: AxeUI/
     ports:
       - 80:80
     environment:
-      S3_BUCKET_URL: https://hatchet-cdn.s3.amazonaws.com
+      env: prod
+

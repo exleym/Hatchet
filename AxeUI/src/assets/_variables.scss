@@ -6,12 +6,13 @@
 //@import 'assets/themes/clemson';
 
 
-$bg_color: $primary_muted_darker;
-$card_color: $primary_muted_light;
+$bg_color: $primary_muted_slightly_darker;
+$card_color: $primary_muted_darker;
+$card_header_color: $primary_muted_darker;
 $accent_1: $accent_dark;
 $accent_2: $accent_medium;
 
-$navbar_color: #4c0080;
+$navbar_color: $navbar_color;
 $sidebar_icon_color: white;
 $text_color: $primary_light;
 $hover_color: #3d0066;

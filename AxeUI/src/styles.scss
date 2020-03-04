@@ -41,12 +41,12 @@ i {
 .action:hover {
   box-shadow:
     0 0 3px $primary_medium,        /* outer glow */
-    -1px 0 5px $accent_light,        /* outer left glow */
-    1px 0 8px $accent_medium;        /* outer right glow */
+    -1px 0 5px $accent_light,       /* outer left glow */
+    1px 0 8px $accent_medium;       /* outer right glow */
 }
 
 .action-button {
-  background-color: $primary_muted_darker;
+  background-color: $primary_muted_dark;
   color: $text_color;
   border-color: $text_color;
   width: 100%;
@@ -54,8 +54,9 @@ i {
 
 .action-button:hover {
   background-color: $primary_muted_dark;
+  color: $text_color;
   box-shadow:
-    0 0 3px $primary_medium,        /* outer glow */
+    0 0 3px $primary_medium,         /* outer glow */
     -1px 0 5px $accent_light,        /* outer left glow */
     1px 0 8px $accent_medium;        /* outer right glow */
 }
@@ -89,4 +90,5 @@ td a {
 
 .form-control:focus {
   border: 1px solid $form-outline !important;
+  box-shadow: none !important;
 }

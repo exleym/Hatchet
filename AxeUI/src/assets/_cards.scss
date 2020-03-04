@@ -6,8 +6,8 @@
 
 
 .card {
-  background-color: $primary_muted_dark;
-  margin: 0 0 20px 0;
+  background-color: $card_color;
+  margin: 0 0 10px 0;
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
@@ -19,7 +19,7 @@
 }
 
 .card-header {
-  background-color: $primary_muted_slightly_darker;
+  background-color: $card_header_color;
   border-radius: 5px;
   border-style: none none solid none;
   border-width: 1px;
@@ -97,42 +97,42 @@
 // breakpoint 1: 40em (
 @media screen and (min-width: 40em) {
   .app-card-xs {
-    flex: 0 1 calc(33% - 1em);
+    flex: 0 1 calc(33% - 0.5em);
   }
   .app-card-small {
-    flex: 0 1 calc(50% - 1em);
+    flex: 0 1 calc(50% - 0.5em);
   }
 }
 
 @media screen and (min-width: 52em) {
   .app-card-xs {
-    flex: 0 1 calc(25% - 1em);
+    flex: 0 1 calc(25% - 0.5em);
   }
   .app-card-small {
-    flex: 0 1 calc(33% - 1em);
+    flex: 0 1 calc(33% - 0.5em);
   }
   .app-card-md {
-    flex: 0 1 calc(50% - 1em);
+    flex: 0 1 calc(50% - 0.5em);
   }
 }
 
 @media screen and (min-width: 60em) {
   .app-card-small {
-    flex: 0 1 calc(25% - 1em);
+    flex: 0 1 calc(25% - 0.5em);
   }
 
   .app-card-md {
-    flex: 0 1 calc(33% - 1em);
+    flex: 0 1 calc(33% - 0.5em);
   }
 
   .app-card-lg {
-    flex: 0 1 calc(50% - 1em);
+    flex: 0 1 calc(50% - 0.5em);
   }
 }
 
 @media screen and (min-width: 66em) {
   .app-card-xs {
-    flex: 0 1 calc(20% - 1em);
+    flex: 0 1 calc(20% - 0.5em);
   }
 }
 
