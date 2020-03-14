@@ -34,6 +34,7 @@ import { TeamSummaryComponent } from './components/teams/team-summary/team-summa
 import { ConferenceMembersComponent } from './components/conferences/conference-members/conference-members.component';
 import { TeamMetaComponent } from './components/teams/team-meta/team-meta.component';
 import { TeamEditorComponent } from './components/teams/team-editor/team-editor.component';
+import { ConferenceCaptureComponent } from './components/conferences/conference-capture/conference-capture.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { TeamEditorComponent } from './components/teams/team-editor/team-editor.
     TeamSummaryComponent,
     ConferenceMembersComponent,
     TeamMetaComponent,
-    TeamEditorComponent
+    TeamEditorComponent,
+    ConferenceCaptureComponent
   ],
     imports: [
         BrowserModule,
