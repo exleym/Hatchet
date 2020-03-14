@@ -6,6 +6,9 @@ class FBSClientSchema(ma.Schema):
 
     model = None
 
+    class Meta:
+        unknown = "EXCLUDE"
+
     def on_bind_field(self, field_name, field_obj):
         """automatically allow nulls for all fields"""
         super().on_bind_field(field_name, field_obj)

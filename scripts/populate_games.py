@@ -15,7 +15,7 @@ END_SEASON = 2019
 SEASONS = range(START_SEASON, END_SEASON + 1)
 logger = logging.getLogger(__name__)
 PATH = pathlib.Path(__file__).parent.parent / "hatchet/static/seeds/"
-UPLOAD_URL = 'http://localhost:5000/api/v1/games'
+UPLOAD_URL = 'http://localhost:8000/api/v1/games'
 RANKING = re.compile(r"\([0-9]+\) ")
 client = HatchetClient()
 __SR_CACHE = {}
@@ -109,10 +109,10 @@ def main(season):
         school = get_team(game.get("School"))
         opponent = get_team(game.get("Opponent"))
         if not opponent:
-            logger.error(f"{game.get('Opponent')}")
+            logger.error(f"couldn't find {game.get('Opponent')} in Hatchet DB")
             continue
         if not school:
-            logger.error(f"{game.get('School')}")
+            logger.error(f"couldn't find {game.get('School')} in Hatchet DB")
             continue
         if game_exists(school, kickoff.date()):
             logger.info(f"{school.short_name} / {opponent.short_name} already exists...")

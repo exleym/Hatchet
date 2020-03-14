@@ -21,7 +21,7 @@ def main(season: int):
         for game in games:
             hatchet_game = game_map.get(game.game_date)
             if not hatchet_game:
-                logger.error(f"no match for {game.home_team} on {game.start_date}!")
+                logger.error(f"no match for {game.home_team} on {game.game_date}!")
                 continue
             hatchet_game.espn_id = game.id
             new_game = hatchet_client.update_game(hatchet_game)

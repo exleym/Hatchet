@@ -27,6 +27,8 @@ class Game:
 
     @property
     def game_date(self):
+        if self.start_date.year < 2001 and self.start_date.hour == 0:
+            return self.start_date.date()
         return self.start_date.astimezone(pytz.timezone("US/Eastern")).date()
 
 

@@ -16,7 +16,7 @@ class HatchetClient(object):
     __EXTERNAL_CACHE = {}
     __TEAM_CACHE = {}
     __GAME_CACHE = {}
-    domain = "http://localhost:5000/api/v1"
+    domain = "http://localhost:8000/api/v1"
 
     def __init__(self):
         self.team_client = TeamClient(domain=self.domain,

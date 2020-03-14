@@ -51,6 +51,7 @@ def setup_db(app: Flask) -> None:
             try:
                 db.create_all()
                 if app.config.get("SEED_DATA"):
+                    logger.warning("seeding base data...")
                     insert_seed_data()
             except Exception:
                 logger.warning("schema already exists...")

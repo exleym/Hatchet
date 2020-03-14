@@ -75,7 +75,7 @@ class ExternalTeamMappings(Resource):
 
 @ns_teams.route("/external/search")
 class ExternalTeamLookup(Resource):
-    @ns_teams.doc("lookup teams by an eternal identifier")
+    @ns_teams.doc("lookup teams by an external identifier")
     @ns_teams.expect(lookup)
     @ns_teams.marshal_with(team)
     def post(self):
