@@ -1,20 +1,21 @@
-$primary_darker: hsl(270, 100, 25);  // 20% lightness
-$primary_dark: hsl(270, 100, 35);    // 35% lightness
-$primary_medium: hsl(270, 100, 45);  // 45% lightness
-$primary_light: hsl(270, 100, 65);   // 65% lightness
-$primary_lighter: hsl(270, 100, 80); // 80% lightness
+$primary_darker: #400080;  // 20% lightness
+$primary_dark: #5900b3;    // 35% lightness
+$primary_medium: #7300e6;  // 45% lightness
+$primary_light: #a64dff;   // 65% lightness
+$primary_lighter: #cc99ff; // 80% lightness
 
-$primary_muted_darker: hsl(240, 18, 15);
-$primary_muted_dark: hsl(240, 18, 25);
-$primary_muted_medium: hsl(240, 20, 45);
-$primary_muted_light: hsl(240, 20, 65);
-$primary_muted_lighter: hsl(240, 20, 80);
+$primary_muted_darker: #0a1327;
+$primary_muted_slightly_darker: #182646;
+$primary_muted_dark: #1b2c50;
+$primary_muted_medium: #0000e6;
+$primary_muted_light: #4d4dff;
+$primary_muted_lighter: #9999ff;
 
-$accent_darker: hsl(216, 100, 25);
-$accent_dark: hsl(216, 100, 40);
-$accent_medium: hsl(216, 100, 55);
-$accent_light: hsl(216, 100, 70);
-$accent_lighter: hsl(216, 100, 80);
+$accent_darker: #003380;
+$accent_dark: #0052cc;
+$accent_medium: #1a75ff;
+$accent_light: #66a3ff;
+$accent_lighter: #99c2ff;
 
 $status-okay: hsl(216, 75, 75);
 $status-okay-dark: hsl(216, 75, 15);

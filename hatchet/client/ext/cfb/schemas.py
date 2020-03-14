@@ -4,6 +4,9 @@ import hatchet.client.ext.cfb.models as models
 
 class FBSClientSchema(ma.Schema):
 
+    class Meta:
+        unknown = "EXCLUDE"
+
     model = None
 
     class Meta:

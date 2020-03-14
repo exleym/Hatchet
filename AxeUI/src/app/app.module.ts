@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { UiModule } from './ui/ui.module';
 
@@ -13,8 +13,6 @@ import { DivisionsComponent } from './components/divisions/divisions.component';
 import { CardComponent } from './ui/components/card/card.component';
 import { GamesComponent } from './components/games/games.component';
 
-import { ConferenceService } from './services/conference.service';
-import { TitleService } from './services/title.service';
 import { TeamMasterComponent } from './components/teams/team-master/team-master.component';
 import { ConferenceDetailComponent } from './components/conferences/conference-detail/conference-detail.component';
 import { TeamDetailComponent } from './components/teams/team-detail/team-detail.component';
@@ -30,6 +28,13 @@ import { GamblingMasterComponent } from './components/gambling/gambling-master/g
 import { LiveBetsComponent } from './components/gambling/live-bets/live-bets.component';
 import { BetsHistoryComponent } from './components/gambling/bets-history/bets-history.component';
 import { BetCreatorComponent } from './components/gambling/bet-creator/bet-creator.component';
+import {EnvironmentService} from './services/environment.service';
+import { ConferenceMetaComponent } from './components/conferences/conference-meta/conference-meta.component';
+import { TeamSummaryComponent } from './components/teams/team-summary/team-summary.component';
+import { ConferenceMembersComponent } from './components/conferences/conference-members/conference-members.component';
+import { TeamMetaComponent } from './components/teams/team-meta/team-meta.component';
+import { TeamEditorComponent } from './components/teams/team-editor/team-editor.component';
+import { ConferenceCaptureComponent } from './components/conferences/conference-capture/conference-capture.component';
 
 @NgModule({
   declarations: [
@@ -53,17 +58,32 @@ import { BetCreatorComponent } from './components/gambling/bet-creator/bet-creat
     GamblingMasterComponent,
     LiveBetsComponent,
     BetsHistoryComponent,
-    BetCreatorComponent
+    BetCreatorComponent,
+    ConferenceMetaComponent,
+    TeamSummaryComponent,
+    ConferenceMembersComponent,
+    TeamMetaComponent,
+    TeamEditorComponent,
+    ConferenceCaptureComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    NgxSmartModalModule.forRoot(),
-    UiModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        NgxSmartModalModule.forRoot(),
+        UiModule,
+        FormsModule,
+    ],
+  providers: [
+    FormBuilder,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (es: EnvironmentService) => () => { es.initConfigService(); },
+      multi: true,
+      deps: [EnvironmentService]
+    }
   ],
-  providers: [FormBuilder],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

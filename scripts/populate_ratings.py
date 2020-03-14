@@ -11,12 +11,12 @@ from hatchet.util import load_csv
 logger = logging.getLogger(__name__)
 
 
-# SEASONS = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+#SEASONS = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 SEASONS = [2016, 2017, 2018]
 CFBD = "CFB Data"
 PATH = pathlib.Path(__file__).parent.parent / "hatchet/static/seeds/"
 cfb_client = CFBDataClient()
-hct_client = HatchetClient()
+hct_client = HatchetClient(base_url="http://localhost:8000/api/v1")
 __TEAMS = {}
 __NETWORKS = {}
 

@@ -123,6 +123,7 @@ class TeamSchema(BaseSchema):
     name = fields.String()
     shortName = fields.String(attribute='short_name', allow_none=True)
     mascot = fields.String()
+    logo = fields.String(required=False, allow_none=True)
     conferenceId = fields.Integer(attribute='conference_id')
     divisionId = fields.Integer(attribute='division_id')
     stadiumId = fields.Integer(attribute='stadium_id', allow_none=True)

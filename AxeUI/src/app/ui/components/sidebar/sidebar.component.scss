@@ -30,8 +30,17 @@
   font-size: medium;
 }
 
+.nav-element {
+  vertical-align: center !important;
+}
+
 .sidebar-element {
+  vertical-align: middle;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   padding: 20px 28px;
+  color: white;
 }
 .sidebar-element:hover {
   border-radius: 5px;
@@ -47,6 +56,8 @@
 
 .nav-icon {
   margin-right: 10px;
+  color: $sidebar_icon_color;
+  vertical-align: middle;
 }
 
 .vertical-centered {

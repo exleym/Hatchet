@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  web:
+  api:
     build: .
     ports:
       - 8000:8000
@@ -15,3 +15,10 @@ services:
       - POSTGRES_USER=hello_flask
       - POSTGRES_PASSWORD=hello_flask
       - POSTGRES_DB=hatchet
+  web:
+    build: AxeUI/
+    ports:
+      - 80:80
+    environment:
+      env: prod
+

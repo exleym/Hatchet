@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 PATH = pathlib.Path(__file__).parent.parent / "hatchet/static/seeds/"
 UPLOAD_URL = 'http://localhost:8000/api/v1/games'
 RANKING = re.compile(r"\([0-9]+\) ")
-client = HatchetClient()
+client = HatchetClient(base_url="http://localhost:8000/api/v1")
 __SR_CACHE = {}
 __GAMES = set()
 
@@ -126,7 +126,7 @@ def main(season):
         __GAMES.add(frozenset([school.id, kickoff.date()]))
         __GAMES.add(frozenset([opponent.id, kickoff.date()]))
         logger.info(new_game)
-    logger.warning(f"added {len(raw_data)} games ...")
+    logger.warning(f"added {len(raw_data)} games for season {season}...")
 
 
 def run(seasons: List[int] = None):

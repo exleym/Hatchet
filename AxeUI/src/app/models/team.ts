@@ -7,9 +7,13 @@ export class Team {
   conferenceId: number;
   divisionId: number;
   stadiumId: number;
+  logo = 'football.png';
 
   constructor(data) {
-    this.id = data.id;
+    this.id = +data.id;
+    if (data.logo) {
+      this.logo = data.logo;
+    }
     this.code = data.code;
     this.name = data.name;
     this.shortName = data.shortName;

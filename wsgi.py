@@ -1,7 +1,7 @@
 from hatchet.app import create_app
 
-#ENV = "dev"
 ENV = "dev-stable"
+#ENV = "dev-stable"
 
 
 app = create_app(env=ENV)
