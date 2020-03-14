@@ -4,7 +4,13 @@ import hatchet.client.ext.cfb.models as models
 
 class FBSClientSchema(ma.Schema):
 
+    class Meta:
+        unknown = "EXCLUDE"
+
     model = None
+
+    class Meta:
+        unknown = "EXCLUDE"
 
     def on_bind_field(self, field_name, field_obj):
         """automatically allow nulls for all fields"""

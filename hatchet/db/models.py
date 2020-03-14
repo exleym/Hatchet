@@ -26,7 +26,7 @@ class Week(db.Model):
 class Subdivision(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(8))
-    name = db.Column(db.String(32))
+    name = db.Column(db.String(64))
     division = db.Column(db.Integer)
 
     @property
@@ -173,6 +173,7 @@ class Team(db.Model):
     name = db.Column(db.String(128), unique=True, nullable=False)
     short_name = db.Column(db.String(64), nullable=True)
     mascot = db.Column(db.String(128), nullable=False)
+    logo = db.Column(db.String(128), nullable=True)
     conference_id = db.Column(db.Integer, db.ForeignKey('conference.id'))
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'))
     stadium_id = db.Column(db.Integer, db.ForeignKey('stadium.id'))

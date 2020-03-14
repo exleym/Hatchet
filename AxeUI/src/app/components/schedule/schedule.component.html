@@ -1,68 +1,66 @@
-<div class="row">
-  <div class="col-md-4">
-    <div class="card schedule-list">
-      <app-schedule-item *ngFor="let game of games"
-                         [game]="game"
-                         [referenceTeam]="team"
-                         (click)="setActive(game)"
-                         [class.active-item]="game===activeGame">
-      </app-schedule-item>
-    </div>
-    <div class="card">
-      <div class="card-header">
-        <h3>Add a Game</h3>
-      </div>
-      <div class="card-content">
-        <app-create-game></app-create-game>
-      </div>
-    </div>
+<div class="cards-horizontal">
+  <div class="schedule-list app-card-md card pad-right">
+    <app-schedule-item *ngFor="let game of games"
+                       [game]="game"
+                       [referenceTeam]="team"
+                       (click)="setActive(game)"
+                       [class.active-item]="game===activeGame">
+    </app-schedule-item>
   </div>
-  <div *ngIf="activeGame" class="col-md-8">
-    <div class="card">
-      <div class="card-header">
-        <h3>
-            <span>
-              {{team.name}}
-              {{activeGame.participant(team.id).location()}}
-              <a id="selected-opponent" href="/teams/{{activeGame.opponent(team.id).team.id}}">
-                {{activeGame.opponent(team.id).team.shortName}}
-              </a>
-            </span>
-          <span style="float:right;"><i class="material-icons">edit</i></span>
-        </h3>
-      </div>
-      <div class="card-content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6">
-              <ul>
-                <li>Hatchet ID: {{activeGame.id}}</li>
-                <li>Kickoff: {{ activeGame.kickoffTime | date: 'shortTime' : '-4' }}</li>
-                <li>
-                  <span *ngIf="activeStadium">
-                    Stadium: <a href="/stadiums/{{activeStadium.id}}">{{ activeStadium.name }}</a>
-                  </span>
-                </li>
-                <li>ESPN ID: {{activeGame.espnId}}</li>
-                <li *ngIf="activeGame.rating.viewers">TV Viewers: {{activeGame.rating.viewers}} million</li>
-                <li *ngIf="activeGame.rating.networkId">Network: {{activeGame.rating.networkId }}</li>
-              </ul>
-            </div>
-            <div class="col-md-6">
-              <table class="table hatchet-table table-sm">
-                <thead><tr><th>Bookmaker</th><th>Spread</th><th>Over/Under</th></tr></thead>
-                <tbody>
-                <tr *ngFor="let line of activeLines">
-                  <td>{{getBookmakerName(line.bookmakerId)}}</td>
-                  <td>{{line.spread}}</td>
-                  <td>{{line.overUnder}}</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+  <div *ngIf="activeGame" class="app-card-greedy card">
+    <div class="card-header">
+      <h3>
+          <span>
+            {{team.shortName}}
+            {{activeGame.participant(team.id).location()}}
+            <a id="selected-opponent" href="/teams/{{activeGame.opponent(team.id).team.id}}">
+              {{activeGame.opponent(team.id).team.shortName}}
+            </a>
+          </span>
+        <span style="float:right;"><i class="material-icons">edit</i></span>
+      </h3>
+    </div>
+    <div class="card-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div>
+            <ul>
+              <li>Hatchet ID: {{activeGame.id}}</li>
+              <li>Kickoff: {{ activeGame.kickoffTime | date: 'shortTime' : '-4' }}</li>
+              <li>
+                <span *ngIf="activeStadium">
+                  Stadium: <a href="/stadiums/{{activeStadium.id}}">{{ activeStadium.name }}</a>
+                </span>
+              </li>
+              <li>ESPN ID: {{activeGame.espnId}}</li>
+              <li *ngIf="activeGame.rating.viewers">TV Viewers: {{activeGame.rating.viewers}} million</li>
+              <li *ngIf="activeGame.rating.networkId">Network: {{activeGame.rating.networkId }}</li>
+            </ul>
+          </div>
+          <div style="width:100%">
+            <table class="table hatchet-table table-sm">
+              <thead><tr><th>Bookmaker</th><th>Spread</th><th>Over/Under</th></tr></thead>
+              <tbody>
+              <tr *ngFor="let line of activeLines">
+                <td>{{getBookmakerName(line.bookmakerId)}}</td>
+                <td>{{line.spread}}</td>
+                <td>{{line.overUnder}}</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="cards-horizontal">
+  <div>
+    <div class="card-header">
+      <h3>Add a Game</h3>
+    </div>
+    <div class="card-content">
+      <app-create-game></app-create-game>
     </div>
   </div>
 </div>

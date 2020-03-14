@@ -1,12 +1,10 @@
 <div class="container-fluid">
   <div class="row">
-    <div *ngFor="let team of teams" class="col-md-3">
+    <div *ngFor="let team of teams" class="col-md-4">
       <a routerLink="/teams/{{team.id}}">
         <div class="card card-short card-highlight">
-          <div class="card-header">
-            <h4>
-              <span>{{team.shortName}} {{team.mascot}}</span>
-            </h4>
+          <div class="card-header card-header-unpadded">
+            <app-team-summary [team]="team"></app-team-summary>
           </div>
           <div class="card-content">
             <h6>{{team.name}}</h6>

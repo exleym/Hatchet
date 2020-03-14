@@ -21,14 +21,14 @@ class ResourceClient(object):
         params = params or {}
         headers = headers or {}
         resp = requests.get(url=url, params=params, headers=headers)
-        resp.raise_for_status()
+        self.check_http_response(resp)
         return resp.json()
 
     def post_data(self, url: str, body: dict = None, headers: dict = None):
         body = body or {}
         headers = headers or {}
         resp = requests.post(url=url, json=body, headers=headers)
-        resp.raise_for_status()
+        self.check_http_response(resp)
         return resp.json()
 
     def unwrap(self, data):
@@ -49,19 +49,22 @@ class ResourceClient(object):
         data = self.schema.dump(resource)
         url = f"{self.base_url}/{resource.id}"
         resp = requests.put(url, json=data)
-        resp.raise_for_status()
+        try:
+            self.check_http_response(resp)
+        except requests.exceptions.HTTPError:
+            logger.error(f"error sending {data} to {url}")
         return self.unwrap(resp.json())
 
     def delete_resource(self, id: int):
         url = f"{self.base_url}/{id}"
         resp = requests.delete(url=url)
-        resp.raise_for_status()
+        self.check_http_response(resp)
         return None
 
     def create_resource(self, **kwargs):
         data = self.schema.dump(kwargs)
         resp = requests.post(self.base_url, json=data)
-        resp.raise_for_status()
+        self.check_http_response(resp)
         return self.unwrap(resp.json())
 
     def search(self, field: str, op: str, value: Any):
@@ -69,6 +72,13 @@ class ResourceClient(object):
         pkg = {"filters": [{"field": field, "op": op, "value": value}]}
         resp = requests.post(url, json=pkg)
         return self.unwrap(resp.json())
+
+    def check_http_response(self, response, squelch: bool = False):
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            if not squelch:
+                raise e
 
     @property
     def base_url(self):

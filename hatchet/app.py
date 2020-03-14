@@ -48,9 +48,13 @@ def register_extensions(app: Flask) -> None:
 def setup_db(app: Flask) -> None:
     if app.config.get('CREATE_SCHEMA'):
         with app.app_context():
-            db.create_all()
-            if app.config.get("SEED_DATA"):
-                insert_seed_data()
+            try:
+                db.create_all()
+                if app.config.get("SEED_DATA"):
+                    logger.warning("seeding base data...")
+                    insert_seed_data()
+            except Exception:
+                logger.warning("schema already exists...")
 
 
 

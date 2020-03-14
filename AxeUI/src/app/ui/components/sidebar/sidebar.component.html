@@ -4,12 +4,12 @@
       <i class="material-icons nav-icon">whatshot</i>
     </span>
   </div>
-  <a *ngFor="let item of menuItems" routerLink="{{item.linkURL}}">
+  <a *ngFor="let item of menuItems" routerLink="{{item.linkURL}}" class="vertical-centered">
     <div class="sidebar-element">
-      <span class="vertical-centered">
+      <div class="nav-element">
         <i class="material-icons nav-icon">{{item.iconName}}</i>
-        <span class="showable">{{item.displayName}}</span>
-      </span>
+      </div>
+      <div class="nav-element showable">{{item.displayName}}</div>
     </div>
   </a>
 </div>

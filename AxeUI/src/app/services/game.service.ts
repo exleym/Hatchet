@@ -4,22 +4,28 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 
-import {Team} from '../models/team';
 import {Game} from '../models/game';
 import {Line} from '../models/line';
+import {EnvironmentService} from './environment.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  gamesUrl = 'http://localhost:5000/api/v1/teams';
-  linesUrl = 'http://localhost:5000/api/v1/lines';
 
-  constructor(private _http: HttpClient) { }
+  baseUrl: string;
+
+  constructor(
+    private _http: HttpClient,
+    private es: EnvironmentService
+  ) {
+    this.setBaseUrl('games');
+  }
 
   getGames(): Observable<Game[]> {
-    return this._http.get<Game[]>(this.gamesUrl)
+    const url = this.baseUrl;
+    return this._http.get<Game[]>(url)
       .pipe(map(result => {
         return result.map(item => {
           return new Game(item);
@@ -28,25 +34,36 @@ export class GameService {
   }
 
   getGame(gameId: number): Observable<Game> {
-    return this._http.get<Game>(`${this.gamesUrl}/${gameId}`)
+    const url = `${this.baseUrl}/${gameId}`;
+    return this._http.get<Game>(url)
       .pipe(map(result => {
         return new Game(result);
       }));
   }
 
   createGame(game: Game): Observable<Game> {
-    return this._http.post(this.gamesUrl, game)
+    const url = this.baseUrl;
+    return this._http.post(url, game)
       .pipe(map(result => {
         return new Game(result);
       }));
   }
 
   getGameLines(gameId: number, teamId?: number): Observable<Line[]> {
+    const url = `${this.es.config.hatchetUrl}/lines`;
     let params = new HttpParams().set('game_id', gameId.toString());
     if (teamId != null) { params = params.set('team_id', teamId.toString()); }
-    return this._http.get<Line[]>(`${this.linesUrl}`, { params })
+    return this._http.get<Line[]>(url, { params })
       .pipe(map(result => {
         return result.map(x => new Line(x));
       }));
+  }
+
+  private setBaseUrl(context: string) {
+    if (!this.baseUrl) {
+      if (this.es.config) {
+        this.baseUrl = `${this.es.config.hatchetUrl}/${context}`;
+      }
+    }
   }
 }

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import {GameService} from '../../services/game.service';
+import {Game} from '../../models/game';
 
 @Component({
   selector: 'app-create-game',
@@ -7,19 +9,26 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./create-game.component.scss']
 })
 export class CreateGameComponent {
+
   submitted = false;
+  gameSubject = new EventEmitter();
+
   gameForm = this.fb.group({
     espnId: [''],
     kickoffTime: [''],
     stadiumId: [''],
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private gameService: GameService
+  ) { }
 
   onSubmit(): void {
     this.submitted = true;
-    console.log('form submitted successfully!');
-    console.log(this.gameForm.value);
+    const game = new Game(this.gameForm.value);
+    this.gameService.createGame(game)
+      .subscribe(g => this.gameSubject.emit(g));
   }
 
 }

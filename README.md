@@ -142,6 +142,18 @@ with the boot script `wsgi.py`:
  will automatically generate a schema and seed it with some static content 
  like conferences and teams. Adding larger datasets must be done manually:
  
+ #### Step 1.5: Run me in Docker
+ ```bash
+docker build -t hatchet-web:latest
+docker run -p 8000:8000 hatchet-web.latest 
+```
+
+or 
+
+````bash
+docker-compose up
+````
+ 
  
  #### Step 2: Adding Games, Lines, and Ratings
  Once the application is up and running, you will want to back-fill historical 
@@ -179,11 +191,25 @@ This will boot your application on localhost:4200.
 
 Go Tigers!
 
+### Data Sources and Shout-Outs
+Building these tools would have been impossible without many of the existing 
+data sources that allowed me to collect and compile data into a comprehensive 
+dataset. The folks who build datasets, cleaned datasets, and made them public 
+are awesome and deserve high praise. 
+
+1. [ESPN API][ESPN-API]
+2. [College Football Data][CFBD]
+3. [Reddit r/CFBAnalysis][REDDIT-CFBANALYSIS]
+4. [Sports-Data-Stuff][SDS]
+
+
+
 
 [ESPN-API]: http://www.espn.com/apis/devcenter/overview.html#api-consumer-tiers
 [REDDIT-PLAYDUMP]: https://www.reddit.com/r/CFBAnalysis/comments/6htfc6/play_by_play_data_dump_20012016/
 [REDDIT-CFBANALYSIS]: https://www.reddit.com/r/CFBAnalysis/
 [CFBD]: https://api.collegefootballdata.com/api/docs/?url=/api-docs.json#/
+[SDS]: https://sportsdatastuff.com/#
 [SWAGGER]: http://localhost:5000/api/v1/
 
 

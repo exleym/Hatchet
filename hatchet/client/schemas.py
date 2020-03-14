@@ -78,9 +78,8 @@ class ClientGameSchema(schemas.GameSchema, HatchetClientMixin):
     model = cm.Game
     participants = ma.fields.List(ma.fields.Nested("ClientGameParticipantSchema"), load_only=True)
     winner = ma.fields.Nested("ClientGameParticipantSchema",load_only=True)
-    # rating = ma.fields.List(ma.fields.Nested("ClientRatingSchema", required=False,
-    #                           allow_none=True, many=False))
-
+    rating = ma.fields.Nested("ClientRatingSchema", allow_none=True, required=False,
+                           many=False, skip_none=True)
 
 class ClientLineSchema(schemas.LineSchema, HatchetClientMixin):
     model = cm.Line

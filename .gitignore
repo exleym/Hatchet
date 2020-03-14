@@ -14,3 +14,8 @@ docs/build/
 
 # Virtual Environment
 venv/
+
+# Local-development assets
+# TODO: move these behind an nginx proxy locally
+AxeUI/src/assets/logos/
+

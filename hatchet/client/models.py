@@ -83,6 +83,7 @@ class Team(Resource):
     mascot: str
     conference_id: int
     division_id: int
+    logo: str = None
     stadium_id: int = None
     stadium: Stadium = None
     division: Division = None

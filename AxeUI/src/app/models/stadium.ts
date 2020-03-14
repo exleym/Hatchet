@@ -11,8 +11,6 @@ export class Stadium {
   surfaceId: number;
 
   constructor(data) {
-    console.log('Team.constructor()');
-    console.log(data);
     this.id = data.id;
     this.name = data.name;
     this.city = data.city;

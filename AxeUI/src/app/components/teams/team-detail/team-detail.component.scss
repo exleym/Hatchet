@@ -2,7 +2,7 @@
 
 
 .season-selector {
-  color: white;
+  color: $text_color;
 }
 
 .season-selector:hover {
@@ -10,18 +10,19 @@
 }
 
 .season-selected {
-  background-color: $primary-medium;
+  background-color: $primary-dark;
+  color: $accent_dark;
 }
 
 .season-selected:hover {
-  background-color: $primary-dark;
-  color: white;
+  background-color: $primary-medium;
+  color: $accent_medium;
 }
 
 .dropdown-menu {
   background-color: $primary_muted_dark;
   border-width: 1px;
-  border-color: white;
+  border-color: $primary_muted_medium;
   border-style: solid;
   border-radius: 10px;
 }

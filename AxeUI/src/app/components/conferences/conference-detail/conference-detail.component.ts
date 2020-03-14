@@ -19,18 +19,13 @@ export class ConferenceDetailComponent implements OnInit {
   members: Team[];
   editor = false;
   submitted = false;
-  confEditor = this.fb.group({
-    id: [''],
-    code: [''],
-    shortName: [''],
-    name: [''],
-    inceptionYear: [''],
-  });
 
-  constructor(private route: ActivatedRoute,
-              public titleService: TitleService,
-              private _conferenceService: ConferenceService,
-              private fb: FormBuilder) { }
+  constructor(
+    private route: ActivatedRoute,
+    public titleService: TitleService,
+    private _conferenceService: ConferenceService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.setConferenceId();
@@ -54,24 +49,8 @@ export class ConferenceDetailComponent implements OnInit {
   }
 
   toggleEditor(): void {
-    this.confEditor.setValue(this.conference);
     this.editor = this.editor === false;
     this.submitted = false;
-  }
-
-  onSubmit(): void {
-    console.log(this.confEditor.value);
-    this._conferenceService.updateConference(this.confEditor.value)
-      .subscribe(conf => this.conference = conf);
-    this.submitted = true;
-    this.toggleEditor();
-  }
-
-  deleteConference(): void {
-    this._conferenceService.deleteConference(this.conference).subscribe(
-      () => { console.log('Deletion successful!'); }
-    );
-    console.log(`deleting conference: ${this.conference}`);
   }
 
 }

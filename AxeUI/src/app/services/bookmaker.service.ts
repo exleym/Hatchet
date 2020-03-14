@@ -4,21 +4,36 @@ import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 import { Bookmaker } from '../models/bookmaker';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookmakerService {
-  bookmakersUrl = 'http://localhost:5000/api/v1/bookmakers';
 
-  constructor(private _http: HttpClient) { }
+  baseUrl: string;
+
+  constructor(
+    private _http: HttpClient,
+    private es: EnvironmentService
+  ) {
+    this.setBaseUrl('bookmakers');
+  }
 
   getBookmakers(): Observable<Bookmaker[]> {
-    return this._http.get<Bookmaker[]>(this.bookmakersUrl)
+    return this._http.get<Bookmaker[]>(this.baseUrl)
       .pipe(map(result => {
         return result.map(item => {
           return new Bookmaker(item);
         });
       }));
+  }
+
+  setBaseUrl(context: string) {
+    if (!this.baseUrl) {
+      if (this.es.config) {
+        this.baseUrl = `${this.es.config.hatchetUrl}/${context}`;
+      }
+    }
   }
 }

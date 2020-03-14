@@ -1,4 +1,5 @@
 import logging
+import requests
 from typing import List
 from hatchet.client.ext.cfb.client import CFBDataClient
 from hatchet.client.hatchet_client import HatchetClient
@@ -7,7 +8,7 @@ from hatchet.client.hatchet_client import HatchetClient
 SEASONS = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 logger = logging.getLogger(__name__)
 cfb_client = CFBDataClient()
-hatchet_client = HatchetClient()
+hatchet_client = HatchetClient(base_url="http://localhost:8000/api/v1")
 
 
 def main(season: int):
@@ -21,11 +22,18 @@ def main(season: int):
         for game in games:
             hatchet_game = game_map.get(game.game_date)
             if not hatchet_game:
-                logger.error(f"no match for {game.home_team} on {game.start_date}!")
+                logger.error(f"no match for {game.home_team} on {game.game_date}!")
                 continue
             hatchet_game.espn_id = game.id
-            new_game = hatchet_client.update_game(hatchet_game)
-            logger.info(f"added espn_id: {new_game.espn_id} to {new_game}")
+            try:
+                if not hatchet_game.rating:
+                    hatchet_game.rating = None
+                new_game = hatchet_client.update_game(hatchet_game)
+                logger.info(f"added espn_id: {new_game.espn_id} to {new_game}")
+            except requests.exceptions.HTTPError as e:
+                logger.error(f"unable to update {hatchet_game}.", e)
+
+
 
 
 def run(seasons: List[int] = None):
