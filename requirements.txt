@@ -10,7 +10,7 @@ coverage==4.5.4
 dataclasses==0.7
 docutils==0.15.2
 Flask==1.1.1
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 Flask-Filter==0.1.0.dev2
 flask-restplus==0.13.0
 Flask-SQLAlchemy==2.4.1
